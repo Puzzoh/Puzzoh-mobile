@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-puzzohmobile-staging-14224-authRole",
+      "UnauthRoleArn": "arn:aws:iam::579029482165:role/amplify-puzzohmobile-staging-14224-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::579029482165:role/amplify-puzzohmobile-staging-14224-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-puzzohmobile-staging-14224-deployment",
+      "UnauthRoleName": "amplify-puzzohmobile-staging-14224-unauthRole",
+      "StackName": "amplify-puzzohmobile-staging-14224",
+      "StackId": "arn:aws:cloudformation:us-east-2:579029482165:stack/amplify-puzzohmobile-staging-14224/b7bbb300-059d-11ee-ae28-02b81d1482ff",
+      "AmplifyAppId": "d32sr88t56ujpf"
+    },
+    "categories": {
+      "auth": {
+        "PuzzohMobile": {}
+      }
+    }
+  }
+}
