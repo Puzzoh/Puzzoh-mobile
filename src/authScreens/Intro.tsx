@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   Text,
   View,
+  ScrollView,
   TextInput,
   Image,
   Alert,
@@ -10,17 +11,21 @@ import {
   StyleSheet,
 } from "react-native";
 import styles, { colors } from "../styles/index";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
 
 export default function Intro() {
-  const navigation = useNavigation();
+  type RootStackParamList = {
+    Home: undefined;
+    SignIn: undefined;
+  };
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const onDonePress = () => {
     navigation.navigate("Home");
   };
 
   return (
-    <View>
+    <ScrollView>
       <Image
         style={styles.img}
         source={require(",./../../assets/imgs/Bg3.jpeg")}
@@ -40,8 +45,14 @@ export default function Intro() {
       <TouchableOpacity onPress={onDonePress} style={styles.spanButton}>
         <Text style={styles.chosenText}>Done</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 }
 
-const screenStyles = StyleSheet.create({});
+const screenStyles = StyleSheet.create({
+  box: {
+    fontSize: 16,
+    color: 'white',
+  }
+}
+);

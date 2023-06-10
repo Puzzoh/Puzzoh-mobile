@@ -30,22 +30,19 @@ export default function App() {
   return (
     <>
       <Tab.Navigator
-        tabBarOptions={{
-          showLabel: false,
-          // Floating Tab Bar...
-          style: {
-            backgroundColor: "white",
-            position: "absolute",
-            bottom: 40,
-            marginHorizontal: 20,
-            // Max Height...
+        screenOptions={{
+          tabBarShowLabel: false,
+          tabBarStyle: {
+            backgroundColor: 'yourColor',
+            position: 'absolute',
+            bottom: 0,
+            marginHorizontal: 10,
             height: 60,
             borderRadius: 10,
-            // Shadow...
-            shadowColor: "#000",
-            shadowOpacity: 0.06,
+            shadowColor: 'yourColor',
+            shadowOpacity: 0.25,
             shadowOffset: {
-              width: 10,
+              width: 0,
               height: 10,
             },
             paddingHorizontal: 20,

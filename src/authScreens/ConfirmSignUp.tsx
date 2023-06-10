@@ -1,4 +1,4 @@
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute, NavigationProp } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -16,7 +16,10 @@ export default function ConfirmSignUp() {
   const [code, setCode] = useState("");
 
   const route = useRoute();
-  const navigation = useNavigation();
+  type RootStackParamList = {
+    SignIn: undefined;
+  };
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const onConfirmPressed = async () => {
     try {
