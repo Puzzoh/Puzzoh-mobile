@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import {
   Animated,
@@ -13,8 +12,6 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { colors } from "../styles/index";
-
-// Font Awesome Icons...
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { useRef } from "react";
 import SettingsScreen from "./Settings";
@@ -32,7 +29,6 @@ export default function App() {
       <Tab.Navigator
         tabBarOptions={{
           showLabel: false,
-          // Floating Tab Bar...
           style: {
             backgroundColor: "white",
             position: "absolute",
@@ -41,7 +37,6 @@ export default function App() {
             // Max Height...
             height: 60,
             borderRadius: 10,
-            // Shadow...
             shadowColor: "#000",
             shadowOpacity: 0.06,
             shadowOffset: {
@@ -88,7 +83,7 @@ export default function App() {
         ></Tab.Screen>
 
         <Tab.Screen
-          name={"Your Matches"}
+          name={"Matches"}
           component={MatchesScreen}
           options={{
             tabBarIcon: ({ focused }) => (
@@ -142,7 +137,7 @@ export default function App() {
             // Onpress Update....
             tabPress: (e) => {
               Animated.spring(tabOffsetValue, {
-                toValue: getWidth() * 4,
+                toValue: getWidth() * 2,
                 useNativeDriver: true,
               }).start();
             },
@@ -151,13 +146,12 @@ export default function App() {
       </Tab.Navigator>
       <Animated.View
         style={{
-          width: getWidth() - 20,
+          width: getWidth(),
           height: 2,
           backgroundColor: colors.primary,
           position: "absolute",
           bottom: 50,
-          // Horizontal Padding = 20...
-          left: 50,
+          left: 0,
           borderRadius: 20,
           transform: [{ translateX: tabOffsetValue }],
         }}
@@ -168,12 +162,7 @@ export default function App() {
 
 function getWidth() {
   let width = Dimensions.get("window").width;
-
-  // Horizontal Padding = 20...
-  width = width - 80;
-
-  // Total five Tabs...
-  return width / 5;
+  return width / 3;
 }
 
 const styles = StyleSheet.create({
