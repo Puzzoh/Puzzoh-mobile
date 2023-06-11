@@ -1,6 +1,7 @@
+import * as React from "react";
 import { View, Text, StyleSheet, SafeAreaView, Image } from "react-native";
-import users from "../../assets/data/users";
 import { colors } from "../styles/index";
+import users from "../../assets/data/users";
 
 const MatchesScreen = () => {
   return (

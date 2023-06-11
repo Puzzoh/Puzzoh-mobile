@@ -1,3 +1,4 @@
+import * as React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import VoucherStack from "../components/AnimatedStack";
 import VoucherCard from "../components/VoucherCard";

@@ -1,3 +1,4 @@
+import * as React from "react";
 import { SafeAreaView, StyleSheet, Text, View, Image } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import styles, { sizes, colors } from "../styles/index";
