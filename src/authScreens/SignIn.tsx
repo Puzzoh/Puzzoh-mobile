@@ -34,10 +34,15 @@ export default function SignIn() {
   type RootStackParamList = {
     ForgotPassword: undefined;
     SignUp: undefined;
+    Intro: undefined;
+    Pronounce: undefined;
+    Purpose: undefined;
   };
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const onSignInPressed = async () => {
+    navigation.navigate("Intro");
+    /*
     if (loading) return;
     setLoading(true);
     try {
@@ -48,7 +53,7 @@ export default function SignIn() {
     } catch (error) {
       Alert.alert(error.message);
     }
-    setLoading(false);
+    setLoading(false); */
   };
 
   const onForgotPasswordPressed = () => {
