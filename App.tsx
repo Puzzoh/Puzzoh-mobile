@@ -21,6 +21,10 @@ import ConfirmSignUp from "./src/authScreens/ConfirmSignUp";
 import ChangePassword from "./src/authScreens/ChangePassword";
 import ForgotPassword from "./src/authScreens/ForgotPassword";
 import Intro from "./src/authScreens/Intro";
+import Pronounce from "./src/authScreens/Pronounce";
+import Purpose from "./src/authScreens/Purpose";
+import Interest from "./src/authScreens/Interest";
+import FoodPref from "./src/authScreens/FoodPref";
 import OnboardingSlider from "./src/components/OnboardingSlider";
 import MainScreen from "./src/userScreens/MainScreen";
 
@@ -111,6 +115,10 @@ const App = () => {
               <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
               <Stack.Screen name="ChangePassword" component={ChangePassword} />
               <Stack.Screen name="Intro" component={Intro} />
+              <Stack.Screen name="Pronounce" component={Pronounce} />
+              <Stack.Screen name="Purpose" component={Purpose} />
+              <Stack.Screen name="Interest" component={Interest} />
+              <Stack.Screen name="FoodPref" component={FoodPref} />
             </>
           )}
         </Stack.Navigator>
