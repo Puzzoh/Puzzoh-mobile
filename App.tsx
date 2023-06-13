@@ -55,11 +55,7 @@ const App = () => {
   }, []);
 
   // if (!fontLoaded) {
-  //   return (
-  //     <View>
-  //       <Text>Loading...</Text>
-  //     </View>
-  //   );
+  //   return null;
   // }
 
   const authenticateUser = async () => {

@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Dimensions } from 'react-native';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 
 export default function Intro() {
@@ -13,7 +20,7 @@ export default function Intro() {
   };
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const handlePress = index => {
+  const handlePress = (index) => {
     const newSelected = [false, false, false]; // Reset all selections
     newSelected[index] = true; // Set selected state on pressed button
     setSelected(newSelected);
@@ -45,34 +52,35 @@ export default function Intro() {
           onPress={() => handlePress(index)}
         >
           <Text style={styles.text}>{option}</Text>
-          {index === 2 && <Text style={styles.arrow}>{' >'}</Text>}
+          {index === 2 && <Text style={styles.arrow}>{" >"}</Text>}
         </TouchableOpacity>
       ))}
-      {showOption4 &&
+      {showOption4 && (
         <TextInput
           style={[styles.option4, styles.input]}
-          onChangeText={text => setOption4Value(text)}
+          onChangeText={(text) => setOption4Value(text)}
           value={option4Value}
           placeholder="Type here"
-          placeholderTextColor='gray'
-          textAlign='center'
+          placeholderTextColor="gray"
+          textAlign="center"
         />
-      }
+      )}
       <View style={styles.space} />
-      <TouchableOpacity onPress={onNext}
+      <TouchableOpacity
+        onPress={onNext}
         style={[styles.button, styles.nextButton]}
       >
         <Text style={styles.text}>Continue</Text>
       </TouchableOpacity>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   heading: {
     fontSize: 30, // Increased the font size
@@ -81,45 +89,45 @@ const styles = StyleSheet.create({
     right: 10,
   },
   option4: {
-    width: Dimensions.get('window').width * 5 / 6, // Increased the width
+    width: (Dimensions.get("window").width * 5) / 6, // Increased the width
     height: 60,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 10,
     marginVertical: 10,
     borderWidth: 1, // add border
-    borderColor: 'black', // set border color
+    borderColor: "black", // set border color
   },
   button: {
-    width: Dimensions.get('window').width * 5 / 6, // Increased the width
+    width: (Dimensions.get("window").width * 5) / 6, // Increased the width
     height: 60,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 10,
     marginVertical: 10,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   selected: {
-    backgroundColor: 'orange',
+    backgroundColor: "orange",
   },
   nextButton: {
-    backgroundColor: 'orange',
+    backgroundColor: "orange",
   },
   text: {
     fontSize: 20,
-    color: 'black',
+    color: "black",
   },
   arrow: {
     fontSize: 20,
-    color: 'black',
-    position: 'absolute',
+    color: "black",
+    position: "absolute",
     right: 10,
   },
   input: {
     fontSize: 20,
-    color: 'black',
+    color: "black",
   },
   space: {
     height: 120, // This creates space for 2 option buttons
@@ -128,5 +136,3 @@ const styles = StyleSheet.create({
     height: 20, // This creates a small gap between the heading and the options
   },
 });
-
-

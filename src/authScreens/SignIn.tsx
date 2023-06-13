@@ -41,8 +41,8 @@ export default function SignIn() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const onSignInPressed = async () => {
-    navigation.navigate("Intro");
-    /*
+    // navigation.navigate("Intro");
+
     if (loading) return;
     setLoading(true);
     try {
@@ -53,7 +53,7 @@ export default function SignIn() {
     } catch (error) {
       Alert.alert(error.message);
     }
-    setLoading(false); */
+    setLoading(false);
   };
 
   const onForgotPasswordPressed = () => {
