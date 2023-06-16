@@ -54,7 +54,7 @@ const Interest = () => {
           style={[styles.backButton, { backgroundColor: pressed ? '#FFDAB9' : colors.primary }]}
           onPressIn={() => setPressed(true)}
           onPressOut={() => setPressed(false)}
-          onPress={() => navigation.navigate("Purpose")}>
+          onPress={() => navigation.navigate("Interest")}>
           <Text style={styles.skipText}>&lt;</Text>
         </TouchableOpacity>
       </View>
