@@ -8,12 +8,14 @@ import {
   Dimensions,
 } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
-
+import styles, { colors } from "../styles/index";
 const Purpose = () => {
   const [selected, setSelected] = useState([false, false, false]);
-
+  const [loading, setLoading] = useState(false);
+  const [pressed, setPressed] = useState(false);
   type RootStackParamList = {
     Interest: undefined;
+    Pronounce: undefined;
   };
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
@@ -32,30 +34,43 @@ const Purpose = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>I am looking for ...</Text>
-      <View style={styles.spaceSmall} />
+    <View style={nstyles.container}>
+      <View style={styles.skipWrapper}>
+        <TouchableOpacity
+          style={[styles.backButton, { backgroundColor: pressed ? '#FFDAB9' : colors.primary }]}
+          onPressIn={() => setPressed(true)}
+          onPressOut={() => setPressed(false)}
+          onPress={() => navigation.navigate("Pronounce")}>
+          <Text style={styles.skipText}>&lt;</Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.heading2}>I am looking for ...</Text>
+      <View style={nstyles.spaceSmall} />
       {["share a voucher", "make friends", "dating"].map((option, index) => (
         <TouchableOpacity
           key={index}
-          style={[styles.button, selected[index] ? styles.selected : null]}
+          style={[nstyles.button, selected[index] ? styles.selected : null]}
           onPress={() => handlePress(index)}
         >
-          <Text style={styles.text}>{option}</Text>
+          <Text style={styles.optionText}>{option}</Text>
         </TouchableOpacity>
       ))}
-      <View style={styles.space} />
+      <View style={nstyles.space} />
       <TouchableOpacity
         onPress={onNext}
-        style={[styles.button, styles.nextButton]}
+        style={styles.continueButton}
       >
-        <Text style={styles.text}>Continue</Text>
+        {loading ? (
+          <Text style={styles.chosenText}>Loading ...</Text>
+        ) : (
+          <Text style={styles.chosenText}>Continue</Text>
+        )}
       </TouchableOpacity>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+const nstyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",

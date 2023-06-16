@@ -8,12 +8,14 @@ import {
   Dimensions,
 } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
+import styles, { colors } from "../styles/index";
 
 export default function Intro() {
   const [selected, setSelected] = useState([false, false, false]);
   const [showOption4, setShowOption4] = useState(false);
   const [option4Selected, setOption4Selected] = useState(false);
   const [option4Value, setOption4Value] = useState("");
+  const [loading, setLoading] = useState(false);
 
   type RootStackParamList = {
     Pronounce: undefined;
@@ -42,22 +44,22 @@ export default function Intro() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>I am a</Text>
-      <View style={styles.spaceSmall} />
+    <View style={nstyles.container}>
+      <Text style={styles.heading2}>I am a</Text>
+      <View style={nstyles.spaceSmall} />
       {["Woman", "Man", "Others"].map((option, index) => (
         <TouchableOpacity
           key={index}
-          style={[styles.button, selected[index] ? styles.selected : null]}
+          style={[nstyles.button, selected[index] ? styles.selected : null]}
           onPress={() => handlePress(index)}
         >
-          <Text style={styles.text}>{option}</Text>
-          {index === 2 && <Text style={styles.arrow}>{" >"}</Text>}
+          <Text style={styles.optionText}>{option}</Text>
+          {index === 2 && <Text style={nstyles.arrow}>{" >"}</Text>}
         </TouchableOpacity>
       ))}
       {showOption4 && (
         <TextInput
-          style={[styles.option4, styles.input]}
+          style={[nstyles.option4, styles.input]}
           onChangeText={(text) => setOption4Value(text)}
           value={option4Value}
           placeholder="Type here"
@@ -65,28 +67,26 @@ export default function Intro() {
           textAlign="center"
         />
       )}
-      <View style={styles.space} />
+      <View style={nstyles.space} />
       <TouchableOpacity
         onPress={onNext}
-        style={[styles.button, styles.nextButton]}
+        style={styles.continueButton}
       >
-        <Text style={styles.text}>Continue</Text>
+        {loading ? (
+          <Text style={styles.chosenText}>Loading ...</Text>
+        ) : (
+          <Text style={styles.chosenText}>Continue</Text>
+        )}
       </TouchableOpacity>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
+const nstyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  heading: {
-    fontSize: 30, // Increased the font size
-    marginBottom: 20,
-    left: 10,
-    right: 10,
   },
   option4: {
     width: (Dimensions.get("window").width * 5) / 6, // Increased the width
@@ -108,12 +108,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 10,
     backgroundColor: "white",
-  },
-  selected: {
-    backgroundColor: "orange",
-  },
-  nextButton: {
-    backgroundColor: "orange",
   },
   text: {
     fontSize: 20,
