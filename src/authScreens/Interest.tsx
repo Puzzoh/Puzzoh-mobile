@@ -8,7 +8,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
-
+import styles, { colors } from "../styles/index";
 const Interest = () => {
   const [selected, setSelected] = useState(Array(12).fill(false)); // An array of 12 booleans for the 12 options
   const interests = [
@@ -27,8 +27,11 @@ const Interest = () => {
   ];
   type RootStackParamList = {
     FoodPref: undefined;
+    Purpose: undefined;
   };
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const [pressed, setPressed] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handlePress = (index) => {
     let newSelected = [...selected];
@@ -46,27 +49,37 @@ const Interest = () => {
   };
 
   return (
-    <SafeAreaView style={styles.safeContainer}>
-      <View style={styles.container}>
+    <View style={nstyles.container}>
+      <View style={styles.skipWrapper}>
+        <TouchableOpacity
+          style={[styles.backButton, { backgroundColor: pressed ? '#FFDAB9' : colors.primary }]}
+          onPressIn={() => setPressed(true)}
+          onPressOut={() => setPressed(false)}
+          onPress={() => navigation.navigate("Purpose")}>
+          <Text style={styles.skipText}>&lt;</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={nstyles.container}>
         <View style={styles.skipWrapper}>
           <TouchableOpacity
-            style={styles.skipButton}
-            onPress={() => navigation.navigate("FoodPref")}
-          >
+            style={[styles.skipButton, { backgroundColor: pressed ? '#FFDAB9' : colors.primary }]}
+            onPressIn={() => setPressed(true)}
+            onPressOut={() => setPressed(false)}
+            onPress={() => navigation.navigate("FoodPref")}>
             <Text style={styles.skipText}>Skip</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.heading}>Your Interest</Text>
+        <Text style={styles.interestheading}>Your Interest</Text>
         <Text style={styles.subHeading}>
           Select up to 3 of your interest and let us know what you are
           passionate about
         </Text>
-        <View style={styles.spaceSmall} />
+        <View style={nstyles.spaceSmall} />
         {Array.from(
           { length: Math.ceil(interests.length / 2) },
           (_, i) => i * 2
         ).map((rowStartIndex) => (
-          <View style={styles.row} key={rowStartIndex}>
+          <View style={nstyles.row} key={rowStartIndex}>
             {interests
               .slice(rowStartIndex, rowStartIndex + 2)
               .map((interest, idx) => {
@@ -75,9 +88,9 @@ const Interest = () => {
                   <TouchableOpacity
                     key={interestIndex}
                     style={[
-                      styles.button,
+                      nstyles.button,
                       selected[interestIndex] ? styles.selected : null,
-                      styles.interest, // new style for interests
+                      nstyles.interest, // new style for interests
                     ]}
                     onPress={() => handlePress(interestIndex)}
                     disabled={
@@ -85,26 +98,30 @@ const Interest = () => {
                       !selected[interestIndex]
                     }
                   >
-                    <Text style={styles.text}>{interest}</Text>
+                    <Text style={styles.optionText}>{interest}</Text>
                     {/* replace this text with your icon */}
                   </TouchableOpacity>
                 );
               })}
           </View>
         ))}
-        <View style={styles.space} />
+        <View style={nstyles.space} />
         <TouchableOpacity
           onPress={onNext}
-          style={[styles.button, styles.nextButton, styles.largeButton]}
+          style={styles.continueButton}
         >
-          <Text style={styles.text}>Continue</Text>
+          {loading ? (
+            <Text style={styles.chosenText}>Loading ...</Text>
+          ) : (
+            <Text style={styles.chosenText}>Continue</Text>
+          )}
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
-const styles = StyleSheet.create({
+const nstyles = StyleSheet.create({
   safeContainer: {
     flex: 1,
   },
@@ -112,12 +129,6 @@ const styles = StyleSheet.create({
     flex: 1,
     //justifyContent: 'center',
     alignItems: "center",
-  },
-  heading: {
-    fontSize: 30,
-    marginBottom: 20,
-    top: 50,
-    bottom: 10,
   },
   subHeading: {
     top: 35,
@@ -131,16 +142,9 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginBottom: 10,
   },
-  skipButton: {
-    position: "absolute",
-    top: 30, // increase this value to move the button further down
-    right: 10,
+  backText: {
     fontSize: 15,
-    color: "gray",
-  },
-  skipText: {
-    color: "gray",
-    fontSize: 15,
+    color: 'black',
   },
   row: {
     top: 40,
@@ -159,10 +163,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   selected: {
-    backgroundColor: "orange",
-  },
-  nextButton: {
-    backgroundColor: "orange",
+    backgroundColor: colors.primary,
   },
   largeButton: {
     width: (Dimensions.get("window").width * 5) / 6,
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
     height: 60,
   },
   spaceSmall: {
-    height: 20,
+    height: 60,
   },
 });
 

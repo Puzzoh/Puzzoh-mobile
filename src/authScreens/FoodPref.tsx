@@ -5,10 +5,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
-  SafeAreaView,
 } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
-
+import styles, { colors } from "../styles/index";
 const Interest = () => {
   const [selected, setSelected] = useState(Array(12).fill(false)); // An array of 12 booleans for the 12 options
   const foodPref = [
@@ -19,8 +18,6 @@ const Interest = () => {
     "Japanese",
     "Mexican",
     "Pizza/Burgers",
-    "Thai",
-    "Indian",
     "Greek",
     "Spanish",
     "Korean",
@@ -28,9 +25,12 @@ const Interest = () => {
     "Dessert/cafe",
   ];
   type RootStackParamList = {
-    Birthday: undefined;
+    SignIn: undefined;
+    Interest: undefined;
   };
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const [loading, setLoading] = useState(false);
+  const [pressed, setPressed] = useState(false);
 
   const handlePress = (index) => {
     let newSelected = [...selected];
@@ -48,18 +48,27 @@ const Interest = () => {
   };
 
   return (
-    <SafeAreaView style={styles.safeContainer}>
-      <View style={styles.container}>
-        <Text style={styles.heading}>Food Preferences</Text>
-        <Text style={styles.subHeading}>
+    <View style={nstyles.container}>
+      <View style={styles.skipWrapper}>
+        <TouchableOpacity
+          style={[styles.backButton, { backgroundColor: pressed ? '#FFDAB9' : colors.primary }]}
+          onPressIn={() => setPressed(true)}
+          onPressOut={() => setPressed(false)}
+          onPress={() => navigation.navigate("Purpose")}>
+          <Text style={styles.skipText}>&lt;</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={nstyles.container}>
+        <Text style={nstyles.heading}>Food Preferences</Text>
+        <Text style={nstyles.subHeading}>
           Select up to 3 of your favorite cuisines and let us know what you like
         </Text>
-        <View style={styles.spaceSmall} />
+        <View style={nstyles.spaceSmall} />
         {Array.from(
           { length: Math.ceil(foodPref.length / 2) },
           (_, i) => i * 2
         ).map((rowStartIndex) => (
-          <View style={styles.row} key={rowStartIndex}>
+          <View style={nstyles.row} key={rowStartIndex}>
             {foodPref
               .slice(rowStartIndex, rowStartIndex + 2)
               .map((interest, idx) => {
@@ -68,9 +77,9 @@ const Interest = () => {
                   <TouchableOpacity
                     key={interestIndex}
                     style={[
-                      styles.button,
-                      selected[interestIndex] ? styles.selected : null,
-                      styles.interest, // new style for interests
+                      nstyles.button,
+                      selected[interestIndex] ? nstyles.selected : null,
+                      nstyles.interest, // new style for interests
                     ]}
                     onPress={() => handlePress(interestIndex)}
                     disabled={
@@ -78,26 +87,30 @@ const Interest = () => {
                       !selected[interestIndex]
                     }
                   >
-                    <Text style={styles.text}>{interest}</Text>
+                    <Text style={styles.optionText}>{interest}</Text>
                     {/* replace this text with your icon */}
                   </TouchableOpacity>
                 );
               })}
           </View>
         ))}
-        <View style={styles.space} />
+        <View style={nstyles.space} />
         <TouchableOpacity
           onPress={onDone}
-          style={[styles.button, styles.nextButton, styles.largeButton]}
+          style={styles.continueButton}
         >
-          <Text style={styles.text}>Done</Text>
+          {loading ? (
+            <Text style={styles.chosenText}>Loading ...</Text>
+          ) : (
+            <Text style={styles.chosenText}>Done</Text>
+          )}
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
-const styles = StyleSheet.create({
+const nstyles = StyleSheet.create({
   safeContainer: {
     flex: 1,
   },
@@ -107,7 +120,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   heading: {
-    fontSize: 30,
+    fontSize: 32,
+    fontFamily: "Lexend",
     marginBottom: 20,
     top: 50,
     bottom: 10,
@@ -115,6 +129,7 @@ const styles = StyleSheet.create({
   subHeading: {
     top: 35,
     fontSize: 13,
+    fontFamily: "Lexend",
     flexWrap: "wrap",
     marginLeft: 15,
     marginRight: 15,
@@ -134,6 +149,7 @@ const styles = StyleSheet.create({
   skipText: {
     color: "gray",
     fontSize: 15,
+    fontFamily: "Lexend",
   },
   row: {
     top: 30,
