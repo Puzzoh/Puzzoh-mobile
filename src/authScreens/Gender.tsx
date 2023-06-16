@@ -10,7 +10,7 @@ import {
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import styles, { colors } from "../styles/index";
 
-export default function Intro() {
+export default function Gender() {
   const [selected, setSelected] = useState([false, false, false]);
   const [showOption4, setShowOption4] = useState(false);
   const [option4Selected, setOption4Selected] = useState(false);
@@ -44,22 +44,22 @@ export default function Intro() {
   };
 
   return (
-    <View style={nstyles.container}>
+    <View style={nStyles.container}>
       <Text style={styles.heading2}>I am a</Text>
-      <View style={nstyles.spaceSmall} />
+      <View style={nStyles.spaceSmall} />
       {["Woman", "Man", "Others"].map((option, index) => (
         <TouchableOpacity
           key={index}
-          style={[nstyles.button, selected[index] ? styles.selected : null]}
+          style={[nStyles.button, selected[index] ? styles.selected : null]}
           onPress={() => handlePress(index)}
         >
           <Text style={styles.optionText}>{option}</Text>
-          {index === 2 && <Text style={nstyles.arrow}>{" >"}</Text>}
+          {index === 2 && <Text style={nStyles.arrow}>{" >"}</Text>}
         </TouchableOpacity>
       ))}
       {showOption4 && (
         <TextInput
-          style={[nstyles.option4, styles.input]}
+          style={[nStyles.option4, styles.input]}
           onChangeText={(text) => setOption4Value(text)}
           value={option4Value}
           placeholder="Type here"
@@ -67,11 +67,8 @@ export default function Intro() {
           textAlign="center"
         />
       )}
-      <View style={nstyles.space} />
-      <TouchableOpacity
-        onPress={onNext}
-        style={styles.continueButton}
-      >
+      <View style={nStyles.space} />
+      <TouchableOpacity onPress={onNext} style={styles.continueButton}>
         {loading ? (
           <Text style={styles.chosenText}>Loading ...</Text>
         ) : (
@@ -82,7 +79,7 @@ export default function Intro() {
   );
 }
 
-const nstyles = StyleSheet.create({
+const nStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
@@ -115,7 +112,7 @@ const nstyles = StyleSheet.create({
   },
   arrow: {
     fontSize: 20,
-    color: "black",
+    color: "lightgray",
     position: "absolute",
     right: 10,
   },

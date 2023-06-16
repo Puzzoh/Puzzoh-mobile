@@ -20,7 +20,7 @@ import SignUp from "./src/authScreens/SignUp";
 import ConfirmSignUp from "./src/authScreens/ConfirmSignUp";
 import ChangePassword from "./src/authScreens/ChangePassword";
 import ForgotPassword from "./src/authScreens/ForgotPassword";
-import Intro from "./src/authScreens/Intro";
+import Gender from "./src/authScreens/Gender";
 import Pronounce from "./src/authScreens/Pronounce";
 import Purpose from "./src/authScreens/Purpose";
 import Interest from "./src/authScreens/Interest";
@@ -110,7 +110,7 @@ const App = () => {
               <Stack.Screen name="ConfirmSignUp" component={ConfirmSignUp} />
               <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
               <Stack.Screen name="ChangePassword" component={ChangePassword} />
-              <Stack.Screen name="Intro" component={Intro} />
+              <Stack.Screen name="Gender" component={Gender} />
               <Stack.Screen name="Pronounce" component={Pronounce} />
               <Stack.Screen name="Purpose" component={Purpose} />
               <Stack.Screen name="Interest" component={Interest} />

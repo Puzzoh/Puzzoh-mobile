@@ -30,7 +30,7 @@ export default function ConfirmSignUp() {
     try {
       await Auth.confirmSignUp(route?.params?.username, code);
       Alert.alert("Successful confirmation");
-      navigation.navigate("Intro");
+      navigation.navigate("Gender");
     } catch (error) {
       Alert.alert(error.message);
     }

@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import styles, { colors } from "../styles/index";
+import { BackButton } from "../components/CustomButtons";
+
 const Purpose = () => {
   const [selected, setSelected] = useState([false, false, false]);
   const [loading, setLoading] = useState(false);
@@ -34,32 +36,26 @@ const Purpose = () => {
   };
 
   return (
-    <View style={nstyles.container}>
-      <View style={styles.skipWrapper}>
-        <TouchableOpacity
-          style={[styles.backButton, { backgroundColor: pressed ? '#FFDAB9' : colors.primary }]}
-          onPressIn={() => setPressed(true)}
-          onPressOut={() => setPressed(false)}
-          onPress={() => navigation.navigate("Pronounce")}>
-          <Text style={styles.skipText}>&lt;</Text>
-        </TouchableOpacity>
-      </View>
+    <View style={nStyles.container}>
+      <BackButton
+        pressed={pressed}
+        onPressIn={() => setPressed(true)}
+        onPressOut={() => setPressed(false)}
+        onPress={() => navigation.navigate("Pronounce")}
+      />
       <Text style={styles.heading2}>I am looking for ...</Text>
-      <View style={nstyles.spaceSmall} />
+      <View style={nStyles.spaceSmall} />
       {["share a voucher", "make friends", "dating"].map((option, index) => (
         <TouchableOpacity
           key={index}
-          style={[nstyles.button, selected[index] ? styles.selected : null]}
+          style={[nStyles.button, selected[index] ? styles.selected : null]}
           onPress={() => handlePress(index)}
         >
           <Text style={styles.optionText}>{option}</Text>
         </TouchableOpacity>
       ))}
-      <View style={nstyles.space} />
-      <TouchableOpacity
-        onPress={onNext}
-        style={styles.continueButton}
-      >
+      <View style={nStyles.space} />
+      <TouchableOpacity onPress={onNext} style={styles.continueButton}>
         {loading ? (
           <Text style={styles.chosenText}>Loading ...</Text>
         ) : (
@@ -70,7 +66,7 @@ const Purpose = () => {
   );
 };
 
-const nstyles = StyleSheet.create({
+const nStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",

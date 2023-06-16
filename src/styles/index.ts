@@ -5,7 +5,6 @@ const windowHeight = Dimensions.get("window").height;
 
 export const colors = {
   primary: "#FF914D",
-  secondary: "",
   input: "#F5F5F5",
   btnShadow: "#030002",
 };
@@ -21,6 +20,7 @@ const styles = StyleSheet.create({
     lineHeight: 50,
     fontFamily: "Lexend",
   },
+
   subHeading: {
     top: 80, // adjust this value to increase the space below the heading
     fontSize: 13,
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
     fontFamily: "Lexend",
   },
+
   heading2: {
     fontSize: 32,
     fontFamily: "Lexend",
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
   interestheading: {
     fontSize: 32,
     fontFamily: "Lexend",
-    top: 70
+    top: 70,
   },
 
   heading3: {
@@ -54,40 +55,30 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
     color: "gray",
   },
+
   skipButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 10,
     right: 5, // adjust this value to position the button on the right
     borderRadius: 10,
     padding: 5,
-    backgroundColor: colors.primary,
-    zIndex: 1,
-    borderColor: 'black',
+    backgroundColor: "transparent",
+    borderColor: "transparent",
     borderWidth: 1,
+  },
 
-  },
-  backButton: {
-    position: 'absolute',
-    right: 310, // adjust this value to position the button on the right
-    top: 10,
-    borderRadius: 10,
-    padding: 5,
-    backgroundColor: "colors.primary",
-    zIndex: 1,
-    borderColor: 'black',
-    borderWidth: 1,
-  },
   skipText: {
-    color: "white",
-    fontSize: 15,
-    fontFamily: "Lexend",
+    color: colors.primary,
+    fontSize: 20,
+    fontWeight: "bold",
   },
+
   skipWrapper: {
-    position: 'absolute',
-    top: 30,
+    position: "absolute",
     right: 0,
     zIndex: 1,
   },
+
   highlightText: {
     fontSize: 16,
     fontFamily: "Poppins_semibold",
@@ -149,7 +140,7 @@ const styles = StyleSheet.create({
   },
 
   continueButton: {
-    position: 'absolute', // set position to absolute
+    position: "absolute", // set position to absolute
     bottom: 20, // set bottom property to 20
     marginTop: 10,
     width: windowWidth - 60,

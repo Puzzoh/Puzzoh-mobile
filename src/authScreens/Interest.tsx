@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import styles, { colors } from "../styles/index";
+import { BackButton } from "../components/CustomButtons";
+
 const Interest = () => {
   const [selected, setSelected] = useState(Array(12).fill(false)); // An array of 12 booleans for the 12 options
   const interests = [
@@ -49,23 +51,21 @@ const Interest = () => {
   };
 
   return (
-    <View style={nstyles.container}>
-      <View style={styles.skipWrapper}>
-        <TouchableOpacity
-          style={[styles.backButton, { backgroundColor: pressed ? '#FFDAB9' : colors.primary }]}
-          onPressIn={() => setPressed(true)}
-          onPressOut={() => setPressed(false)}
-          onPress={() => navigation.navigate("Purpose")}>
-          <Text style={styles.skipText}>&lt;</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={nstyles.container}>
+    <View style={nStyles.container}>
+      <BackButton
+        pressed={pressed}
+        onPressIn={() => setPressed(true)}
+        onPressOut={() => setPressed(false)}
+        onPress={() => navigation.navigate("Purpose")}
+      />
+      <View style={nStyles.container}>
         <View style={styles.skipWrapper}>
           <TouchableOpacity
-            style={[styles.skipButton, { backgroundColor: pressed ? '#FFDAB9' : colors.primary }]}
+            style={styles.skipButton}
             onPressIn={() => setPressed(true)}
             onPressOut={() => setPressed(false)}
-            onPress={() => navigation.navigate("FoodPref")}>
+            onPress={() => navigation.navigate("FoodPref")}
+          >
             <Text style={styles.skipText}>Skip</Text>
           </TouchableOpacity>
         </View>
@@ -74,12 +74,12 @@ const Interest = () => {
           Select up to 3 of your interest and let us know what you are
           passionate about
         </Text>
-        <View style={nstyles.spaceSmall} />
+        <View style={nStyles.spaceSmall} />
         {Array.from(
           { length: Math.ceil(interests.length / 2) },
           (_, i) => i * 2
         ).map((rowStartIndex) => (
-          <View style={nstyles.row} key={rowStartIndex}>
+          <View style={nStyles.row} key={rowStartIndex}>
             {interests
               .slice(rowStartIndex, rowStartIndex + 2)
               .map((interest, idx) => {
@@ -88,9 +88,9 @@ const Interest = () => {
                   <TouchableOpacity
                     key={interestIndex}
                     style={[
-                      nstyles.button,
+                      nStyles.button,
                       selected[interestIndex] ? styles.selected : null,
-                      nstyles.interest, // new style for interests
+                      nStyles.interest, // new style for interests
                     ]}
                     onPress={() => handlePress(interestIndex)}
                     disabled={
@@ -105,11 +105,8 @@ const Interest = () => {
               })}
           </View>
         ))}
-        <View style={nstyles.space} />
-        <TouchableOpacity
-          onPress={onNext}
-          style={styles.continueButton}
-        >
+        <View style={nStyles.space} />
+        <TouchableOpacity onPress={onNext} style={styles.continueButton}>
           {loading ? (
             <Text style={styles.chosenText}>Loading ...</Text>
           ) : (
@@ -121,13 +118,12 @@ const Interest = () => {
   );
 };
 
-const nstyles = StyleSheet.create({
+const nStyles = StyleSheet.create({
   safeContainer: {
     flex: 1,
   },
   container: {
     flex: 1,
-    //justifyContent: 'center',
     alignItems: "center",
   },
   subHeading: {
@@ -144,7 +140,7 @@ const nstyles = StyleSheet.create({
   },
   backText: {
     fontSize: 15,
-    color: 'black',
+    color: "black",
   },
   row: {
     top: 40,

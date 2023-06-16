@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import styles, { colors } from "../styles/index";
+import { BackButton } from "../components/CustomButtons";
 
 const Intro2 = () => {
   const [selected, setSelected] = useState([false, false, false]);
@@ -18,7 +19,7 @@ const Intro2 = () => {
   const [loading, setLoading] = useState(false);
   type RootStackParamList = {
     Purpose: undefined;
-    Intro: undefined;
+    Gender: undefined;
   };
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [pressed, setPressed] = useState(false);
@@ -44,31 +45,28 @@ const Intro2 = () => {
   };
 
   return (
-    <View style={nstyles.container}>
-      <View style={styles.skipWrapper}>
-        <TouchableOpacity
-          style={[styles.backButton, { backgroundColor: pressed ? '#FFDAB9' : colors.primary }]}
-          onPressIn={() => setPressed(true)}
-          onPressOut={() => setPressed(false)}
-          onPress={() => navigation.navigate("Intro")}>
-          <Text style={styles.skipText}>&lt;</Text>
-        </TouchableOpacity>
-      </View>
+    <View style={nStyles.container}>
+      <BackButton
+        pressed={pressed}
+        onPressIn={() => setPressed(true)}
+        onPressOut={() => setPressed(false)}
+        onPress={() => navigation.navigate("Gender")}
+      />
       <Text style={styles.heading2}>My pronounce is</Text>
-      <View style={nstyles.spaceSmall} />
+      <View style={nStyles.spaceSmall} />
       {["She/her", "He/him", "Others"].map((option, index) => (
         <TouchableOpacity
           key={index}
-          style={[nstyles.button, selected[index] ? styles.selected : null]}
+          style={[nStyles.button, selected[index] ? styles.selected : null]}
           onPress={() => handlePress(index)}
         >
           <Text style={styles.optionText}>{option}</Text>
-          {index === 2 && <Text style={nstyles.arrow}>{" >"}</Text>}
+          {index === 2 && <Text style={nStyles.arrow}>{" >"}</Text>}
         </TouchableOpacity>
       ))}
       {showOption4 && (
         <TextInput
-          style={[nstyles.option4, styles.input]}
+          style={[nStyles.option4, styles.input]}
           onChangeText={(text) => setOption4Value(text)}
           value={option4Value}
           placeholder="Type here"
@@ -76,11 +74,8 @@ const Intro2 = () => {
           textAlign="center"
         />
       )}
-      <View style={nstyles.space} />
-      <TouchableOpacity
-        onPress={onNext}
-        style={styles.continueButton}
-      >
+      <View style={nStyles.space} />
+      <TouchableOpacity onPress={onNext} style={styles.continueButton}>
         {loading ? (
           <Text style={styles.chosenText}>Loading ...</Text>
         ) : (
@@ -91,7 +86,7 @@ const Intro2 = () => {
   );
 };
 
-const nstyles = StyleSheet.create({
+const nStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
@@ -144,7 +139,6 @@ const nstyles = StyleSheet.create({
   spaceSmall: {
     height: 20, // This creates a small gap between the heading and the options
   },
-
 });
 
 export default Intro2;
