@@ -20,11 +20,11 @@ import SignUp from "./src/authScreens/SignUp";
 import ConfirmSignUp from "./src/authScreens/ConfirmSignUp";
 import ChangePassword from "./src/authScreens/ChangePassword";
 import ForgotPassword from "./src/authScreens/ForgotPassword";
-import Gender from "./src/collectInfoScreens/Gender";
-import Pronounce from "./src/collectInfoScreens/Pronounce";
-import Purpose from "./src/collectInfoScreens/Purpose";
-import Interest from "./src/collectInfoScreens/Interest";
-import FoodPref from "./src/collectInfoScreens/FoodPref";
+import Gender from "./src/authScreens/Gender";
+import Pronounce from "./src/authScreens/Pronounce";
+import Purpose from "./src/authScreens/Purpose";
+import Interest from "./src/authScreens/Interest";
+import FoodPref from "./src/authScreens/FoodPref";
 import MainScreen from "./src/mainScreens/NavigationScreen";
 import OnboardingSlider from "./src/components/OnboardingSlider";
 
@@ -105,11 +105,11 @@ const App = () => {
             <Stack.Screen name="Main" component={MainScreen} />
           ) : (
             <>
-              {/* <Stack.Screen name="SignIn" component={SignIn} />
+              <Stack.Screen name="SignIn" component={SignIn} />
               <Stack.Screen name="SignUp" component={SignUp} />
               <Stack.Screen name="ConfirmSignUp" component={ConfirmSignUp} />
               <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-              <Stack.Screen name="ChangePassword" component={ChangePassword} /> */}
+              <Stack.Screen name="ChangePassword" component={ChangePassword} />
               <Stack.Screen name="Gender" component={Gender} />
               <Stack.Screen name="Pronounce" component={Pronounce} />
               <Stack.Screen name="Purpose" component={Purpose} />

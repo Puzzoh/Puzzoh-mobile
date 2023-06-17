@@ -8,10 +8,32 @@ import {
   Dimensions,
   Modal,
 } from "react-native";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
+import {
+  useNavigation,
+  NavigationProp,
+  useRoute,
+} from "@react-navigation/native";
 import styles, { colors } from "../styles/index";
+import PopupDialog from "../components/PopupDialog";
 
 export default function Gender() {
+  const route = useRoute();
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    setShowPopup(true); // Show the popup when the component mounts
+  }, []);
+
+  const handleLater = () => {
+    navigation.navigate("SignIn");
+    setShowPopup(false);
+  };
+
+  const handleContinue = () => {
+    setShowPopup(false);
+  };
+
   const [selected, setSelected] = useState([false, false, false]);
   const [showOption4, setShowOption4] = useState(false);
   const [option4Selected, setOption4Selected] = useState(false);
@@ -46,6 +68,12 @@ export default function Gender() {
 
   return (
     <View style={nStyles.container}>
+      <PopupDialog
+        showPopup={showPopup}
+        handleYes={handleContinue}
+        handleNo={handleLater}
+        username={route?.params?.username}
+      />
       <Text style={styles.heading2}>I am a</Text>
       <View style={nStyles.spaceSmall} />
       {["Woman", "Man", "Others"].map((option, index) => (
@@ -128,86 +156,5 @@ const nStyles = StyleSheet.create({
   },
   spaceSmall: {
     height: 20, // This creates a small gap between the heading and the options
-  },
-});
-
-const DialogPopup = ({ navigation }) => {
-  const [showPopup, setShowPopup] = useState(true);
-
-  useEffect(() => {
-    handleContinue(); // Automatically trigger the continue action when the screen loads
-  }, []);
-
-  const handleContinue = () => {
-    navigation.navigate("SignIn");
-    setShowPopup(false);
-  };
-
-  const handleExit = () => {
-    setShowPopup(false);
-  };
-
-  return (
-    <Modal visible={showPopup} animationType="slide" transparent={true}>
-      <View style={styles.popupContainer}>
-        <View style={styles.popupContent}>
-          <Text style={styles.popupText}>Popup Content</Text>
-
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              onPress={handleContinue}
-              style={[styles.button, styles.continueButton]}
-            >
-              <Text style={styles.buttonText}>Continue</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={handleExit}
-              style={[styles.button, styles.exitButton]}
-            >
-              <Text style={styles.buttonText}>Exit</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    </Modal>
-  );
-};
-
-const styles = StyleSheet.create({
-  popupContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  popupContent: {
-    backgroundColor: "white",
-    padding: 20,
-    borderRadius: 10,
-  },
-  popupText: {
-    fontSize: 18,
-    marginBottom: 20,
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  button: {
-    padding: 10,
-    borderRadius: 5,
-    width: "45%",
-    alignItems: "center",
-  },
-  continueButton: {
-    backgroundColor: "green",
-  },
-  exitButton: {
-    backgroundColor: "red",
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
   },
 });

@@ -26,12 +26,13 @@ export default function ConfirmSignUp() {
   };
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const registeredName = route?.params?.username;
 
   const onConfirmPressed = async () => {
     try {
-      await Auth.confirmSignUp(route?.params?.username, code);
+      await Auth.confirmSignUp(registeredName, code);
       Alert.alert("Successful confirmation");
-      navigation.navigate("Gender");
+      navigation.navigate("Gender", { username: registeredName });
     } catch (error) {
       Alert.alert(error.message);
     }
@@ -43,7 +44,7 @@ export default function ConfirmSignUp() {
 
   const onResendPress = async () => {
     try {
-      await Auth.resendSignUp(route?.params?.username);
+      await Auth.resendSignUp(registeredName);
       Alert.alert("Code has been resent to your email");
     } catch (error) {
       Alert.alert(error.message);
@@ -52,7 +53,7 @@ export default function ConfirmSignUp() {
 
   return (
     <View style={screenStyles.container}>
-      <Text style={styles.heading3}> Hi {route?.params?.username},</Text>
+      <Text style={styles.heading3}> Hi {registeredName},</Text>
       <Text style={styles.heading3}>please confirm the code</Text>
       <Text style={styles.heading3}>sent to your email. </Text>
       <View style={{ flex: 1, width: "100%", marginTop: 20 }}>
