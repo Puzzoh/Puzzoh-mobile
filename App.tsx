@@ -54,13 +54,13 @@ const App = () => {
     getFonts();
   }, []);
 
-  if (!fontLoaded) {
-    return null;
-  }
-
-  if (!mainScreens && fontLoaded) {
-    return <OnboardingSlider onDone={() => showMainScreens(true)} />;
-  }
+  // if (!fontLoaded) {
+  //   return (
+  //     <View style={appStyles.loading}>
+  //       <ActivityIndicator />
+  //     </View>
+  //   );
+  // }
 
   const authenticateUser = async () => {
     try {
@@ -88,6 +88,10 @@ const App = () => {
       Hub.remove("auth", listener);
     };
   }, []);
+
+  if (!mainScreens) {
+    return <OnboardingSlider onDone={() => showMainScreens(true)} />;
+  }
 
   if (user === undefined) {
     return (
