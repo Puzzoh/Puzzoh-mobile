@@ -20,11 +20,11 @@ import SignUp from "./src/authScreens/SignUp";
 import ConfirmSignUp from "./src/authScreens/ConfirmSignUp";
 import ChangePassword from "./src/authScreens/ChangePassword";
 import ForgotPassword from "./src/authScreens/ForgotPassword";
-import Gender from "./src/authScreens/Gender";
-import Pronounce from "./src/authScreens/Pronounce";
-import Purpose from "./src/authScreens/Purpose";
-import Interest from "./src/authScreens/Interest";
-import FoodPref from "./src/authScreens/FoodPref";
+import Gender from "./src/infoScreens/Gender";
+import Pronounce from "./src/infoScreens/Pronounce";
+import Purpose from "./src/infoScreens/Purpose";
+import Interest from "./src/infoScreens/Interest";
+import FoodPref from "./src/infoScreens/FoodPref";
 import MainScreen from "./src/mainScreens/NavigationScreen";
 import OnboardingSlider from "./src/components/OnboardingSlider";
 
