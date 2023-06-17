@@ -5,6 +5,7 @@ const windowHeight = Dimensions.get("window").height;
 
 export const colors = {
   primary: "#FF914D",
+  secondary: "",
   input: "#F5F5F5",
   btnShadow: "#030002",
 };

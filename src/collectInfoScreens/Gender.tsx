@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   TextInput,
   StyleSheet,
   Dimensions,
+  Modal,
 } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import styles, { colors } from "../styles/index";
@@ -105,6 +106,8 @@ const nStyles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 10,
     backgroundColor: "white",
+    borderColor: "gray",
+    borderWidth: 0.25,
   },
   text: {
     fontSize: 20,
@@ -125,5 +128,86 @@ const nStyles = StyleSheet.create({
   },
   spaceSmall: {
     height: 20, // This creates a small gap between the heading and the options
+  },
+});
+
+const DialogPopup = ({ navigation }) => {
+  const [showPopup, setShowPopup] = useState(true);
+
+  useEffect(() => {
+    handleContinue(); // Automatically trigger the continue action when the screen loads
+  }, []);
+
+  const handleContinue = () => {
+    navigation.navigate("SignIn");
+    setShowPopup(false);
+  };
+
+  const handleExit = () => {
+    setShowPopup(false);
+  };
+
+  return (
+    <Modal visible={showPopup} animationType="slide" transparent={true}>
+      <View style={styles.popupContainer}>
+        <View style={styles.popupContent}>
+          <Text style={styles.popupText}>Popup Content</Text>
+
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              onPress={handleContinue}
+              style={[styles.button, styles.continueButton]}
+            >
+              <Text style={styles.buttonText}>Continue</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={handleExit}
+              style={[styles.button, styles.exitButton]}
+            >
+              <Text style={styles.buttonText}>Exit</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
+};
+
+const styles = StyleSheet.create({
+  popupContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  popupContent: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+  },
+  popupText: {
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  button: {
+    padding: 10,
+    borderRadius: 5,
+    width: "45%",
+    alignItems: "center",
+  },
+  continueButton: {
+    backgroundColor: "green",
+  },
+  exitButton: {
+    backgroundColor: "red",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
   },
 });

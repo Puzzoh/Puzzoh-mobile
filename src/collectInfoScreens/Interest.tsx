@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  SafeAreaView,
 } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import styles, { colors } from "../styles/index";
@@ -12,27 +13,26 @@ import { BackButton } from "../components/CustomButtons";
 
 const Interest = () => {
   const [selected, setSelected] = useState(Array(12).fill(false)); // An array of 12 booleans for the 12 options
-  const foodPref = [
-    "Vegan",
-    "Mediterranean",
-    "Italian",
-    "Chinese",
-    "Japanese",
-    "Mexican",
-    "Pizza/Burgers",
-    "Greek",
-    "Spanish",
-    "Korean",
-    "Vietnamese",
-    "Dessert/cafe",
+  const interests = [
+    "Traveling",
+    "Photo",
+    "Reading",
+    "Cooking",
+    "Sports",
+    "Gaming",
+    "Music",
+    "Movies",
+    "Gardening",
+    "Yoga",
+    "Painting",
+    "Writing",
   ];
   type RootStackParamList = {
-    SignIn: undefined;
-    Interest: undefined;
+    FoodPref: undefined;
+    Purpose: undefined;
   };
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [loading, setLoading] = useState(false);
-  const [pressed, setPressed] = useState(false);
 
   const handlePress = (index) => {
     let newSelected = [...selected];
@@ -45,30 +45,26 @@ const Interest = () => {
     setSelected(newSelected);
   };
 
-  const onDone = () => {
-    navigation.navigate("SignIn");
+  const onNext = () => {
+    navigation.navigate("FoodPref");
   };
 
   return (
     <View style={nStyles.container}>
-      <BackButton
-        pressed={pressed}
-        onPressIn={() => setPressed(true)}
-        onPressOut={() => setPressed(false)}
-        onPress={() => navigation.navigate("Interest")}
-      />
+      <BackButton onPress={() => navigation.navigate("Purpose")} />
       <View style={nStyles.container}>
-        <Text style={nStyles.heading}>Food Preferences</Text>
-        <Text style={nStyles.subHeading}>
-          Select up to 3 of your favorite cuisines and let us know what you like
+        <Text style={styles.interestheading}>Your Interest</Text>
+        <Text style={styles.subHeading}>
+          Select up to 3 of your interest and let us know what you are
+          passionate about
         </Text>
         <View style={nStyles.spaceSmall} />
         {Array.from(
-          { length: Math.ceil(foodPref.length / 2) },
+          { length: Math.ceil(interests.length / 2) },
           (_, i) => i * 2
         ).map((rowStartIndex) => (
           <View style={nStyles.row} key={rowStartIndex}>
-            {foodPref
+            {interests
               .slice(rowStartIndex, rowStartIndex + 2)
               .map((interest, idx) => {
                 const interestIndex = rowStartIndex + idx;
@@ -77,7 +73,7 @@ const Interest = () => {
                     key={interestIndex}
                     style={[
                       nStyles.button,
-                      selected[interestIndex] ? nStyles.selected : null,
+                      selected[interestIndex] ? styles.selected : null,
                       nStyles.interest, // new style for interests
                     ]}
                     onPress={() => handlePress(interestIndex)}
@@ -94,11 +90,11 @@ const Interest = () => {
           </View>
         ))}
         <View style={nStyles.space} />
-        <TouchableOpacity onPress={onDone} style={styles.continueButton}>
+        <TouchableOpacity onPress={onNext} style={styles.continueButton}>
           {loading ? (
             <Text style={styles.chosenText}>Loading ...</Text>
           ) : (
-            <Text style={styles.chosenText}>Done</Text>
+            <Text style={styles.chosenText}>Continue</Text>
           )}
         </TouchableOpacity>
       </View>
@@ -112,43 +108,21 @@ const nStyles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    //justifyContent: 'center',
     alignItems: "center",
-  },
-  heading: {
-    fontSize: 32,
-    fontFamily: "Lexend",
-    marginBottom: 20,
-    top: 50,
-    bottom: 10,
   },
   subHeading: {
     top: 35,
     fontSize: 13,
-    fontFamily: "Lexend",
     flexWrap: "wrap",
     marginLeft: 15,
     marginRight: 15,
   },
-  skipWrapper: {
-    alignSelf: "flex-end",
-    marginRight: 10,
-    marginBottom: 10,
-  },
-  skipButton: {
-    position: "absolute",
-    top: 30, // increase this value to move the button further down
-    right: 10,
+  backText: {
     fontSize: 15,
-    color: "gray",
-  },
-  skipText: {
-    color: "gray",
-    fontSize: 15,
-    fontFamily: "Lexend",
+    color: "black",
   },
   row: {
-    top: 30,
+    top: 40,
     flexDirection: "row",
     justifyContent: "space-evenly",
     width: "80%",
@@ -166,30 +140,27 @@ const nStyles = StyleSheet.create({
   selected: {
     backgroundColor: colors.primary,
   },
-  nextButton: {
-    backgroundColor: "orange",
-  },
   largeButton: {
     width: (Dimensions.get("window").width * 5) / 6,
     height: 60,
   },
   text: {
-    fontSize: 12,
+    fontSize: 15,
   },
   interest: {
     flex: 1,
     margin: 5,
-    borderColor: "black",
-    borderWidth: 1,
+    borderColor: "gray",
+    borderWidth: 0.25,
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
   },
   space: {
-    height: 35,
+    height: 60,
   },
   spaceSmall: {
-    height: 20,
+    height: 60,
   },
 });
 

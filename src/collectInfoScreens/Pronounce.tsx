@@ -11,25 +11,35 @@ import { useNavigation, NavigationProp } from "@react-navigation/native";
 import styles, { colors } from "../styles/index";
 import { BackButton } from "../components/CustomButtons";
 
-const Purpose = () => {
+const Pronounce = () => {
   const [selected, setSelected] = useState([false, false, false]);
+  const [showOption4, setShowOption4] = useState(false);
+  const [option4Selected, setOption4Selected] = useState(false);
+  const [option4Value, setOption4Value] = useState("");
   const [loading, setLoading] = useState(false);
-  const [pressed, setPressed] = useState(false);
-  type RootStackParamList = {
-    Interest: undefined;
-    Pronounce: undefined;
-  };
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
+  type RootStackParamList = {
+    Purpose: undefined;
+    Gender: undefined;
+  };
+
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const handlePress = (index) => {
     const newSelected = [false, false, false]; // Reset all selections
     newSelected[index] = true; // Set selected state on pressed button
     setSelected(newSelected);
+    if (index !== 2) {
+      setShowOption4(false);
+      setOption4Value("");
+      setOption4Selected(false);
+    } else {
+      setShowOption4(true); // Show Option 4 input when Option 3 is clicked
+    }
   };
 
   const onNext = async () => {
-    if (selected.includes(true)) {
-      navigation.navigate("Interest");
+    if (selected.includes(true) || option4Value !== "") {
+      navigation.navigate("Purpose");
     } else {
       alert("Please select an option before proceeding");
     }
@@ -37,23 +47,29 @@ const Purpose = () => {
 
   return (
     <View style={nStyles.container}>
-      <BackButton
-        pressed={pressed}
-        onPressIn={() => setPressed(true)}
-        onPressOut={() => setPressed(false)}
-        onPress={() => navigation.navigate("Pronounce")}
-      />
-      <Text style={styles.heading2}>I am looking for ...</Text>
+      <BackButton onPress={() => navigation.navigate("Gender")} />
+      <Text style={styles.heading2}>My pronounce is</Text>
       <View style={nStyles.spaceSmall} />
-      {["share a voucher", "make friends", "dating"].map((option, index) => (
+      {["She/her", "He/him", "Others"].map((option, index) => (
         <TouchableOpacity
           key={index}
           style={[nStyles.button, selected[index] ? styles.selected : null]}
           onPress={() => handlePress(index)}
         >
           <Text style={styles.optionText}>{option}</Text>
+          {index === 2 && <Text style={nStyles.arrow}>{" >"}</Text>}
         </TouchableOpacity>
       ))}
+      {showOption4 && (
+        <TextInput
+          style={[nStyles.option4, styles.input]}
+          onChangeText={(text) => setOption4Value(text)}
+          value={option4Value}
+          placeholder="Type here"
+          placeholderTextColor="gray"
+          textAlign="center"
+        />
+      )}
       <View style={nStyles.space} />
       <TouchableOpacity onPress={onNext} style={styles.continueButton}>
         {loading ? (
@@ -71,12 +87,6 @@ const nStyles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  heading: {
-    fontSize: 30, // Increased the font size
-    marginBottom: 20,
-    left: 10,
-    right: 10,
   },
   option4: {
     width: (Dimensions.get("window").width * 5) / 6, // Increased the width
@@ -98,6 +108,8 @@ const nStyles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 10,
     backgroundColor: "white",
+    borderColor: "gray",
+    borderWidth: 0.25,
   },
   selected: {
     backgroundColor: "orange",
@@ -127,4 +139,4 @@ const nStyles = StyleSheet.create({
   },
 });
 
-export default Purpose;
+export default Pronounce;

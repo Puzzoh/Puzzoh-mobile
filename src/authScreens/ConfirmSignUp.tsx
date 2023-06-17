@@ -52,12 +52,9 @@ export default function ConfirmSignUp() {
 
   return (
     <View style={screenStyles.container}>
-      <Text style={styles.heading1}>Confirm your email</Text>
-      <Text style={[styles.heading3, { marginVertical: 10 }]}>
-        {" "}
-        Hi {route?.params?.username}, please confirm the code sent to your
-        email.
-      </Text>
+      <Text style={styles.heading3}> Hi {route?.params?.username},</Text>
+      <Text style={styles.heading3}>please confirm the code</Text>
+      <Text style={styles.heading3}>sent to your email. </Text>
       <View style={{ flex: 1, width: "100%", marginTop: 20 }}>
         <TextInput
           style={styles.input}
@@ -66,6 +63,7 @@ export default function ConfirmSignUp() {
           onChangeText={setCode}
         />
       </View>
+
       <TouchableOpacity onPress={onConfirmPressed} style={styles.spanButton}>
         <Text style={styles.chosenText}>Confirm</Text>
       </TouchableOpacity>
@@ -92,6 +90,7 @@ const screenStyles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+
     padding: 20,
   },
 });

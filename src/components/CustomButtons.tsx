@@ -4,7 +4,7 @@ import { colors } from "../styles/index";
 
 const windowWidth = Dimensions.get("window").width;
 
-export const BackButton = ({ pressed, onPressIn, onPressOut, onPress }) => {
+export const BackButton = ({ onPress }) => {
   return (
     <TouchableOpacity
       style={{
@@ -12,18 +12,20 @@ export const BackButton = ({ pressed, onPressIn, onPressOut, onPress }) => {
         alignSelf: "flex-end",
         right: 330,
         zIndex: 1,
-        top: 0,
+        top: 5,
         borderRadius: 20,
         padding: 10,
-        borderColor: "transparent",
-        borderWidth: 1,
-        backgroundColor: pressed ? "white" : "transparent",
+        borderColor: "lightgray",
+        borderWidth: 0,
       }}
-      onPressIn={onPressIn}
-      onPressOut={onPressOut}
       onPress={onPress}
     >
-      <Text style={{ color: colors.primary, fontSize: 20, fontWeight: "bold" }}>
+      <Text
+        style={{
+          color: colors.primary,
+          fontSize: 20,
+        }}
+      >
         &lt;
       </Text>
     </TouchableOpacity>
