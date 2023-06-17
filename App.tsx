@@ -54,9 +54,13 @@ const App = () => {
     getFonts();
   }, []);
 
-  // if (!fontLoaded) {
-  //   return null;
-  // }
+  if (!fontLoaded) {
+    return null;
+  }
+
+  if (!mainScreens && fontLoaded) {
+    return <OnboardingSlider onDone={() => showMainScreens(true)} />;
+  }
 
   const authenticateUser = async () => {
     try {
@@ -84,10 +88,6 @@ const App = () => {
       Hub.remove("auth", listener);
     };
   }, []);
-
-  if (!mainScreens) {
-    return <OnboardingSlider onDone={() => showMainScreens(true)} />;
-  }
 
   if (user === undefined) {
     return (
