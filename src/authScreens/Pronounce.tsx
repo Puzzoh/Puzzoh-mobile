@@ -17,12 +17,16 @@ const Intro2 = () => {
   const [option4Selected, setOption4Selected] = useState(false);
   const [option4Value, setOption4Value] = useState("");
   const [loading, setLoading] = useState(false);
+
   type RootStackParamList = {
     Purpose: undefined;
     Gender: undefined;
   };
+
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   const [pressed, setPressed] = useState(false);
+
   const handlePress = (index) => {
     const newSelected = [false, false, false]; // Reset all selections
     newSelected[index] = true; // Set selected state on pressed button

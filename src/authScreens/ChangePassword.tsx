@@ -21,6 +21,7 @@ const ForgotPasswordScreen = () => {
     ConfirmSignUp: { username: string };
     SignIn: undefined;
   };
+
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const onSubmit = async () => {
@@ -38,9 +39,9 @@ const ForgotPasswordScreen = () => {
   };
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={screenStyles.container}>
-        <Text style={styles.heading1}>Change Password</Text>
+    <View style={screenStyles.container}>
+      <Text style={styles.heading1}>Change Password</Text>
+      <View style={{ flex: 1, width: "100%", marginTop: 20 }}>
         <TextInput
           style={styles.input}
           placeholder="Enter your username"
@@ -62,23 +63,24 @@ const ForgotPasswordScreen = () => {
           onChangeText={setPassword}
           secureTextEntry
         />
+      </View>
 
+      <View style={{ marginBottom: 20 }}>
         <TouchableOpacity onPress={onSubmit} style={styles.spanButton}>
           <Text style={styles.chosenText}>Send</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={onSignInPress}>
-          <Text style={[styles.highlightText, { marginVertical: 10 }]}>
-            Back to sign in
-          </Text>
-        </TouchableOpacity>
       </View>
-    </ScrollView>
+
+      <TouchableOpacity onPress={onSignInPress}>
+        <Text style={styles.highlightText}>Back to sign in</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const screenStyles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: "center",
     padding: 20,
   },

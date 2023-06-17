@@ -24,6 +24,7 @@ export default function ConfirmSignUp() {
   type RootStackParamList = {
     SignIn: undefined;
   };
+
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const onConfirmPressed = async () => {
@@ -50,25 +51,26 @@ export default function ConfirmSignUp() {
   };
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={screenStyles.container}>
-        <Text style={styles.heading1}>Confirm your email</Text>
-        <Text style={[styles.heading3, { marginVertical: 10 }]}>
-          {" "}
-          Hi {route?.params?.username}, please confirm the code sent to your
-          email.
-        </Text>
+    <View style={screenStyles.container}>
+      <Text style={styles.heading1}>Confirm your email</Text>
+      <Text style={[styles.heading3, { marginVertical: 10 }]}>
+        {" "}
+        Hi {route?.params?.username}, please confirm the code sent to your
+        email.
+      </Text>
+      <View style={{ flex: 1, width: "100%", marginTop: 20 }}>
         <TextInput
           style={styles.input}
           placeholder="Enter your confirmation code"
           value={code}
           onChangeText={setCode}
         />
+      </View>
+      <TouchableOpacity onPress={onConfirmPressed} style={styles.spanButton}>
+        <Text style={styles.chosenText}>Confirm</Text>
+      </TouchableOpacity>
 
-        <TouchableOpacity onPress={onConfirmPressed} style={styles.spanButton}>
-          <Text style={styles.chosenText}>Confirm</Text>
-        </TouchableOpacity>
-
+      <View style={{ marginVertical: 10 }}>
         <TouchableOpacity
           onPress={onResendPress}
           style={[styles.spanButton, { backgroundColor: "#FFF" }]}
@@ -77,19 +79,18 @@ export default function ConfirmSignUp() {
             Resend Code
           </Text>
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={onSignInPress}>
-          <Text style={[styles.highlightText, { marginVertical: 10 }]}>
-            Back to sign in
-          </Text>
-        </TouchableOpacity>
       </View>
-    </ScrollView>
+
+      <TouchableOpacity onPress={onSignInPress}>
+        <Text style={styles.highlightText}>Back to sign in</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const screenStyles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: "center",
     padding: 20,
   },

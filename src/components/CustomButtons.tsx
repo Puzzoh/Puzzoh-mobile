@@ -1,6 +1,6 @@
 import React from "react";
 import { Dimensions, Text, TouchableOpacity } from "react-native";
-import styles, { colors } from "../styles/index";
+import { colors } from "../styles/index";
 
 const windowWidth = Dimensions.get("window").width;
 

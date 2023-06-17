@@ -41,6 +41,7 @@ export default function SignIn() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const onSignInPressed = async () => {
+    navigation.navigate("Gender");
     if (loading) return;
     setLoading(true);
     try {
