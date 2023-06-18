@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Slider,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import DatePicker from "react-native-datepicker";
@@ -15,8 +16,13 @@ const EditProfileInfoScreen = ({ navigation }) => {
   const [birthday, setBirthday] = useState("");
   const [purpose, setPurpose] = useState("");
   const [gender, setGender] = useState("");
-  const [ageRange, setAgeRange] = useState("");
+  const [ageRange, setAgeRange] = useState([18, 60]);
   const [location, setLocation] = useState("");
+
+  const formatAgeRangeText = () => {
+    const [minAge, maxAge] = ageRange;
+    return `${minAge} - ${maxAge} years`;
+  };
 
   const handleSave = ({ navigation }) => {
     // Save profile info logic
@@ -89,21 +95,56 @@ const EditProfileInfoScreen = ({ navigation }) => {
       </View>
       <View style={nStyles.inputContainer}>
         <Text style={nStyles.inputLabel}>Gender</Text>
-        <TextInput
-          style={nStyles.input}
-          placeholder="Gender"
-          value={gender}
-          onChangeText={setGender}
-        />
+        <View style={nStyles.genderContainer}>
+          <TouchableOpacity
+            style={[
+              nStyles.genderOption,
+              gender === "Men" && nStyles.genderOptionSelected,
+            ]}
+            onPress={() => setGender("Men")}
+          >
+            <Text style={nStyles.genderOptionText}>Men</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              nStyles.genderOption,
+              gender === "Woman" && nStyles.genderOptionSelected,
+            ]}
+            onPress={() => setGender("Woman")}
+          >
+            <Text style={nStyles.genderOptionText}>Woman</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              nStyles.genderOption,
+              gender === "LGBTQ+" && nStyles.genderOptionSelected,
+            ]}
+            onPress={() => setGender("LGBTQ+")}
+          >
+            <Text style={nStyles.genderOptionText}>LGBTQ+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              nStyles.genderOption,
+              gender === "Prefer Not to Say" && nStyles.genderOptionSelected,
+            ]}
+            onPress={() => setGender("Prefer Not to Say")}
+          >
+            <Text style={nStyles.genderOptionText}>Prefer Not to Say</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={nStyles.inputContainer}>
         <Text style={nStyles.inputLabel}>Age Range</Text>
-        <TextInput
-          style={nStyles.input}
-          placeholder="Age range"
+        <Slider
+          style={nStyles.slider}
+          minimumValue={18}
+          maximumValue={60}
+          step={1}
           value={ageRange}
-          onChangeText={setAgeRange}
+          onValueChange={(value) => setAgeRange(value)}
         />
+        <Text style={nStyles.sliderValue}>{formatAgeRangeText()}</Text>
       </View>
       <View style={nStyles.inputContainer}>
         <Text style={nStyles.inputLabel}>Location</Text>
@@ -126,6 +167,7 @@ const nStyles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     paddingVertical: 24,
+    backgroundColor: "#fff",
   },
   backButton: {
     position: "absolute",
@@ -147,6 +189,34 @@ const nStyles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 12,
+  },
+  genderContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  genderOption: {
+    flex: 1,
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    marginHorizontal: 4,
+    borderColor: "#ccc",
+  },
+  genderOptionSelected: {
+    backgroundColor: "#333",
+  },
+  genderOptionText: {
+    textAlign: "center",
+    color: "#333",
+  },
+  slider: {
+    marginBottom: 8,
+  },
+  sliderValue: {
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
   },
   button: {
     backgroundColor: "#333",
