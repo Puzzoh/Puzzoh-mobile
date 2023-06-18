@@ -8,14 +8,12 @@ import {
   Dimensions,
 } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons"; // Import Ionicons from @expo/vector-icons
 import styles, { colors } from "../styles/index";
 import { BackButton } from "../components/CustomButtons";
 
 const Pronounce = () => {
   const [selected, setSelected] = useState([false, false, false]);
-  const [showOption4, setShowOption4] = useState(false);
-  const [option4Selected, setOption4Selected] = useState(false);
-  const [option4Value, setOption4Value] = useState("");
   const [loading, setLoading] = useState(false);
 
   type RootStackParamList = {
@@ -28,17 +26,10 @@ const Pronounce = () => {
     const newSelected = [false, false, false]; // Reset all selections
     newSelected[index] = true; // Set selected state on pressed button
     setSelected(newSelected);
-    if (index !== 2) {
-      setShowOption4(false);
-      setOption4Value("");
-      setOption4Selected(false);
-    } else {
-      setShowOption4(true); // Show Option 4 input when Option 3 is clicked
-    }
   };
 
   const onNext = async () => {
-    if (selected.includes(true) || option4Value !== "") {
+    if (selected.includes(true)) {
       navigation.navigate("Purpose");
     } else {
       alert("Please select an option before proceeding");
@@ -50,26 +41,27 @@ const Pronounce = () => {
       <BackButton onPress={() => navigation.navigate("Gender")} />
       <Text style={styles.heading2}>My pronounce is</Text>
       <View style={nStyles.spaceSmall} />
-      {["She/her", "He/him", "Others"].map((option, index) => (
-        <TouchableOpacity
-          key={index}
-          style={[nStyles.button, selected[index] ? styles.selected : null]}
-          onPress={() => handlePress(index)}
-        >
-          <Text style={styles.optionText}>{option}</Text>
-          {index === 2 && <Text style={nStyles.arrow}>{" >"}</Text>}
-        </TouchableOpacity>
-      ))}
-      {showOption4 && (
-        <TextInput
-          style={[nStyles.option4, styles.input]}
-          onChangeText={(text) => setOption4Value(text)}
-          value={option4Value}
-          placeholder="Type here"
-          placeholderTextColor="gray"
-          textAlign="center"
-        />
-      )}
+      <View style={nStyles.buttonContainer}>
+        {[
+          { label: "She/her", icon: "female-outline" },
+          { label: "He/him", icon: "male-outline" },
+          { label: "They/them", icon: "ellipsis-horizontal-outline" },
+        ].map((option, index) => (
+          <TouchableOpacity
+            key={index}
+            style={[nStyles.button, selected[index] ? styles.selected : null]}
+            onPress={() => handlePress(index)}
+          >
+            <Text style={[styles.optionText, selected[index] ? styles.whitetext : null]}>{option.label}</Text>
+            <Ionicons
+              name={option.icon}
+              size={20}
+              color={selected[index] ? "white" : "black"}
+              style={nStyles.icon}
+            />
+          </TouchableOpacity>
+        ))}
+      </View>
       <View style={nStyles.space} />
       <TouchableOpacity onPress={onNext} style={styles.continueButton}>
         {loading ? (
@@ -89,18 +81,21 @@ const nStyles = StyleSheet.create({
     alignItems: "center",
   },
   option4: {
-    width: (Dimensions.get("window").width * 5) / 6, // Increased the width
+    width: (Dimensions.get("window").width * 5) / 6,
     height: 60,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
     marginVertical: 10,
-    borderWidth: 1, // add border
-    borderColor: "black", // set border color
+    borderWidth: 1,
+    borderColor: "black",
+  },
+  buttonContainer: {
+    alignItems: "center",
   },
   button: {
-    width: (Dimensions.get("window").width * 5) / 6, // Increased the width
+    width: (Dimensions.get("window").width * 5) / 6,
     height: 60,
     flexDirection: "row",
     justifyContent: "center",
@@ -111,31 +106,20 @@ const nStyles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: 0.25,
   },
-  selected: {
-    backgroundColor: "orange",
-  },
-  nextButton: {
-    backgroundColor: "orange",
-  },
-  text: {
-    fontSize: 20,
-    color: "black",
-  },
   arrow: {
     fontSize: 20,
     color: "black",
     position: "absolute",
     right: 10,
   },
-  input: {
-    fontSize: 20,
-    color: "black",
+  icon: {
+    marginLeft: 10,
   },
   space: {
-    height: 120, // This creates space for 2 option buttons
+    height: 120,
   },
   spaceSmall: {
-    height: 20, // This creates a small gap between the heading and the options
+    height: 30,
   },
 });
 

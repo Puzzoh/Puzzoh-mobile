@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
-import styles from "../styles/index";
+import styles, { colors } from "../styles/index";
 
 const PopupDialog = ({ showPopup, handleNo, handleYes, username }) => {
   return (
@@ -51,6 +51,7 @@ const nStyles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     height: Dimensions.get("window").height / 2,
+    justifyContent: 'space-between', // New line
   },
   buttonContainer: {
     flexDirection: "row",
