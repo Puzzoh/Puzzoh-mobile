@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { colors } from "../styles/index";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
@@ -17,8 +16,6 @@ import { useRef } from "react";
 import Voucher from "./Home";
 import Matches from "./Matches";
 import Profile from "./Profile";
-import Settings from "./Settings";
-import EditInfo from "./EditInfo";
 
 const Tab = createBottomTabNavigator();
 
@@ -66,7 +63,7 @@ export default function MainScreen() {
                 }}
               >
                 <FontAwesome5
-                  name="ticket-alt"
+                  name="globe-americas"
                   size={20}
                   color={focused ? colors.primary : "gray"}
                 ></FontAwesome5>
@@ -88,6 +85,7 @@ export default function MainScreen() {
           name={"Matches"}
           component={Matches}
           options={{
+            headerShown: false,
             tabBarIcon: ({ focused }) => (
               <View
                 style={{
@@ -119,6 +117,7 @@ export default function MainScreen() {
           name={"Profile"}
           component={Profile}
           options={{
+            headerShown: false,
             tabBarIcon: ({ focused }) => (
               <View
                 style={{

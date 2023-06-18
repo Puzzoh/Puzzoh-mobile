@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  TextInput,
   StyleSheet,
   Dimensions,
 } from "react-native";
@@ -33,27 +32,24 @@ const Purpose = ({ navigation }) => {
       <BackButton onPress={() => navigation.navigate("Pronounce")} />
       <Text style={styles.heading2}>I am looking for ...</Text>
       <View style={nStyles.spaceSmall} />
-      {[
-        "sharing a voucher",
-        "making friends",
-        "dating",
-        "Don't know yet, just exploring",
-      ].map((option, index) => (
-        <TouchableOpacity
-          key={index}
-          style={[nStyles.button, selected[index] ? styles.selected : null]}
-          onPress={() => handlePress(index)}
-        >
-          <Text
-            style={[
-              styles.optionText,
-              selected[index] ? styles.whitetext : null,
-            ]}
+      {["making friends", "dating", "Don't know yet, just exploring"].map(
+        (option, index) => (
+          <TouchableOpacity
+            key={index}
+            style={[nStyles.button, selected[index] ? styles.selected : null]}
+            onPress={() => handlePress(index)}
           >
-            {option}
-          </Text>
-        </TouchableOpacity>
-      ))}
+            <Text
+              style={[
+                styles.optionText,
+                selected[index] ? styles.whitetext : null,
+              ]}
+            >
+              {option}
+            </Text>
+          </TouchableOpacity>
+        )
+      )}
       <View style={nStyles.space} />
       <TouchableOpacity onPress={onNext} style={styles.continueButton}>
         {loading ? (

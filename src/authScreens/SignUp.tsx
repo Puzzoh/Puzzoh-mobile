@@ -3,8 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
-  Platform,
   TextInput,
   TouchableOpacity,
   Dimensions,

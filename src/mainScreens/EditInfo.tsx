@@ -23,8 +23,9 @@ const EditProfileInfoScreen = ({ navigation }) => {
   const [ageRange, setAgeRange] = useState([18, 60]);
   const [location, setLocation] = useState("");
 
-  const handleSave = ({ navigation }) => {
+  const handleSave = () => {
     // Save profile info logic
+    navigation.goBack();
   };
 
   const formatAgeRangeText = () => {
@@ -67,75 +68,37 @@ const EditProfileInfoScreen = ({ navigation }) => {
         </View>
         <View style={nStyles.inputContainer}>
           <Text style={nStyles.inputLabel}>Gender</Text>
-          <View style={nStyles.genderContainer}>
-            <TouchableOpacity
-              style={[
-                nStyles.genderOption,
-                gender === "Man" && nStyles.genderOptionSelected,
-              ]}
-              onPress={() => setGender("Man")}
-            >
-              <Text style={nStyles.genderOptionText}>Men</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                nStyles.genderOption,
-                gender === "Woman" && nStyles.genderOptionSelected,
-              ]}
-              onPress={() => setGender("Woman")}
-            >
-              <Text style={nStyles.genderOptionText}>Woman</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                nStyles.genderOption,
-                gender === "LGBTQ+" && nStyles.genderOptionSelected,
-              ]}
-              onPress={() => setGender("LGBTQ+")}
-            >
-              <Text style={nStyles.genderOptionText}>LGBTQ+</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                nStyles.genderOption,
-                gender === "Prefer Not to Say" && nStyles.genderOptionSelected,
-              ]}
-              onPress={() => setGender("Prefer")}
-            >
-              <Text style={nStyles.genderOptionText}>Prefer Not to Say</Text>
-            </TouchableOpacity>
+          <View style={nStyles.optionsContainer}>
+            {["Man", "Woman", "LGBTQ+", "Prefer not to identify"].map(
+              (option, index) => (
+                <TouchableOpacity
+                  style={[
+                    nStyles.option,
+                    gender === option && nStyles.optionSelected,
+                  ]}
+                  onPress={() => setGender(option)}
+                >
+                  <Text style={nStyles.optionText}>{option}</Text>
+                </TouchableOpacity>
+              )
+            )}
           </View>
         </View>
+
         <View style={nStyles.inputContainer}>
           <Text style={nStyles.inputLabel}>Pronounce</Text>
-          <View style={nStyles.genderContainer}>
-            <TouchableOpacity
-              style={[
-                nStyles.genderOption,
-                pronounce === "He/him" && nStyles.genderOptionSelected,
-              ]}
-              onPress={() => setGender("He/him")}
-            >
-              <Text style={nStyles.genderOptionText}>He/him</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                nStyles.genderOption,
-                pronounce === "She/her" && nStyles.genderOptionSelected,
-              ]}
-              onPress={() => setGender("She/her")}
-            >
-              <Text style={nStyles.genderOptionText}>She/her</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                nStyles.genderOption,
-                pronounce === "They/them" && nStyles.genderOptionSelected,
-              ]}
-              onPress={() => setGender("They/them")}
-            >
-              <Text style={nStyles.genderOptionText}>They/them</Text>
-            </TouchableOpacity>
+          <View style={nStyles.optionsContainer}>
+            {["He/him", "She/her", "They/them"].map((option, index) => (
+              <TouchableOpacity
+                style={[
+                  nStyles.option,
+                  pronounce === option && nStyles.optionSelected,
+                ]}
+                onPress={() => setPronounce(option)}
+              >
+                <Text style={nStyles.optionText}>{option}</Text>
+              </TouchableOpacity>
+            ))}
           </View>
         </View>
 
@@ -178,14 +141,24 @@ const EditProfileInfoScreen = ({ navigation }) => {
             }}
           />
         </View>
+
         <View style={nStyles.inputContainer}>
           <Text style={nStyles.inputLabel}>Purpose</Text>
-          <TextInput
-            style={nStyles.input}
-            placeholder="Purpose"
-            value={purpose}
-            onChangeText={setPurpose}
-          />
+          <View style={nStyles.optionsContainer}>
+            {["making friends", "dating", "just exploring"].map(
+              (option, index) => (
+                <TouchableOpacity
+                  style={[
+                    nStyles.option,
+                    purpose === option && nStyles.optionSelected,
+                  ]}
+                  onPress={() => setPurpose(option)}
+                >
+                  <Text style={nStyles.optionText}>{option}</Text>
+                </TouchableOpacity>
+              )
+            )}
+          </View>
         </View>
 
         <View style={nStyles.inputContainer}>
@@ -208,7 +181,7 @@ const EditProfileInfoScreen = ({ navigation }) => {
         </View>
         <View style={nStyles.inputContainer}>
           <Text style={nStyles.inputLabel}>Location</Text>
-          <GooglePlacesAutocomplete
+          {/* <GooglePlacesAutocomplete
             placeholder="Enter your location"
             onPress={(data, details = null) => {
               // Handle selected location
@@ -225,7 +198,7 @@ const EditProfileInfoScreen = ({ navigation }) => {
             }}
             debounce={300}
             currentLocation={false}
-          />
+          /> */}
         </View>
         <TouchableOpacity style={nStyles.button} onPress={handleSave}>
           <Text style={nStyles.buttonText}>Save</Text>
@@ -263,11 +236,11 @@ const nStyles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 12,
   },
-  genderContainer: {
+  optionsContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  genderOption: {
+  option: {
     flex: 1,
     borderWidth: 1,
     borderRadius: 8,
@@ -276,10 +249,10 @@ const nStyles = StyleSheet.create({
     marginHorizontal: 4,
     borderColor: "#ccc",
   },
-  genderOptionSelected: {
+  optionSelected: {
     backgroundColor: "#333",
   },
-  genderOptionText: {
+  optionText: {
     textAlign: "center",
     color: "#333",
   },

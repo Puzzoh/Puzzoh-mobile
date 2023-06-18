@@ -1,56 +1,42 @@
-import * as React from "react";
-import { View, Text, StyleSheet, SafeAreaView, Image } from "react-native";
-import { colors } from "../styles/index";
-import users from "../../assets/data/users";
+import React from "react";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 
-const MatchesScreen = () => {
+import PeopleMatches from "./PeopleMatches";
+import VoucherMatches from "./VoucherMatches";
+import { colors } from "../styles/index";
+
+const Tab = createMaterialTopTabNavigator();
+
+const App = () => {
   return (
-    <SafeAreaView style={styles.root}>
-      <View style={styles.container}>
-        <Text
-          style={{ fontWeight: "bold", fontSize: 24, color: colors.primary }}
-        >
-          Recent Matches
-        </Text>
-        <View style={styles.users}>
-          {users.map((user) => (
-            <View style={styles.user} key={user.id}>
-              <Image source={{ uri: user.image }} style={styles.image} />
-            </View>
-          ))}
-        </View>
-      </View>
-    </SafeAreaView>
+    <Tab.Navigator
+      tabBarOptions={{
+        showIcon: true,
+        showLabel: false,
+        indicatorStyle: { backgroundColor: "black" },
+      }}
+    >
+      <Tab.Screen
+        name="PeopleMatches"
+        component={PeopleMatches}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="people" size={24} color="black" />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="VoucherMatches"
+        component={VoucherMatches}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <FontAwesome5 name="ticket-alt" size={20} color="black" />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 };
 
-const styles = StyleSheet.create({
-  root: {
-    width: "100%",
-    flex: 1,
-  },
-  container: {
-    padding: 5,
-  },
-  users: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-  },
-  user: {
-    width: 100,
-    height: 100,
-    margin: 10,
-    borderRadius: 50,
-
-    borderWidth: 2,
-    padding: 3,
-    borderColor: colors.primary,
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-    borderRadius: 50,
-  },
-});
-
-export default MatchesScreen;
+export default App;

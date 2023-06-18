@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Text,
   View,
-  Button,
   ScrollView,
   TextInput,
   Image,
@@ -13,7 +12,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import styles, { colors } from "../styles/index";
-import { validateEmail, validatePassword } from "../utils/validation";
+// import { validateEmail, validatePassword } from "../utils/validation";
 import { Auth } from "aws-amplify";
 import FontAwesome from "@expo/vector-icons/Ionicons";
 

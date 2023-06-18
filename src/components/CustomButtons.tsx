@@ -2,8 +2,6 @@ import React from "react";
 import { Dimensions, Text, TouchableOpacity } from "react-native";
 import { colors } from "../styles/index";
 
-const windowWidth = Dimensions.get("window").width;
-
 export const BackButton = ({ onPress }) => {
   return (
     <TouchableOpacity
