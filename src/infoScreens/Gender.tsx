@@ -76,7 +76,7 @@ export default function Gender({ navigation }) {
       </View>
 
       <View style={nStyles.optionsContainer}>
-        {["Woman", "Man", "LGBTQ+", "I don’t want to identify"].map(
+        {["Man", "Woman", "LGBTQ+", "Prefer not to identify"].map(
           (option, index) => (
             <TouchableOpacity
               key={index}
