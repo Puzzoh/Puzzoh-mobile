@@ -7,12 +7,11 @@ import {
   Dimensions,
   SafeAreaView,
 } from "react-native";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import styles, { colors } from "../styles/index";
 import { BackButton } from "../components/CustomButtons";
 
-const Interest = () => {
+const Interest = ({ navigation }) => {
   const [selected, setSelected] = useState(Array(12).fill(false)); // An array of 12 booleans for the 12 options
   const interests = [
     { name: "Traveling", icon: "airplane-outline" },
@@ -29,11 +28,6 @@ const Interest = () => {
     { name: "Writing", icon: "create-outline" },
   ];
 
-  type RootStackParamList = {
-    FoodPref: undefined;
-    Purpose: undefined;
-  };
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [loading, setLoading] = useState(false);
 
   const handlePress = (index) => {
@@ -87,9 +81,7 @@ const Interest = () => {
                     <Ionicons
                       name={interest.icon}
                       size={24}
-                      color={
-                        selected[interestIndex] ? "white" : "black"
-                      }
+                      color={selected[interestIndex] ? "white" : "black"}
                       style={nStyles.icon}
                     />
                     <Text

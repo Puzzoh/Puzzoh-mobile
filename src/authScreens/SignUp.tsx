@@ -12,13 +12,12 @@ import {
   Alert,
 } from "react-native";
 import styles, { colors } from "../styles/index";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { Auth } from "aws-amplify";
 import FontAwesome from "@expo/vector-icons/Ionicons";
 
 const windowWidth = Dimensions.get("window").width;
 
-export default function SignUp() {
+export default function SignUp({ navigation }) {
   const [state, setState] = useState({
     username: "",
     email: "",
@@ -27,12 +26,6 @@ export default function SignUp() {
     firstName: "",
     lastName: "",
   });
-
-  type RootStackParamList = {
-    ConfirmSignUp: { username: string };
-    SignIn: undefined;
-  };
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const onSignUpPressed = async () => {
     try {

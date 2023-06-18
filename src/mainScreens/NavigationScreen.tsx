@@ -14,9 +14,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { colors } from "../styles/index";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { useRef } from "react";
-import SettingsScreen from "./Settings";
-import MatchesScreen from "./Matches";
-import VoucherScreen from "./Home";
+import Voucher from "./Home";
+import Matches from "./Matches";
+import Profile from "./Profile";
+import Settings from "./Settings";
+import EditInfo from "./EditInfo";
 
 const Tab = createBottomTabNavigator();
 
@@ -53,7 +55,7 @@ export default function MainScreen() {
         }
         <Tab.Screen
           name={"Discover"}
-          component={VoucherScreen}
+          component={Voucher}
           options={{
             tabBarIcon: ({ focused }) => (
               <View
@@ -84,7 +86,7 @@ export default function MainScreen() {
 
         <Tab.Screen
           name={"Matches"}
-          component={MatchesScreen}
+          component={Matches}
           options={{
             tabBarIcon: ({ focused }) => (
               <View
@@ -114,8 +116,8 @@ export default function MainScreen() {
         ></Tab.Screen>
 
         <Tab.Screen
-          name={"Settings"}
-          component={SettingsScreen}
+          name={"Profile"}
+          component={Profile}
           options={{
             tabBarIcon: ({ focused }) => (
               <View

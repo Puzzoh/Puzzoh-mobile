@@ -8,16 +8,12 @@ import {
   Dimensions,
   Modal,
 } from "react-native";
-import {
-  useNavigation,
-  NavigationProp,
-  useRoute,
-} from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 import styles, { colors } from "../styles/index";
 import PopupDialog from "../components/PopupDialog";
 import OtherGender from "../components/OtherGender";
 
-export default function Gender() {
+export default function Gender({ navigation }) {
   const route = useRoute();
 
   const [showPopup, setShowPopup] = useState(false);
@@ -46,12 +42,6 @@ export default function Gender() {
   const [option4Value, setOption4Value] = useState("");
   const [loading, setLoading] = useState(false);
 
-  type RootStackParamList = {
-    Pronounce: undefined;
-    SignIn: undefined;
-  };
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-
   const handlePress = (index) => {
     const newSelected = [false, false, false]; // Reset all selections
     newSelected[index] = true; // Set selected state on pressed button
@@ -62,7 +52,10 @@ export default function Gender() {
   };
 
   const onNext = async () => {
-    if (selected.includes(true) || (showOption4 && option4Value.trim() !== "")) {
+    if (
+      selected.includes(true) ||
+      (showOption4 && option4Value.trim() !== "")
+    ) {
       navigation.navigate("Pronounce");
     } else {
       alert("Please select an option before proceeding");
@@ -83,16 +76,25 @@ export default function Gender() {
       </View>
 
       <View style={nStyles.optionsContainer}>
-        {["Woman", "Man", "LGBTQ+", "I don’t want to identify"].map((option, index) => (
-          <TouchableOpacity
-            key={index}
-            style={[nStyles.button, selected[index] ? styles.selected : null]}
-            onPress={() => handlePress(index)}
-          >
-            <Text style={[styles.optionText, selected[index] ? styles.whitetext : null]}>{option}</Text>
-            {index === 2 && <Text style={nStyles.arrow}>{" >"}</Text>}
-          </TouchableOpacity>
-        ))}
+        {["Woman", "Man", "LGBTQ+", "I don’t want to identify"].map(
+          (option, index) => (
+            <TouchableOpacity
+              key={index}
+              style={[nStyles.button, selected[index] ? styles.selected : null]}
+              onPress={() => handlePress(index)}
+            >
+              <Text
+                style={[
+                  styles.optionText,
+                  selected[index] ? styles.whitetext : null,
+                ]}
+              >
+                {option}
+              </Text>
+              {index === 2 && <Text style={nStyles.arrow}>{" >"}</Text>}
+            </TouchableOpacity>
+          )
+        )}
         {showOption4 && (
           <TextInput
             style={[nStyles.option4, styles.input]}
@@ -127,10 +129,10 @@ const nStyles = StyleSheet.create({
   },
   optionsContainer: {
     justifyContent: "space-between",
-    marginTop: 40,  // Decrease the margin to move options up
+    marginTop: 40, // Decrease the margin to move options up
     // Remove the fixed height to let it adjust based on the content
     width: "100%",
-    paddingHorizontal: 20,  // Add some padding for better spacing
+    paddingHorizontal: 20, // Add some padding for better spacing
   },
   option4: {
     width: (Dimensions.get("window").width * 5) / 6, // Increased the width

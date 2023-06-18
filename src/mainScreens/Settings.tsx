@@ -7,17 +7,20 @@ import {
   Switch,
   TouchableOpacity,
 } from "react-native";
-import { Auth } from "aws-amplify";
 import { colors } from "../styles/index";
+import { Ionicons } from "@expo/vector-icons";
 
-export default function SettingsScreen() {
-  const signOut = () => {
-    Auth.signOut();
-  };
-
+export default function SettingsScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <View style={styles.sectionContainer}>
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={() => navigation.goBack()}
+      >
+        <Ionicons name="arrow-back-outline" size={24} color="#333" />
+      </TouchableOpacity>
+
+      <View style={[styles.sectionContainer, { marginTop: 50 }]}>
         <Text style={styles.sectionTitle}>Notifications</Text>
         <View style={styles.row}>
           <Text style={styles.optionText}>Push Notifications</Text>
@@ -39,10 +42,7 @@ export default function SettingsScreen() {
 
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionTitle}>Account</Text>
-        <TouchableOpacity style={styles.row}>
-          <Text style={styles.optionText}>Edit Profile</Text>
-          {/* <Image source={require("edit_icon.png")} style={styles.icon} /> */}
-        </TouchableOpacity>
+
         <TouchableOpacity style={styles.row}>
           <Text style={styles.optionText}>Change Password</Text>
           {/* <Image source={require("password_icon.png")} style={styles.icon} /> */}
@@ -64,10 +64,6 @@ export default function SettingsScreen() {
           {/* <Image source={require("arrow_icon.png")} style={styles.icon} /> */}
         </TouchableOpacity>
       </View>
-
-      <TouchableOpacity style={styles.logoutButton} onPress={signOut}>
-        <Text style={styles.logoutButtonText}>Log Out</Text>
-      </TouchableOpacity>
     </View>
   );
 }
@@ -77,7 +73,12 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     paddingVertical: 24,
-    backgroundColor: "#ffffff",
+  },
+  backButton: {
+    position: "absolute",
+    top: 16,
+    left: 16,
+    padding: 8,
   },
   pageTitle: {
     fontSize: 24,
@@ -107,16 +108,5 @@ const styles = StyleSheet.create({
   icon: {
     width: 24,
     height: 24,
-  },
-  logoutButton: {
-    backgroundColor: colors.primary,
-    borderRadius: 10,
-    paddingVertical: 12,
-    alignItems: "center",
-  },
-  logoutButtonText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#ffffff",
   },
 });

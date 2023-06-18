@@ -13,7 +13,7 @@ import Amplify, { Auth, Hub } from "aws-amplify";
 import awsconfig from "./src/aws-exports";
 import * as Font from "expo-font";
 import { Keyboard } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SignIn from "./src/authScreens/SignIn";
 import SignUp from "./src/authScreens/SignUp";
@@ -27,6 +27,8 @@ import Interest from "./src/infoScreens/Interest";
 import FoodPref from "./src/infoScreens/FoodPref";
 import MainScreen from "./src/mainScreens/NavigationScreen";
 import OnboardingSlider from "./src/components/OnboardingSlider";
+import Settings from "./src/mainScreens/Settings";
+import EditInfo from "./src/mainScreens/EditInfo";
 
 Amplify.configure(awsconfig);
 
@@ -101,12 +103,28 @@ const App = () => {
     );
   }
 
+  const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: "white",
+    },
+  };
+
   return (
     <SafeAreaView style={appStyles.root}>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <NavigationContainer theme={MyTheme}>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
           {user ? (
-            <Stack.Screen name="Main" component={MainScreen} />
+            <>
+              <Stack.Screen name="Main" component={MainScreen} />
+              <Stack.Screen name={"Settings"} component={Settings} />
+              <Stack.Screen name={"EditInfo"} component={EditInfo} />
+            </>
           ) : (
             <>
               <Stack.Screen name="SignIn" component={SignIn} />
@@ -130,6 +148,7 @@ const App = () => {
 const appStyles = StyleSheet.create({
   root: {
     flex: 1,
+    backgroundColor: "#FFF",
     justifyContent: "center",
   },
   loading: {

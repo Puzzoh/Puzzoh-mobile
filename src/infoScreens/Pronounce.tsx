@@ -7,21 +7,14 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons"; // Import Ionicons from @expo/vector-icons
 import styles, { colors } from "../styles/index";
 import { BackButton } from "../components/CustomButtons";
 
-const Pronounce = () => {
+const Pronounce = ({ navigation }) => {
   const [selected, setSelected] = useState([false, false, false]);
   const [loading, setLoading] = useState(false);
 
-  type RootStackParamList = {
-    Purpose: undefined;
-    Gender: undefined;
-  };
-
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const handlePress = (index) => {
     const newSelected = [false, false, false]; // Reset all selections
     newSelected[index] = true; // Set selected state on pressed button
@@ -52,7 +45,14 @@ const Pronounce = () => {
             style={[nStyles.button, selected[index] ? styles.selected : null]}
             onPress={() => handlePress(index)}
           >
-            <Text style={[styles.optionText, selected[index] ? styles.whitetext : null]}>{option.label}</Text>
+            <Text
+              style={[
+                styles.optionText,
+                selected[index] ? styles.whitetext : null,
+              ]}
+            >
+              {option.label}
+            </Text>
             <Ionicons
               name={option.icon}
               size={20}

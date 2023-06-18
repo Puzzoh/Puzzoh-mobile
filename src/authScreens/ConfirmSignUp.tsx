@@ -1,8 +1,4 @@
-import {
-  useNavigation,
-  useRoute,
-  NavigationProp,
-} from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -16,16 +12,11 @@ import {
 import styles from "../styles/index";
 import { Auth } from "aws-amplify";
 
-export default function ConfirmSignUp() {
+export default function ConfirmSignUp({ navigation }) {
   const [code, setCode] = useState("");
 
   const route = useRoute();
 
-  type RootStackParamList = {
-    SignIn: undefined;
-  };
-
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const registeredName = route?.params?.username;
 
   const onConfirmPressed = async () => {

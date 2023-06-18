@@ -15,14 +15,13 @@ import {
 import styles, { colors } from "../styles/index";
 import { validateEmail, validatePassword } from "../utils/validation";
 import { Auth } from "aws-amplify";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
 import FontAwesome from "@expo/vector-icons/Ionicons";
 
 const Logo = require("../../assets/imgs/logo1.png").default;
 
 const windowWidth = Dimensions.get("window").width;
 
-export default function SignIn() {
+export default function SignIn({ navigation }) {
   const [state, setState] = useState({
     username: "",
     password: "",
@@ -31,17 +30,7 @@ export default function SignIn() {
   const [loading, setLoading] = useState(false);
   const { height } = useWindowDimensions();
 
-  type RootStackParamList = {
-    ForgotPassword: undefined;
-    SignUp: undefined;
-    Gender: undefined;
-    Pronounce: undefined;
-    Purpose: undefined;
-  };
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-
   const onSignInPressed = async () => {
-    navigation.navigate("Gender");
     if (loading) return;
     setLoading(true);
     try {

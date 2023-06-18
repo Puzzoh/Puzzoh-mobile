@@ -7,18 +7,12 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
 import styles, { colors } from "../styles/index";
 import { BackButton } from "../components/CustomButtons";
 
-const Purpose = () => {
+const Purpose = ({ navigation }) => {
   const [selected, setSelected] = useState([false, false, false]);
   const [loading, setLoading] = useState(false);
-  type RootStackParamList = {
-    Interest: undefined;
-    Pronounce: undefined;
-  };
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const handlePress = (index) => {
     const newSelected = [false, false, false]; // Reset all selections
@@ -50,7 +44,14 @@ const Purpose = () => {
           style={[nStyles.button, selected[index] ? styles.selected : null]}
           onPress={() => handlePress(index)}
         >
-          <Text style={[styles.optionText, selected[index] ? styles.whitetext : null]}>{option}</Text>
+          <Text
+            style={[
+              styles.optionText,
+              selected[index] ? styles.whitetext : null,
+            ]}
+          >
+            {option}
+          </Text>
         </TouchableOpacity>
       ))}
       <View style={nStyles.space} />

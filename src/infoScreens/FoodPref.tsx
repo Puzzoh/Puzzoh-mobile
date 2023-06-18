@@ -6,11 +6,10 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
 import styles, { colors } from "../styles/index";
 import { BackButton } from "../components/CustomButtons";
 
-const Interest = () => {
+const Interest = ({ navigation }) => {
   const [selected, setSelected] = useState(Array(12).fill(false)); // An array of 12 booleans for the 12 options
   const foodPref = [
     "Vegan",
@@ -26,11 +25,6 @@ const Interest = () => {
     "Vietnamese",
     "Dessert",
   ];
-  type RootStackParamList = {
-    SignIn: undefined;
-    Interest: undefined;
-  };
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [loading, setLoading] = useState(false);
   const [pressed, setPressed] = useState(false);
 
@@ -81,7 +75,14 @@ const Interest = () => {
                       !selected[interestIndex]
                     }
                   >
-                    <Text style={[styles.optionText, selected[interestIndex] ? styles.whitetext : null]}>{interest}</Text>
+                    <Text
+                      style={[
+                        styles.optionText,
+                        selected[interestIndex] ? styles.whitetext : null,
+                      ]}
+                    >
+                      {interest}
+                    </Text>
                     {/* replace this text with your icon */}
                   </TouchableOpacity>
                 );

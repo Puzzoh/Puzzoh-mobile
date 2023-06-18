@@ -8,21 +8,13 @@ import {
   TextInput,
   Alert,
 } from "react-native";
-import { useNavigation, NavigationProp } from "@react-navigation/core";
 import styles from "../styles/index";
 import { Auth } from "aws-amplify";
 
-const ForgotPasswordScreen = () => {
+const ForgotPasswordScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
-
-  type RootStackParamList = {
-    ConfirmSignUp: { username: string };
-    SignIn: undefined;
-  };
-
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const onSubmit = async () => {
     try {

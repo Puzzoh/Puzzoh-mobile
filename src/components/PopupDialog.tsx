@@ -50,8 +50,8 @@ const nStyles = StyleSheet.create({
     backgroundColor: "white",
     padding: 20,
     borderRadius: 10,
-    height: Dimensions.get("window").height / 2,
-    justifyContent: 'space-between', // New line
+    height: Dimensions.get("window").height * 0.67,
+    justifyContent: "space-between", // New line
   },
   buttonContainer: {
     flexDirection: "row",
