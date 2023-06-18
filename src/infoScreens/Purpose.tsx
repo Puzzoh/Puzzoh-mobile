@@ -50,7 +50,7 @@ const Purpose = () => {
           style={[nStyles.button, selected[index] ? styles.selected : null]}
           onPress={() => handlePress(index)}
         >
-          <Text style={styles.optionText}>{option}</Text>
+          <Text style={[styles.optionText, selected[index] ? styles.whitetext : null]}>{option}</Text>
         </TouchableOpacity>
       ))}
       <View style={nStyles.space} />
@@ -70,12 +70,6 @@ const nStyles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  heading: {
-    fontSize: 30, // Increased the font size
-    marginBottom: 20,
-    left: 10,
-    right: 10,
   },
   option4: {
     width: (Dimensions.get("window").width * 5) / 6, // Increased the width
@@ -100,25 +94,11 @@ const nStyles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: 0.25,
   },
-  selected: {
-    backgroundColor: "orange",
-  },
-  nextButton: {
-    backgroundColor: "orange",
-  },
-  text: {
-    fontSize: 20,
-    color: "black",
-  },
   arrow: {
     fontSize: 20,
     color: "black",
     position: "absolute",
     right: 10,
-  },
-  input: {
-    fontSize: 20,
-    color: "black",
   },
   space: {
     height: 120, // This creates space for 2 option buttons

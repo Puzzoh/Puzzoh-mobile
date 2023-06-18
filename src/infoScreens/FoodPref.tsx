@@ -19,12 +19,12 @@ const Interest = () => {
     "Chinese",
     "Japanese",
     "Mexican",
-    "Pizza/Burgers",
+    "American",
     "Greek",
     "Spanish",
     "Korean",
     "Vietnamese",
-    "Dessert/cafe",
+    "Dessert",
   ];
   type RootStackParamList = {
     SignIn: undefined;
@@ -81,7 +81,7 @@ const Interest = () => {
                       !selected[interestIndex]
                     }
                   >
-                    <Text style={styles.optionText}>{interest}</Text>
+                    <Text style={[styles.optionText, selected[interestIndex] ? styles.whitetext : null]}>{interest}</Text>
                     {/* replace this text with your icon */}
                   </TouchableOpacity>
                 );
@@ -125,23 +125,6 @@ const nStyles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
   },
-  skipWrapper: {
-    alignSelf: "flex-end",
-    marginRight: 10,
-    marginBottom: 10,
-  },
-  skipButton: {
-    position: "absolute",
-    top: 30, // increase this value to move the button further down
-    right: 10,
-    fontSize: 15,
-    color: "gray",
-  },
-  skipText: {
-    color: "gray",
-    fontSize: 15,
-    fontFamily: "Lexend",
-  },
   row: {
     top: 30,
     flexDirection: "row",
@@ -160,16 +143,6 @@ const nStyles = StyleSheet.create({
   },
   selected: {
     backgroundColor: colors.primary,
-  },
-  nextButton: {
-    backgroundColor: "orange",
-  },
-  largeButton: {
-    width: (Dimensions.get("window").width * 5) / 6,
-    height: 60,
-  },
-  text: {
-    fontSize: 12,
   },
   interest: {
     flex: 1,

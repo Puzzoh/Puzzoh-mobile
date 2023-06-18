@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   optionText: {
     color: "black",
     fontFamily: "Poppins_semibold",
-    fontSize: 13,
+    fontSize: 12,
     textAlign: "center",
     paddingLeft: 10,
     paddingRight: 10,
@@ -157,6 +157,10 @@ const styles = StyleSheet.create({
 
   selected: {
     backgroundColor: colors.primary,
+  },
+
+  whitetext: {
+    color: 'white',
   },
 
   img: {

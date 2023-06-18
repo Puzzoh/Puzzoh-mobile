@@ -8,25 +8,27 @@ import {
   SafeAreaView,
 } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 import styles, { colors } from "../styles/index";
 import { BackButton } from "../components/CustomButtons";
 
 const Interest = () => {
   const [selected, setSelected] = useState(Array(12).fill(false)); // An array of 12 booleans for the 12 options
   const interests = [
-    "Traveling",
-    "Photo",
-    "Reading",
-    "Cooking",
-    "Sports",
-    "Gaming",
-    "Music",
-    "Movies",
-    "Gardening",
-    "Yoga",
-    "Painting",
-    "Writing",
+    { name: "Traveling", icon: "airplane-outline" },
+    { name: "Photo", icon: "camera-outline" },
+    { name: "Reading", icon: "book-outline" },
+    { name: "Cooking", icon: "restaurant-outline" },
+    { name: "Sports", icon: "basketball-outline" },
+    { name: "Gaming", icon: "game-controller-outline" },
+    { name: "Music", icon: "musical-notes-outline" },
+    { name: "Movies", icon: "film-outline" },
+    { name: "Gardening", icon: "leaf-outline" },
+    { name: "Yoga", icon: "fitness-outline" },
+    { name: "Painting", icon: "brush-outline" },
+    { name: "Writing", icon: "create-outline" },
   ];
+
   type RootStackParamList = {
     FoodPref: undefined;
     Purpose: undefined;
@@ -82,8 +84,22 @@ const Interest = () => {
                       !selected[interestIndex]
                     }
                   >
-                    <Text style={styles.optionText}>{interest}</Text>
-                    {/* replace this text with your icon */}
+                    <Ionicons
+                      name={interest.icon}
+                      size={24}
+                      color={
+                        selected[interestIndex] ? "white" : "black"
+                      }
+                      style={nStyles.icon}
+                    />
+                    <Text
+                      style={[
+                        styles.optionText,
+                        selected[interestIndex] ? styles.whitetext : null,
+                      ]}
+                    >
+                      {interest.name}
+                    </Text>
                   </TouchableOpacity>
                 );
               })}
@@ -110,17 +126,6 @@ const nStyles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  subHeading: {
-    top: 35,
-    fontSize: 13,
-    flexWrap: "wrap",
-    marginLeft: 15,
-    marginRight: 15,
-  },
-  backText: {
-    fontSize: 15,
-    color: "black",
-  },
   row: {
     top: 40,
     flexDirection: "row",
@@ -137,16 +142,6 @@ const nStyles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 5,
   },
-  selected: {
-    backgroundColor: colors.primary,
-  },
-  largeButton: {
-    width: (Dimensions.get("window").width * 5) / 6,
-    height: 60,
-  },
-  text: {
-    fontSize: 15,
-  },
   interest: {
     flex: 1,
     margin: 5,
@@ -155,6 +150,9 @@ const nStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
+  },
+  icon: {
+    marginRight: 5,
   },
   space: {
     height: 60,
