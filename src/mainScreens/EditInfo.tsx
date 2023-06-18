@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-// import DatePicker from 'react-native-datepicker';
+import DatePicker from "react-native-datepicker";
 
 const EditProfileInfoScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -20,7 +20,6 @@ const EditProfileInfoScreen = ({ navigation }) => {
 
   const handleSave = ({ navigation }) => {
     // Save profile info logic
-    navigation.goBack();
   };
 
   return (
@@ -52,6 +51,32 @@ const EditProfileInfoScreen = ({ navigation }) => {
       </View>
       <View style={nStyles.inputContainer}>
         <Text style={nStyles.inputLabel}>Birthday</Text>
+        <DatePicker
+          style={nStyles.datePickerStyle}
+          date={birthday} //initial date from state
+          mode="date" //The enum of date, datetime and time
+          placeholder="select date"
+          format="DD-MM-YYYY"
+          minDate="01-01-1900"
+          maxDate="01-01-2019"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          customStyles={{
+            dateIcon: {
+              //display: 'none',
+              position: "absolute",
+              left: 0,
+              top: 4,
+              marginLeft: 0,
+            },
+            dateInput: {
+              marginLeft: 36,
+            },
+          }}
+          onDateChange={(date) => {
+            setBirthday(date);
+          }}
+        />
       </View>
       <View style={nStyles.inputContainer}>
         <Text style={nStyles.inputLabel}>Purpose</Text>
@@ -101,7 +126,6 @@ const nStyles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     paddingVertical: 24,
-    backgroundColor: "#fff",
   },
   backButton: {
     position: "absolute",
@@ -134,6 +158,9 @@ const nStyles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  datePickerStyle: {
+    width: 200,
   },
 });
 
