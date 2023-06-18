@@ -28,7 +28,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={screenStyles.container}>
+    <View style={nStyles.container}>
       <Text style={styles.heading1}>Forgot Password</Text>
       <View style={{ flex: 1, width: "100%", marginTop: 20 }}>
         <TextInput
@@ -51,7 +51,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
   );
 };
 
-const screenStyles = StyleSheet.create({
+const nStyles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",

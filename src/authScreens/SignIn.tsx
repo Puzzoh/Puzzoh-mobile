@@ -54,7 +54,7 @@ export default function SignIn({ navigation }) {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={screenStyles.container}>
+      <View style={nStyles.container}>
         <Text style={styles.heading1}>Stop Swiping</Text>
         <Text style={styles.heading1}>Start Meeting</Text>
         <View style={{ marginVertical: 30 }}>
@@ -99,7 +99,7 @@ export default function SignIn({ navigation }) {
         </View>
 
         <Text style={styles.bgText}>or continue with</Text>
-        <View style={screenStyles.socialLogin}>
+        <View style={nStyles.socialLogin}>
           <FontAwesome
             name="ios-logo-facebook"
             size={48}
@@ -122,7 +122,7 @@ export default function SignIn({ navigation }) {
   );
 }
 
-const screenStyles = StyleSheet.create({
+const nStyles = StyleSheet.create({
   container: {
     alignItems: "center",
     padding: 20,

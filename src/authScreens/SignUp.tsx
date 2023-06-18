@@ -50,7 +50,7 @@ export default function SignUp({ navigation }) {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={screenStyles.container1}>
+      <View style={nStyles.container1}>
         <Text style={styles.heading1}>Sign Up</Text>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ flex: 1, marginRight: 5 }}>
@@ -130,7 +130,7 @@ export default function SignUp({ navigation }) {
         </View>
 
         <Text style={styles.bgText}>or continue with</Text>
-        <View style={screenStyles.socialLogin}>
+        <View style={nStyles.socialLogin}>
           <FontAwesome
             name="ios-logo-facebook"
             size={48}
@@ -153,7 +153,7 @@ export default function SignUp({ navigation }) {
   );
 }
 
-const screenStyles = StyleSheet.create({
+const nStyles = StyleSheet.create({
   container1: {
     flex: 1,
     justifyContent: "center",

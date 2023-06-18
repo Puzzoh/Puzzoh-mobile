@@ -5,10 +5,10 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Slider,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import DatePicker from "react-native-datepicker";
+import Slider from "@react-native-community/slider";
 
 const EditProfileInfoScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -20,13 +20,26 @@ const EditProfileInfoScreen = ({ navigation }) => {
   const [location, setLocation] = useState("");
 
   const formatAgeRangeText = () => {
-    const [minAge, maxAge] = ageRange;
-    return `${minAge} - ${maxAge} years`;
-  };
+  //   const [minAge, maxAge] = ageRange;
+  //   return `${minAge} - ${maxAge} years`;
+  // };
 
   const handleSave = ({ navigation }) => {
     // Save profile info logic
   };
+
+  const RenderSlider = (optionsArray, onSlidingComplete) => (
+    <Slider
+      style={nStyles.slider}
+      minimumValue={18}
+      maximumValue={60}
+      step={1}
+      value={optionsArray.indexOf(20)}
+      onSlidingComplete={(value) => onSlidingComplete(optionsArray[value])}
+    />
+  );
+
+  const ageRangeArray = [18, 20, 25, 30, 35, 40, 45, 50, 60];
 
   return (
     <View style={nStyles.container}>
@@ -136,15 +149,16 @@ const EditProfileInfoScreen = ({ navigation }) => {
       </View>
       <View style={nStyles.inputContainer}>
         <Text style={nStyles.inputLabel}>Age Range</Text>
-        <Slider
+        {/* <Slider
           style={nStyles.slider}
           minimumValue={18}
           maximumValue={60}
           step={1}
-          value={ageRange}
+          value={[18, 20]}
           onValueChange={(value) => setAgeRange(value)}
-        />
-        <Text style={nStyles.sliderValue}>{formatAgeRangeText()}</Text>
+        /> */}
+        <RenderSlider optionsArray={ageRangeArray} />
+        {/* <Text style={nStyles.sliderValue}>{formatAgeRangeText()}</Text> */}
       </View>
       <View style={nStyles.inputContainer}>
         <Text style={nStyles.inputLabel}>Location</Text>

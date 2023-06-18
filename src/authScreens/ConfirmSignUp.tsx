@@ -43,7 +43,7 @@ export default function ConfirmSignUp({ navigation }) {
   };
 
   return (
-    <View style={screenStyles.container}>
+    <View style={nStyles.container}>
       <Text style={styles.heading3}> Hi {registeredName},</Text>
       <Text style={styles.heading3}>please confirm the code</Text>
       <Text style={styles.heading3}>sent to your email. </Text>
@@ -78,7 +78,7 @@ export default function ConfirmSignUp({ navigation }) {
   );
 }
 
-const screenStyles = StyleSheet.create({
+const nStyles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
