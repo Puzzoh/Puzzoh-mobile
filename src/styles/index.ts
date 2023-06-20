@@ -94,6 +94,15 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
   },
+  users: {
+    width: 100,
+    height: 100,
+    margin: 10,
+    borderRadius: 50,
+    borderWidth: 2,
+    padding: 3,
+    borderColor: colors.primary,
+  },
 
   optionText: {
     color: "black",
