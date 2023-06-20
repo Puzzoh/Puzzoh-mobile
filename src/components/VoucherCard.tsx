@@ -1,4 +1,5 @@
 import { View, Text, Image, StyleSheet } from "react-native";
+import React from 'react'
 
 const VoucherCard = (props) => {
   const { name, image, rating, redeemed, people, location, priceB, priceA } =
