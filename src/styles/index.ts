@@ -45,10 +45,17 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: "Lexend",
   },
-
+  heading4: {
+    fontSize: 16,
+    fontFamily: "Lexend",
+  },
   bodyText: {
     fontSize: 16,
     fontFamily: "Poppins",
+  },
+  italicText: {
+    fontSize: 16,
+    fontFamily: "Poppins_Italic",
   },
 
   bgText: {
@@ -124,6 +131,16 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
   },
 
+  blankButton: {
+    width: 50,
+    height: 50,
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    borderColor: "lightgray",
+    borderWidth: 0.2,
+    padding: 10,
+  },
+
   inner: {
     flex: 1,
   },
@@ -169,7 +186,7 @@ const styles = StyleSheet.create({
   },
 
   whitetext: {
-    color: 'white',
+    color: "white",
   },
 
   img: {

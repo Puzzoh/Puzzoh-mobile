@@ -55,6 +55,14 @@ const VoucherCard = (props) => {
             </TouchableOpacity>
           ))}
         </View>
+        <View style={{ marginTop: 10 }}>
+          <Text style={styles.heading4}>
+            Popular Review:{" "}
+            <Text style={[styles.italicText, { color: "gray" }]}>
+              &apos;Good food with nice service.&apos; - Abcxyz
+            </Text>
+          </Text>
+        </View>
       </View>
     </View>
   );

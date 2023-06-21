@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Image, TouchableOpacity, FlatList, Dimensions } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+  FlatList,
+  Dimensions,
+} from "react-native";
 import { colors } from "../styles/index";
 import vouchers from "../../assets/data/vouchers";
 import VoucherDetailPopup from "../components/VoucherDetailPopup";
 
-const { height } = Dimensions.get('window');
+const { height } = Dimensions.get("window");
 
 const VoucherMatches = () => {
   const [selectedVoucher, setSelectedVoucher] = useState(null);
@@ -24,7 +33,9 @@ const VoucherMatches = () => {
       <TouchableOpacity onPress={() => handleVoucherPress(item)}>
         <View style={styles.voucher}>
           <View style={styles.textContainer}>
-            {isRecommended && <Text style={styles.recommended}>Recommended</Text>}
+            {isRecommended && (
+              <Text style={styles.recommended}>Recommended</Text>
+            )}
             <Text style={styles.name}>{item.name}</Text>
             <Text style={styles.info}>Rating: {item.rating}</Text>
             <Text style={styles.info}>People: {item.people}</Text>
@@ -45,7 +56,12 @@ const VoucherMatches = () => {
           renderItem={renderItem}
         />
       </View>
-      {selectedVoucher && <VoucherDetailPopup voucher={selectedVoucher} onClose={handleClosePopup} />}
+      {selectedVoucher && (
+        <VoucherDetailPopup
+          voucher={selectedVoucher}
+          onClose={handleClosePopup}
+        />
+      )}
     </SafeAreaView>
   );
 };
@@ -54,10 +70,11 @@ const styles = StyleSheet.create({
   root: {
     width: "100%",
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: "#fff",
   },
   container: {
     padding: 5,
+    marginTop: 20, // Added margin at the top of the container
   },
   title: {
     fontWeight: "bold",
@@ -70,7 +87,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     height: height / 3,
-    borderBottomColor: '#E8E8E8',
+    borderBottomColor: "#E8E8E8",
     borderBottomWidth: 1,
   },
   image: {
@@ -89,18 +106,18 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
   },
   info: {
     fontSize: 16,
-    color: '#666',
+    color: "#666",
     marginBottom: 3,
   },
   price: {
     fontSize: 16,
     color: colors.primary,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 5,
   },
 });

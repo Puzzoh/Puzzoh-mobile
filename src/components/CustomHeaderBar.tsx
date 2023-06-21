@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import Constant from "expo-constants";
@@ -27,13 +27,15 @@ export default function Header() {
           margin: 5,
         }}
       >
-        <Ionicons name="notifications" size={32} color={colors.primary} />
+        <TouchableOpacity style={styles.blankButton}>
+          <Ionicons name="notifications" size={32} color={colors.primary} />
+        </TouchableOpacity>
       </View>
       <View
         style={{
           flexDirection: "column",
           margin: 5,
-          marginLeft: 80,
+          marginLeft: 60,
           marginRight: 10,
         }}
       >
@@ -48,7 +50,14 @@ export default function Header() {
           margin: 5,
         }}
       >
-        <Ionicons name="filter" size={32} color={colors.primary} />
+        <TouchableOpacity style={styles.blankButton}>
+          <Ionicons
+            name="filter"
+            size={32}
+            color={colors.primary}
+            style={{ textAlign: "center" }}
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );

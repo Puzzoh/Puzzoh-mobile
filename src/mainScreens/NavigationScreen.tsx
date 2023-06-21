@@ -29,7 +29,7 @@ export default function MainScreen() {
         tabBarOptions={{
           showLabel: false,
           style: {
-            backgroundColor: "lightgray",
+            backgroundColor: "white",
             position: "absolute",
             bottom: 40,
             marginHorizontal: 20,

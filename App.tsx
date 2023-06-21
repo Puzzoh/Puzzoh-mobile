@@ -43,8 +43,9 @@ const App = () => {
     return Font.loadAsync({
       Lexend: require("./assets/fonts/LexendDeca.ttf"),
       Poppins: require("./assets/fonts/Poppins-Regular.ttf"),
-      Poppins_semibold: require("./assets/fonts/Poppins-SemiBold.ttf"),
-      Poppins_bold: require("./assets/fonts/Poppins-Bold.ttf"),
+      Poppins_Semibold: require("./assets/fonts/Poppins-SemiBold.ttf"),
+      Poppins_Bold: require("./assets/fonts/Poppins-Bold.ttf"),
+      Poppins_Italic: require("./assets/fonts/Poppins-Italic.ttf"),
     });
   };
 

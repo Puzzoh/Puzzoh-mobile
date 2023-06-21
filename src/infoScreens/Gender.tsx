@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import styles, { colors } from "../styles/index";
-import PopupDialog from "../components/PopupDialog";
+import AskPopupDialog from "../components/AskPopupDialog";
 import OtherGender from "../components/OtherGender";
 
 export default function Gender({ navigation }) {
@@ -64,7 +64,7 @@ export default function Gender({ navigation }) {
 
   return (
     <View style={nStyles.container}>
-      <PopupDialog
+      <AskPopupDialog
         showPopup={showPopup}
         handleYes={handleContinue}
         handleNo={handleLater}
