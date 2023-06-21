@@ -3,9 +3,18 @@
 input AMPLIFY {
   globalAuthRule: AuthRule = { allow: public }
 } # FOR TESTING ONLY!
-enum VendorType {
-  Restaurant
-  NonRestaurant
+type User @model {
+  id: ID!
+  username: String!
+  email: String!
+  phoneNum: String!
+  gender: String
+  pronounce: String
+  location: String
+  bio: String
+  purpose: PurposeType
+  interest: InterestType
+  foodPref: FoodPrefType
 }
 
 type Vendor @model {
@@ -30,4 +39,44 @@ type Voucher @model {
   numRedeemed: Int
   forQuantity: Int
   vendor: Vendor @belongsTo
+}
+
+enum VendorType {
+  Restaurant
+  NonRestaurant
+}
+
+enum PurposeType {
+  Friend
+  Date
+  Explor
+}
+
+enum InterestType {
+  Traveling
+  Photo
+  Reading
+  Cooking
+  Sports
+  Gaming
+  Music
+  Gardening
+  Yoga
+  Painting
+  Writing
+}
+
+enum FoodPrefType {
+  Vegan
+  Mediterranean
+  Italian
+  Chinese
+  Japanese
+  Mexican
+  American
+  Greek
+  Spanish
+  Korean
+  Vietnamese
+  Dessert
 }

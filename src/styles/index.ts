@@ -89,13 +89,13 @@ const styles = StyleSheet.create({
 
   highlightText: {
     fontSize: 16,
-    fontFamily: "Poppins_semibold",
+    fontFamily: "Poppins_Semibold",
     color: colors.primary,
   },
 
   chosenText: {
     color: "#fff",
-    fontFamily: "Poppins_semibold",
+    fontFamily: "Poppins_Semibold",
     fontSize: 16,
     textAlign: "center",
     paddingLeft: 10,
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
 
   optionText: {
     color: "black",
-    fontFamily: "Poppins_semibold",
+    fontFamily: "Poppins_Semibold",
     fontSize: 12,
     textAlign: "center",
     paddingLeft: 10,

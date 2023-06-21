@@ -1,20 +1,80 @@
-import * as React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import VoucherStack from "../components/AnimatedStack";
 import VoucherCard from "../components/VoucherCard";
 import vouchers from "../../assets/data/vouchers";
 import Icon from "react-native-vector-icons/FontAwesome";
 import styles, { colors } from "../styles/index";
 import CustomHeaderBar from "../components/CustomHeaderBar";
+import { gql, useQuery } from "@apollo/client";
+
+const GET_VOUCHERS = gql`
+  query listVouchers {
+    listVouchers {
+      items {
+        createdAt
+        description
+        forQuantity
+        id
+        numRedeemed
+        priceAfter
+        priceBefore
+        rating
+        title
+      }
+    }
+  }
+`;
 
 export default function VoucherScreen() {
+  const { data, loading, error } = useQuery(GET_VOUCHERS);
+
+  console.log(data);
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={nStyles.container}>
+        <Text>{error.message}</Text>
+      </View>
+    );
+  }
+
   const onSwipeLeft = (user) => {
-    console.warn("swipe left");
+    console.log("swipe left");
   };
 
   const onSwipeRight = (user) => {
-    console.warn("swipe right");
+    console.log("swipe right");
   };
+
+  // useEffect(() => {
+  //   async function getVoucherData() {
+  //       await fetch(config.aws_appsync_graphqlEndpoint)
+  //       .then((response) => {
+  //         // Handle successful response
+  //         console.log(response.data);
+  //       })
+  //       .catch((error) => {
+  //         // Handle error
+  //         console.log(error);
+  //       });
+  //   }
+  //   getVoucherData();
+  // }, []);
 
   return (
     <View style={nStyles.container}>

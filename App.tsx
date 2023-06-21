@@ -2,17 +2,13 @@ import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
-  ActivityIndicatorComponent,
   SafeAreaView,
   StyleSheet,
-  Text,
-  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import Amplify, { Auth, Hub } from "aws-amplify";
 import awsconfig from "./src/aws-exports";
 import * as Font from "expo-font";
-import { Keyboard } from "react-native";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SignIn from "./src/authScreens/SignIn";
@@ -29,10 +25,17 @@ import MainScreen from "./src/mainScreens/NavigationScreen";
 import OnboardingSlider from "./src/components/OnboardingSlider";
 import Settings from "./src/mainScreens/Settings";
 import EditInfo from "./src/mainScreens/EditInfo";
+import { AppRegistry } from "react-native";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 Amplify.configure(awsconfig);
 
 const Stack = createNativeStackNavigator();
+
+const client = new ApolloClient({
+  uri: awsconfig.aws_appsync_graphqlEndpoint,
+  cache: new InMemoryCache(),
+});
 
 const App = () => {
   const [mainScreens, showMainScreens] = useState(false);
@@ -114,34 +117,42 @@ const App = () => {
 
   return (
     <SafeAreaView style={appStyles.root}>
-      <NavigationContainer theme={MyTheme}>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          {user ? (
-            <>
-              <Stack.Screen name="Main" component={MainScreen} />
-              <Stack.Screen name={"Settings"} component={Settings} />
-              <Stack.Screen name={"EditInfo"} component={EditInfo} />
-            </>
-          ) : (
-            <>
-              <Stack.Screen name="SignIn" component={SignIn} />
-              <Stack.Screen name="SignUp" component={SignUp} />
-              <Stack.Screen name="ConfirmSignUp" component={ConfirmSignUp} />
-              <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-              <Stack.Screen name="ChangePassword" component={ChangePassword} />
-              <Stack.Screen name="Gender" component={Gender} />
-              <Stack.Screen name="Pronounce" component={Pronounce} />
-              <Stack.Screen name="Purpose" component={Purpose} />
-              <Stack.Screen name="Interest" component={Interest} />
-              <Stack.Screen name="FoodPref" component={FoodPref} />
-            </>
-          )}
-        </Stack.Navigator>
-      </NavigationContainer>
+      <ApolloProvider client={client}>
+        <NavigationContainer theme={MyTheme}>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            {user ? (
+              <>
+                <Stack.Screen name="Main" component={MainScreen} />
+                <Stack.Screen name={"Settings"} component={Settings} />
+                <Stack.Screen name={"EditInfo"} component={EditInfo} />
+              </>
+            ) : (
+              <>
+                <Stack.Screen name="SignIn" component={SignIn} />
+                <Stack.Screen name="SignUp" component={SignUp} />
+                <Stack.Screen name="ConfirmSignUp" component={ConfirmSignUp} />
+                <Stack.Screen
+                  name="ForgotPassword"
+                  component={ForgotPassword}
+                />
+                <Stack.Screen
+                  name="ChangePassword"
+                  component={ChangePassword}
+                />
+                <Stack.Screen name="Gender" component={Gender} />
+                <Stack.Screen name="Pronounce" component={Pronounce} />
+                <Stack.Screen name="Purpose" component={Purpose} />
+                <Stack.Screen name="Interest" component={Interest} />
+                <Stack.Screen name="FoodPref" component={FoodPref} />
+              </>
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ApolloProvider>
     </SafeAreaView>
   );
 };
