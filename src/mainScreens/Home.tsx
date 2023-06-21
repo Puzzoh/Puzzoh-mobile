@@ -12,9 +12,9 @@ import vouchers from "../../assets/data/vouchers";
 import Icon from "react-native-vector-icons/FontAwesome";
 import styles, { colors } from "../styles/index";
 import CustomHeaderBar from "../components/CustomHeaderBar";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 
-const GET_VOUCHERS = gql`
+const GET_VOUCHERS_INFO = gql`
   query listVouchers {
     listVouchers {
       items {
@@ -33,7 +33,7 @@ const GET_VOUCHERS = gql`
 `;
 
 export default function VoucherScreen() {
-  const { data, loading, error } = useQuery(GET_VOUCHERS);
+  const { data, loading, error } = useQuery(GET_VOUCHERS_INFO);
 
   console.log(data);
 
@@ -75,6 +75,26 @@ export default function VoucherScreen() {
   //   }
   //   getVoucherData();
   // }, []);
+
+  // const ADD_VOUCHER = gql`
+  //   mutation MyMutation {
+  //     createVoucher(
+  //       input: {
+  //         numRedeemed: 10
+  //         priceBefore: 40
+  //         priceAfter: 35
+  //         forQuantity: 10
+  //         rating: 44
+  //         title: "Dining for 2"
+  //         description: "There's nothing better"
+  //       }
+  //     ) {
+  //       id
+  //     }
+  //   }
+  // `;
+
+  // const [addVoucher] = useMutation(ADD_VOUCHER);
 
   return (
     <View style={nStyles.container}>

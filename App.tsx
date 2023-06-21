@@ -25,21 +25,48 @@ import MainScreen from "./src/mainScreens/NavigationScreen";
 import OnboardingSlider from "./src/components/OnboardingSlider";
 import Settings from "./src/mainScreens/Settings";
 import EditInfo from "./src/mainScreens/EditInfo";
-import { AppRegistry } from "react-native";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { createHttpLink } from "apollo-link-http";
+import { ApolloLink } from "apollo-link";
+import { setContext } from "apollo-link-context";
 
 Amplify.configure(awsconfig);
 
-const Stack = createNativeStackNavigator();
+const httpLink = createHttpLink({
+  uri: awsconfig.aws_appsync_graphqlEndpoint,
+});
+
+const authLink = setContext(async (_, { headers }) => {
+  try {
+    const currUser = await Auth.currentAuthenticatedUser();
+    const accessToken = currUser.signInUserSession.accessToken.jwtToken;
+    // console.log(accessToken);
+    return {
+      headers: {
+        ...headers,
+        authorization: accessToken ? `Bearer ${accessToken}` : "",
+      },
+    };
+  } catch (error) {
+    console.log("Error fetching tokens:", error);
+    return {
+      headers: {
+        ...headers,
+      },
+    };
+  }
+});
 
 const client = new ApolloClient({
-  uri: awsconfig.aws_appsync_graphqlEndpoint,
+  link: ApolloLink.from([authLink, httpLink]), //authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
+const Stack = createNativeStackNavigator();
+
 const App = () => {
+  // const [fontLoaded, setFontLoaded] = useState(false);
   const [mainScreens, showMainScreens] = useState(false);
-  const [fontLoaded, setFontLoaded] = useState(false);
   const [user, setUser] = useState(undefined);
 
   const fetchFonts = () => {
@@ -55,7 +82,7 @@ const App = () => {
   useEffect(() => {
     async function getFonts() {
       await fetchFonts();
-      setFontLoaded(true);
+      // setFontLoaded(true);
     }
     getFonts();
   }, []);
@@ -70,12 +97,13 @@ const App = () => {
 
   const authenticateUser = async () => {
     try {
-      const authUser = await Auth.currentAuthenticatedUser({
+      const user = await Auth.currentAuthenticatedUser({
         bypassCache: true,
       });
-      setUser(authUser);
+      setUser(user);
     } catch (err) {
       setUser(null);
+      console.log("Error fetching tokens:", err);
     }
   };
 
@@ -102,7 +130,7 @@ const App = () => {
   if (user === undefined) {
     return (
       <View style={appStyles.loading}>
-        <ActivityIndicator />
+        <ActivityIndicator size="large" />
       </View>
     );
   }
