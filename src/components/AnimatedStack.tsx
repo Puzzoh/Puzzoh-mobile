@@ -12,7 +12,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import Like from "../../assets/imgs/thumbs-up.png";
-import Dislike from "../../assets/imgs/no.png";
+import Dislike from "../../assets/imgs/thumbs-down.png";
 
 const ROTATION = 60;
 const SWIPE_VELOCITY = 800;
@@ -139,12 +139,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     width: "100%",
+    marginTop: 40,
   },
   animatedCard: {
     width: "90%",
-    height: "70%",
-    justifyContent: "center",
-    alignItems: "center",
+    height: "90%",
   },
   nextCardContainer: {
     ...StyleSheet.absoluteFillObject,

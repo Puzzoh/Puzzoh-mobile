@@ -54,6 +54,7 @@ export default function MainScreen() {
           name={"Discover"}
           component={Voucher}
           options={{
+            headerShown: false,
             tabBarIcon: ({ focused }) => (
               <View
                 style={{

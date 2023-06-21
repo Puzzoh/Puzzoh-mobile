@@ -3,7 +3,7 @@ export default [
     id: 1,
     name: "Stephen's on State set for 3",
     image: "https://loremflickr.com/400/200/restaurant",
-    rating: 5,
+    rating: 4,
     redeemed: 100,
     people: 3,
     location: "800 Lancaster Ave, Villanova, PA 19085",

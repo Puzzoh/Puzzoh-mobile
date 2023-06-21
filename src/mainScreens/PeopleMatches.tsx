@@ -1,10 +1,19 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, SafeAreaView, Image, TouchableOpacity, FlatList, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+  FlatList,
+  Dimensions,
+} from "react-native";
 import { colors } from "../styles/index";
 import users from "../../assets/data/users";
 import ChatWindow from "../components/ChatWindow";
 
-const { height } = Dimensions.get('window');
+const { height } = Dimensions.get("window");
 
 const PeopleMatches = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -28,7 +37,9 @@ const PeopleMatches = () => {
             <TouchableOpacity onPress={() => handleUserPress(item)}>
               <View style={styles.user}>
                 <View style={styles.textContainer}>
-                  {index < 3 && <Text style={styles.recommended}>Recommended</Text>}
+                  {index < 3 && (
+                    <Text style={styles.recommended}>Recommended</Text>
+                  )}
                   <Text style={styles.name}>{item.name}</Text>
                   <Text style={styles.bio}>{item.bio}</Text>
                 </View>
@@ -38,7 +49,9 @@ const PeopleMatches = () => {
           )}
         />
       </View>
-      {selectedUser && <ChatWindow user={selectedUser} closeChat={handleClosePopup} />}
+      {selectedUser && (
+        <ChatWindow user={selectedUser} closeChat={handleClosePopup} />
+      )}
     </SafeAreaView>
   );
 };
@@ -47,7 +60,7 @@ const styles = StyleSheet.create({
   root: {
     width: "100%",
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: "#fff",
   },
   container: {
     padding: 5,
@@ -64,7 +77,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     height: height / 4,
-    borderBottomColor: '#E8E8E8',
+    borderBottomColor: "#E8E8E8",
     borderBottomWidth: 1,
   },
   image: {
@@ -83,12 +96,12 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
   },
   bio: {
     fontSize: 16,
-    color: '#666',
+    color: "#666",
     marginBottom: 3,
   },
 });
