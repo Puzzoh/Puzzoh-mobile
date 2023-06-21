@@ -29,7 +29,7 @@ export default function MainScreen() {
         tabBarOptions={{
           showLabel: false,
           style: {
-            backgroundColor: "white",
+            backgroundColor: "lightgray",
             position: "absolute",
             bottom: 40,
             marginHorizontal: 20,
@@ -54,6 +54,7 @@ export default function MainScreen() {
           name={"Discover"}
           component={Voucher}
           options={{
+            headerShown: false,
             tabBarIcon: ({ focused }) => (
               <View
                 style={{
