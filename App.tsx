@@ -45,6 +45,7 @@ const authLink = setContext(async (_, { headers }) => {
       headers: {
         ...headers,
         authorization: accessToken ? `Bearer ${accessToken}` : "",
+        "X-API-KEY": awsconfig.aws_appsync_apiKey,
       },
     };
   } catch (error) {
@@ -52,6 +53,7 @@ const authLink = setContext(async (_, { headers }) => {
     return {
       headers: {
         ...headers,
+        "X-API-KEY": awsconfig.aws_appsync_apiKey,
       },
     };
   }

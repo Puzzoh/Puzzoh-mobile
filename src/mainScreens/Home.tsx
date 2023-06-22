@@ -35,7 +35,8 @@ const GET_VOUCHERS_INFO = gql`
 export default function VoucherScreen() {
   const { data, loading, error } = useQuery(GET_VOUCHERS_INFO);
 
-  console.log(data);
+  const { items } = data.listVouchers;
+  console.log(items);
 
   if (loading) {
     return (
@@ -61,43 +62,20 @@ export default function VoucherScreen() {
     console.log("swipe right");
   };
 
-  // useEffect(() => {
-  //   async function getVoucherData() {
-  //       await fetch(config.aws_appsync_graphqlEndpoint)
-  //       .then((response) => {
-  //         // Handle successful response
-  //         console.log(response.data);
-  //       })
-  //       .catch((error) => {
-  //         // Handle error
-  //         console.log(error);
-  //       });
-  //   }
-  //   getVoucherData();
-  // }, []);
-
-  // const ADD_VOUCHER = gql`
-  //   mutation MyMutation {
-  //     createVoucher(
-  //       input: {
-  //         numRedeemed: 10
-  //         priceBefore: 40
-  //         priceAfter: 35
-  //         forQuantity: 10
-  //         rating: 44
-  //         title: "Dining for 2"
-  //         description: "There's nothing better"
-  //       }
-  //     ) {
-  //       id
-  //     }
-  //   }
-  // `;
-
-  // const [addVoucher] = useMutation(ADD_VOUCHER);
-
   return (
     <View style={nStyles.container}>
+      {/* {items.map((voucher) => (
+        <View key={voucher.id}>
+          <Text>{voucher.title}</Text>
+          <Text>{voucher.description}</Text>
+          <Text>Price Before: {voucher.priceBefore}</Text>
+          <Text>Price After: {voucher.priceAfter}</Text>
+          <Text>Created At: {voucher.createdAt}</Text>
+          <Text>Number Redeemed: {voucher.numRedeemed}</Text>
+          <Text>For Quantity: {voucher.forQuantity}</Text>
+          <Text>Rating: {voucher.rating}</Text>
+        </View>
+      ))} */}
       <CustomHeaderBar />
       <VoucherStack
         data={vouchers}
