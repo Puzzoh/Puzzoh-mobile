@@ -12,9 +12,10 @@ type User @model {
   pronounce: String
   location: String
   bio: String
-  purpose: PurposeType
-  interest: InterestType
-  foodPref: FoodPrefType
+  imageURL: String
+  purpose: [PurposeType]
+  interest: [InterestType]
+  foodPref: [FoodPrefType]
 }
 
 type Vendor @model {
@@ -26,6 +27,8 @@ type Vendor @model {
   link: String
   verified: Boolean
   type: VendorType
+  imageURL: String
+  location: String
   vouchers: [Voucher] @hasMany
 }
 
@@ -38,6 +41,8 @@ type Voucher @model {
   rating: Int
   numRedeemed: Int
   forQuantity: Int
+  imageURL: String
+  location: String
   vendor: Vendor @belongsTo
 }
 
@@ -49,7 +54,7 @@ enum VendorType {
 enum PurposeType {
   Friend
   Date
-  Explor
+  Explore
 }
 
 enum InterestType {

@@ -12,6 +12,7 @@ export const getUser = /* GraphQL */ `
       pronounce
       location
       bio
+      imageURL
       purpose
       interest
       foodPref
@@ -36,6 +37,7 @@ export const listUsers = /* GraphQL */ `
         pronounce
         location
         bio
+        imageURL
         purpose
         interest
         foodPref
@@ -57,6 +59,8 @@ export const getVendor = /* GraphQL */ `
       link
       verified
       type
+      imageURL
+      location
       vouchers {
         items {
           id
@@ -67,6 +71,8 @@ export const getVendor = /* GraphQL */ `
           rating
           numRedeemed
           forQuantity
+          imageURL
+          location
           createdAt
           updatedAt
           vendorVouchersId
@@ -94,6 +100,8 @@ export const listVendors = /* GraphQL */ `
         link
         verified
         type
+        imageURL
+        location
         vouchers {
           nextToken
         }
@@ -115,6 +123,8 @@ export const getVoucher = /* GraphQL */ `
       rating
       numRedeemed
       forQuantity
+      imageURL
+      location
       vendor {
         id
         name
@@ -124,6 +134,8 @@ export const getVoucher = /* GraphQL */ `
         link
         verified
         type
+        imageURL
+        location
         vouchers {
           nextToken
         }
@@ -152,6 +164,8 @@ export const listVouchers = /* GraphQL */ `
         rating
         numRedeemed
         forQuantity
+        imageURL
+        location
         vendor {
           id
           name
@@ -161,6 +175,8 @@ export const listVouchers = /* GraphQL */ `
           link
           verified
           type
+          imageURL
+          location
           createdAt
           updatedAt
         }

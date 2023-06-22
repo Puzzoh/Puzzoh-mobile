@@ -12,25 +12,12 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import styles, { colors } from "../styles/index";
 import CustomHeaderBar from "../components/CustomHeaderBar";
 import { gql, useQuery, useMutation } from "@apollo/client";
+import { listVouchers } from "../graphql/queries";
 
-const GET_VOUCHERS_INFO = gql`
-  query listVouchers {
-    listVouchers {
-      items {
-        id
-        title
-        rating
-        forQuantity
-        numRedeemed
-        priceBefore
-        priceAfter
-      }
-    }
-  }
-`;
+const GET_VOUCHERS = gql(listVouchers);
 
 export default function VoucherScreen() {
-  const { data, loading, error } = useQuery(GET_VOUCHERS_INFO);
+  const { loading, error, data } = useQuery(GET_VOUCHERS);
 
   const vouchers = data?.listVouchers.items;
 

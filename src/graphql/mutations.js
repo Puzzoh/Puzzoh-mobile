@@ -15,6 +15,7 @@ export const createUser = /* GraphQL */ `
       pronounce
       location
       bio
+      imageURL
       purpose
       interest
       foodPref
@@ -37,6 +38,7 @@ export const updateUser = /* GraphQL */ `
       pronounce
       location
       bio
+      imageURL
       purpose
       interest
       foodPref
@@ -59,6 +61,7 @@ export const deleteUser = /* GraphQL */ `
       pronounce
       location
       bio
+      imageURL
       purpose
       interest
       foodPref
@@ -81,6 +84,8 @@ export const createVendor = /* GraphQL */ `
       link
       verified
       type
+      imageURL
+      location
       vouchers {
         items {
           id
@@ -91,6 +96,8 @@ export const createVendor = /* GraphQL */ `
           rating
           numRedeemed
           forQuantity
+          imageURL
+          location
           createdAt
           updatedAt
           vendorVouchersId
@@ -116,6 +123,8 @@ export const updateVendor = /* GraphQL */ `
       link
       verified
       type
+      imageURL
+      location
       vouchers {
         items {
           id
@@ -126,6 +135,8 @@ export const updateVendor = /* GraphQL */ `
           rating
           numRedeemed
           forQuantity
+          imageURL
+          location
           createdAt
           updatedAt
           vendorVouchersId
@@ -151,6 +162,8 @@ export const deleteVendor = /* GraphQL */ `
       link
       verified
       type
+      imageURL
+      location
       vouchers {
         items {
           id
@@ -161,6 +174,8 @@ export const deleteVendor = /* GraphQL */ `
           rating
           numRedeemed
           forQuantity
+          imageURL
+          location
           createdAt
           updatedAt
           vendorVouchersId
@@ -186,6 +201,8 @@ export const createVoucher = /* GraphQL */ `
       rating
       numRedeemed
       forQuantity
+      imageURL
+      location
       vendor {
         id
         name
@@ -195,6 +212,8 @@ export const createVoucher = /* GraphQL */ `
         link
         verified
         type
+        imageURL
+        location
         vouchers {
           nextToken
         }
@@ -221,6 +240,8 @@ export const updateVoucher = /* GraphQL */ `
       rating
       numRedeemed
       forQuantity
+      imageURL
+      location
       vendor {
         id
         name
@@ -230,6 +251,8 @@ export const updateVoucher = /* GraphQL */ `
         link
         verified
         type
+        imageURL
+        location
         vouchers {
           nextToken
         }
@@ -256,6 +279,8 @@ export const deleteVoucher = /* GraphQL */ `
       rating
       numRedeemed
       forQuantity
+      imageURL
+      location
       vendor {
         id
         name
@@ -265,6 +290,8 @@ export const deleteVoucher = /* GraphQL */ `
         link
         verified
         type
+        imageURL
+        location
         vouchers {
           nextToken
         }

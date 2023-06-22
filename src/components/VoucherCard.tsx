@@ -5,13 +5,14 @@ import styles from "../styles/index";
 
 const VoucherCard = (props) => {
   const {
+    id,
     title,
     rating,
     numRedeemed,
     forQuantity,
     priceAfter,
     priceBefore,
-    id,
+    imageURL,
   } = props.voucher;
 
   const stars = [];
@@ -21,10 +22,7 @@ const VoucherCard = (props) => {
 
   return (
     <View style={nStyles.card} key={id}>
-      <Image
-        source={{ uri: "https://loremflickr.com/400/200/restaurant" }}
-        style={nStyles.image}
-      />
+      <Image source={{ uri: imageURL }} style={nStyles.image} />
 
       <View style={nStyles.cardInner}>
         <Text style={styles.heading3}>{title}</Text>
@@ -53,7 +51,10 @@ const VoucherCard = (props) => {
             ${priceBefore}
           </Text>
           <Text
-            style={[styles.heading3, { color: "#34A853", marginBottom: 12 }]}
+            style={[
+              styles.heading3,
+              { color: "#34A853", marginBottom: 12, marginLeft: 10 },
+            ]}
           >
             ${priceAfter}
           </Text>
