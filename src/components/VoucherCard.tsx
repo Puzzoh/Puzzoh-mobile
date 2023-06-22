@@ -4,8 +4,15 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import styles from "../styles/index";
 
 const VoucherCard = (props) => {
-  const { name, image, rating, redeemed, people, location, priceB, priceA } =
-    props.voucher;
+  const {
+    title,
+    rating,
+    numRedeemed,
+    forQuantity,
+    priceAfter,
+    priceBefore,
+    id,
+  } = props.voucher;
 
   const stars = [];
   for (let i = 0; i < rating; i++) {
@@ -13,21 +20,24 @@ const VoucherCard = (props) => {
   }
 
   return (
-    <View style={nStyles.card}>
-      <Image source={{ uri: image }} style={nStyles.image} />
+    <View style={nStyles.card} key={id}>
+      <Image
+        source={{ uri: "https://loremflickr.com/400/200/restaurant" }}
+        style={nStyles.image}
+      />
 
       <View style={nStyles.cardInner}>
-        <Text style={styles.heading3}>{name}</Text>
+        <Text style={styles.heading3}>{title}</Text>
         <View style={[nStyles.row, { gap: 50 }]}>
           <View style={{ flexDirection: "row" }}>{stars}</View>
-          <Text style={styles.bodyText}>{redeemed} Redeemed </Text>
+          <Text style={styles.bodyText}>{numRedeemed} Redeemed </Text>
         </View>
         <View style={[nStyles.row, { gap: 50 }]}>
           <Text style={styles.bodyText}> 0.5 miles </Text>
-          <Text style={styles.bodyText}>For {people} people</Text>
+          <Text style={styles.bodyText}>For {forQuantity} people</Text>
         </View>
         <Text style={[styles.bodyText, { color: "#888888", marginBottom: 16 }]}>
-          {location}
+          800 Lancaster Ave, Villanova, PA 19085
         </Text>
         <View style={nStyles.row}>
           <Text
@@ -40,12 +50,12 @@ const VoucherCard = (props) => {
               },
             ]}
           >
-            ${priceB}{" "}
+            ${priceBefore}
           </Text>
           <Text
             style={[styles.heading3, { color: "#34A853", marginBottom: 12 }]}
           >
-            ${priceA}{" "}
+            ${priceAfter}
           </Text>
         </View>
         <View style={nStyles.featuredDishContainer}>

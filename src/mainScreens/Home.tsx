@@ -6,9 +6,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import VoucherStack from "../components/AnimatedStack";
+import VoucherStack from "../components/VoucherStack";
 import VoucherCard from "../components/VoucherCard";
-import vouchers from "../../assets/data/vouchers";
 import Icon from "react-native-vector-icons/FontAwesome";
 import styles, { colors } from "../styles/index";
 import CustomHeaderBar from "../components/CustomHeaderBar";
@@ -18,15 +17,13 @@ const GET_VOUCHERS_INFO = gql`
   query listVouchers {
     listVouchers {
       items {
-        createdAt
-        description
-        forQuantity
         id
-        numRedeemed
-        priceAfter
-        priceBefore
-        rating
         title
+        rating
+        forQuantity
+        numRedeemed
+        priceBefore
+        priceAfter
       }
     }
   }
@@ -35,8 +32,7 @@ const GET_VOUCHERS_INFO = gql`
 export default function VoucherScreen() {
   const { data, loading, error } = useQuery(GET_VOUCHERS_INFO);
 
-  const { items } = data.listVouchers;
-  console.log(items);
+  const vouchers = data?.listVouchers.items;
 
   if (loading) {
     return (
@@ -64,21 +60,9 @@ export default function VoucherScreen() {
 
   return (
     <View style={nStyles.container}>
-      {/* {items.map((voucher) => (
-        <View key={voucher.id}>
-          <Text>{voucher.title}</Text>
-          <Text>{voucher.description}</Text>
-          <Text>Price Before: {voucher.priceBefore}</Text>
-          <Text>Price After: {voucher.priceAfter}</Text>
-          <Text>Created At: {voucher.createdAt}</Text>
-          <Text>Number Redeemed: {voucher.numRedeemed}</Text>
-          <Text>For Quantity: {voucher.forQuantity}</Text>
-          <Text>Rating: {voucher.rating}</Text>
-        </View>
-      ))} */}
       <CustomHeaderBar />
       <VoucherStack
-        data={vouchers}
+        data={JSON.parse(JSON.stringify(vouchers))} // https://github.com/dohooo/react-native-reanimated-carousel/issues/66
         renderItem={({ item }) => <VoucherCard voucher={item} />}
         onSwipeLeft={onSwipeLeft}
         onSwipeRight={onSwipeRight}
