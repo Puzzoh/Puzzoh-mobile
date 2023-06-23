@@ -1,27 +1,71 @@
-import * as React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import VoucherStack from "../components/AnimatedStack";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
+import VoucherStack from "../components/VoucherStack";
 import VoucherCard from "../components/VoucherCard";
-import vouchers from "../../assets/data/vouchers";
 import Icon from "react-native-vector-icons/FontAwesome";
 import styles, { colors } from "../styles/index";
 import CustomHeaderBar from "../components/CustomHeaderBar";
+import { gql, useQuery, useMutation } from "@apollo/client";
+import { listVouchers } from "../graphql/queries";
+import VoucherDetailPopup from "../components/VoucherDetailPopup";
 
-export default function VoucherScreen() {
+const GET_VOUCHERS = gql(listVouchers);
+
+export default function HomeScreen() {
+  const { loading, error, data } = useQuery(GET_VOUCHERS);
+
+  const vouchers = data?.listVouchers.items;
+
+  const [selectedVoucher, setSelectedVoucher] = useState(null);
+
+  const handleVoucherPress = (voucher) => {
+    setSelectedVoucher(voucher);
+  };
+
+  const handleClosePopup = () => {
+    setSelectedVoucher(null);
+  };
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={nStyles.container}>
+        <Text>{error.message}</Text>
+      </View>
+    );
+  }
+
   const onSwipeLeft = (user) => {
-    console.warn("swipe left");
+    console.log("swipe left");
   };
 
   const onSwipeRight = (user) => {
-    console.warn("swipe right");
+    console.log("swipe right");
   };
 
   return (
     <View style={nStyles.container}>
       <CustomHeaderBar />
       <VoucherStack
-        data={vouchers}
-        renderItem={({ item }) => <VoucherCard voucher={item} />}
+        data={JSON.parse(JSON.stringify(vouchers))} // https://github.com/dohooo/react-native-reanimated-carousel/issues/66
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => handleVoucherPress(item)}>
+            <VoucherCard voucher={item} key={(item) => item.id} />
+          </TouchableOpacity>
+        )}
         onSwipeLeft={onSwipeLeft}
         onSwipeRight={onSwipeRight}
       />
@@ -61,6 +105,13 @@ export default function VoucherScreen() {
           <Icon name="arrow-right" size={20} color="white" />
         </TouchableOpacity>
       </View>
+
+      {selectedVoucher && (
+        <VoucherDetailPopup
+          voucher={selectedVoucher}
+          onClose={handleClosePopup}
+        />
+      )}
     </View>
   );
 }

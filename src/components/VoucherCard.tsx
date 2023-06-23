@@ -4,30 +4,38 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import styles from "../styles/index";
 
 const VoucherCard = (props) => {
-  const { name, image, rating, redeemed, people, location, priceB, priceA } =
-    props.voucher;
+  const {
+    id,
+    title,
+    avgRating,
+    numRedeemed,
+    forQuantity,
+    priceAfter,
+    priceBefore,
+    imageURL,
+  } = props.voucher;
 
   const stars = [];
-  for (let i = 0; i < rating; i++) {
+  for (let i = 0; i < avgRating; i++) {
     stars.push(<Icon key={i} name="star" size={20} color="gold" />);
   }
 
   return (
-    <View style={nStyles.card}>
-      <Image source={{ uri: image }} style={nStyles.image} />
+    <View style={nStyles.card} key={id}>
+      <Image source={{ uri: imageURL }} style={nStyles.image} />
 
       <View style={nStyles.cardInner}>
-        <Text style={styles.heading3}>{name}</Text>
+        <Text style={styles.heading3}>{title}</Text>
         <View style={[nStyles.row, { gap: 50 }]}>
           <View style={{ flexDirection: "row" }}>{stars}</View>
-          <Text style={styles.bodyText}>{redeemed} Redeemed </Text>
+          <Text style={styles.bodyText}>{numRedeemed} Redeemed </Text>
         </View>
         <View style={[nStyles.row, { gap: 50 }]}>
           <Text style={styles.bodyText}> 0.5 miles </Text>
-          <Text style={styles.bodyText}>For {people} people</Text>
+          <Text style={styles.bodyText}>For {forQuantity} people</Text>
         </View>
         <Text style={[styles.bodyText, { color: "#888888", marginBottom: 16 }]}>
-          {location}
+          800 Lancaster Ave, Villanova, PA 19085
         </Text>
         <View style={nStyles.row}>
           <Text
@@ -40,12 +48,15 @@ const VoucherCard = (props) => {
               },
             ]}
           >
-            ${priceB}{" "}
+            ${priceBefore}
           </Text>
           <Text
-            style={[styles.heading3, { color: "#34A853", marginBottom: 12 }]}
+            style={[
+              styles.heading3,
+              { color: "#34A853", marginBottom: 12, marginLeft: 10 },
+            ]}
           >
-            ${priceA}{" "}
+            ${priceAfter}
           </Text>
         </View>
         <View style={nStyles.featuredDishContainer}>
@@ -82,8 +93,6 @@ const nStyles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 6.68,
-
-    elevation: 11,
   },
   image: {
     width: "100%",
@@ -103,10 +112,6 @@ const nStyles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 4,
-  },
-  rating: {
-    fontSize: 20,
-    marginRight: 8,
   },
   oldPrice: {
     fontSize: 20,

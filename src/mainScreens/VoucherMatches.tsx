@@ -10,12 +10,18 @@ import {
   Dimensions,
 } from "react-native";
 import { colors } from "../styles/index";
-import vouchers from "../../assets/data/vouchers";
-import VoucherDetailPopup from "../components/VoucherDetailPopup";
-
 const { height } = Dimensions.get("window");
+import VoucherMatchesPopup from "../components/VoucherMatchesPopup";
+import { gql, useQuery, useMutation } from "@apollo/client";
+import { listVouchers } from "../graphql/queries";
+
+const GET_VOUCHER_MATCHES = gql(listVouchers);
 
 const VoucherMatches = () => {
+  const { data } = useQuery(GET_VOUCHER_MATCHES);
+
+  const vouchers = data?.listVouchers.items;
+
   const [selectedVoucher, setSelectedVoucher] = useState(null);
 
   const handleVoucherPress = (voucher) => {
@@ -31,25 +37,24 @@ const VoucherMatches = () => {
 
     return (
       <TouchableOpacity onPress={() => handleVoucherPress(item)}>
-        <View style={styles.voucher}>
-          <View style={styles.textContainer}>
+        <View style={nStyles.voucher}>
+          <View style={nStyles.textContainer}>
             {isRecommended && (
-              <Text style={styles.recommended}>Recommended</Text>
+              <Text style={nStyles.recommended}>Recommended</Text>
             )}
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.info}>Rating: {item.rating}</Text>
-            <Text style={styles.info}>People: {item.people}</Text>
+            <Text style={nStyles.title}>{item.title}</Text>
+            <Text style={nStyles.info}>Rating: {item.avgRating}</Text>
           </View>
-          <Image style={styles.image} source={{ uri: item.image }} />
+          <Image style={nStyles.image} source={{ uri: item.imageURL }} />
         </View>
       </TouchableOpacity>
     );
   };
 
   return (
-    <SafeAreaView style={styles.root}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Recent Voucher Matches</Text>
+    <SafeAreaView style={nStyles.root}>
+      <View style={nStyles.container}>
+        <Text style={nStyles.screenTitle}>Recent Voucher Matches</Text>
         <FlatList
           data={vouchers}
           keyExtractor={(item) => item.id.toString()}
@@ -57,7 +62,7 @@ const VoucherMatches = () => {
         />
       </View>
       {selectedVoucher && (
-        <VoucherDetailPopup
+        <VoucherMatchesPopup
           voucher={selectedVoucher}
           onClose={handleClosePopup}
         />
@@ -66,7 +71,7 @@ const VoucherMatches = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const nStyles = StyleSheet.create({
   root: {
     width: "100%",
     flex: 1,
@@ -74,9 +79,9 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 5,
-    marginTop: 20, // Added margin at the top of the container
+    marginTop: 20,
   },
-  title: {
+  screenTitle: {
     fontWeight: "bold",
     fontSize: 24,
     color: colors.primary,
@@ -104,7 +109,7 @@ const styles = StyleSheet.create({
     color: colors.primary,
     marginBottom: 2,
   },
-  name: {
+  title: {
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,

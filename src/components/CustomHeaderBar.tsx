@@ -18,7 +18,6 @@ export default function Header() {
         backgroundColor: "white",
         flexDirection: "row",
         justifyContent: "space-between",
-        elevation: 4,
       }}
     >
       <View

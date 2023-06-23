@@ -11,10 +11,12 @@ const Tab = createMaterialTopTabNavigator();
 const App = () => {
   return (
     <Tab.Navigator
-      tabBarOptions={{
-        showIcon: true,
-        showLabel: false,
-        indicatorStyle: { backgroundColor: "black" },
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarShowIcon: true,
+        tabBarIndicatorStyle: {
+          backgroundColor: "black",
+        },
       }}
     >
       <Tab.Screen

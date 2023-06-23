@@ -10,12 +10,20 @@ import {
   Dimensions,
 } from "react-native";
 import { colors } from "../styles/index";
-import users from "../../assets/data/users";
-import ChatWindow from "../components/ChatWindow";
+import ChatWindow from "../components/ChatWindowPopup";
+
+import { gql, useQuery, useMutation } from "@apollo/client";
+import { listUsers } from "../graphql/queries";
+
+const GET_PEOPLE_MATCHES = gql(listUsers);
 
 const { height } = Dimensions.get("window");
 
 const PeopleMatches = () => {
+  const { data } = useQuery(GET_PEOPLE_MATCHES);
+
+  const people = data?.listUsers.items;
+
   const [selectedUser, setSelectedUser] = useState(null);
 
   const handleUserPress = (user) => {
@@ -31,19 +39,21 @@ const PeopleMatches = () => {
       <View style={styles.container}>
         <Text style={styles.title}>People Matches</Text>
         <FlatList
-          data={users}
+          data={people}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item, index }) => (
             <TouchableOpacity onPress={() => handleUserPress(item)}>
               <View style={styles.user}>
                 <View style={styles.textContainer}>
                   {index < 3 && (
-                    <Text style={styles.recommended}>Recommended</Text>
+                    <Text style={styles.recommended}>
+                      Looking for: {item.purpose[0]}, {item.purpose[1]}
+                    </Text>
                   )}
-                  <Text style={styles.name}>{item.name}</Text>
+                  <Text style={styles.name}>{item.username}</Text>
                   <Text style={styles.bio}>{item.bio}</Text>
                 </View>
-                <Image style={styles.image} source={{ uri: item.image }} />
+                <Image style={styles.image} source={{ uri: item.imageURL }} />
               </View>
             </TouchableOpacity>
           )}

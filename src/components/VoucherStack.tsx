@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, useWindowDimensions } from "react-native";
-
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -157,7 +156,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 10,
     zIndex: 1,
-    elevation: 1,
   },
 });
 
