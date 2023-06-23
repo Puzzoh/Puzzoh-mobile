@@ -10,8 +10,8 @@ import {
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import styles, { colors } from "../styles/index";
-import AskPopupDialog from "../components/AskPopupDialog";
-import OtherGender from "../components/OtherGender";
+import AskPopupDialog from "../components/DialogPopup";
+import OtherGender from "../components/OtherGenderPopup";
 
 export default function Gender({ navigation }) {
   const route = useRoute();

@@ -7,7 +7,7 @@ const VoucherCard = (props) => {
   const {
     id,
     title,
-    rating,
+    avgRating,
     numRedeemed,
     forQuantity,
     priceAfter,
@@ -16,7 +16,7 @@ const VoucherCard = (props) => {
   } = props.voucher;
 
   const stars = [];
-  for (let i = 0; i < rating; i++) {
+  for (let i = 0; i < avgRating; i++) {
     stars.push(<Icon key={i} name="star" size={20} color="gold" />);
   }
 
@@ -93,8 +93,6 @@ const nStyles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 6.68,
-
-    elevation: 11,
   },
   image: {
     width: "100%",
@@ -114,10 +112,6 @@ const nStyles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 4,
-  },
-  rating: {
-    fontSize: 20,
-    marginRight: 8,
   },
   oldPrice: {
     fontSize: 20,

@@ -93,7 +93,7 @@ export const createVendor = /* GraphQL */ `
           priceBefore
           priceAfter
           description
-          rating
+          avgRating
           numRedeemed
           forQuantity
           imageURL
@@ -132,7 +132,7 @@ export const updateVendor = /* GraphQL */ `
           priceBefore
           priceAfter
           description
-          rating
+          avgRating
           numRedeemed
           forQuantity
           imageURL
@@ -171,7 +171,7 @@ export const deleteVendor = /* GraphQL */ `
           priceBefore
           priceAfter
           description
-          rating
+          avgRating
           numRedeemed
           forQuantity
           imageURL
@@ -198,7 +198,7 @@ export const createVoucher = /* GraphQL */ `
       priceBefore
       priceAfter
       description
-      rating
+      avgRating
       numRedeemed
       forQuantity
       imageURL
@@ -237,7 +237,7 @@ export const updateVoucher = /* GraphQL */ `
       priceBefore
       priceAfter
       description
-      rating
+      avgRating
       numRedeemed
       forQuantity
       imageURL
@@ -276,7 +276,7 @@ export const deleteVoucher = /* GraphQL */ `
       priceBefore
       priceAfter
       description
-      rating
+      avgRating
       numRedeemed
       forQuantity
       imageURL

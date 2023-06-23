@@ -10,7 +10,7 @@ import {
   Dimensions,
 } from "react-native";
 import { colors } from "../styles/index";
-import ChatWindow from "../components/ChatWindow";
+import ChatWindow from "../components/ChatWindowPopup";
 
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { listUsers } from "../graphql/queries";
@@ -47,7 +47,7 @@ const PeopleMatches = () => {
                 <View style={styles.textContainer}>
                   {index < 3 && (
                     <Text style={styles.recommended}>
-                      Looking to: {item.purpose[0]}, {item.purpose[1]}
+                      Looking for: {item.purpose[0]}, {item.purpose[1]}
                     </Text>
                   )}
                   <Text style={styles.name}>{item.username}</Text>

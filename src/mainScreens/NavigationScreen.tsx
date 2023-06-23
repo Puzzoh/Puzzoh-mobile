@@ -2,8 +2,6 @@ import React from "react";
 import {
   Animated,
   Dimensions,
-  Image,
-  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -19,37 +17,20 @@ import Profile from "./Profile";
 
 const Tab = createBottomTabNavigator();
 
-// Hiding Tab Names...
 export default function MainScreen() {
   // Animated Tab Indicator...
   const tabOffsetValue = useRef(new Animated.Value(0)).current;
+
   return (
     <>
       <Tab.Navigator
-        tabBarOptions={{
-          showLabel: false,
-          style: {
+        screenOptions={{
+          tabBarShowLabel: false,
+          tabBarStyle: {
             backgroundColor: "white",
-            position: "absolute",
-            bottom: 40,
-            marginHorizontal: 20,
-            // Max Height...
-            height: 60,
-            borderRadius: 10,
-            shadowColor: "#000",
-            shadowOpacity: 0.06,
-            shadowOffset: {
-              width: 10,
-              height: 10,
-            },
-            paddingHorizontal: 20,
           },
         }}
       >
-        {
-          // Tab Screens....
-          // Tab ICons....
-        }
         <Tab.Screen
           name={"Discover"}
           component={Voucher}

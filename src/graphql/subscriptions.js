@@ -81,7 +81,7 @@ export const onCreateVendor = /* GraphQL */ `
           priceBefore
           priceAfter
           description
-          rating
+          avgRating
           numRedeemed
           forQuantity
           imageURL
@@ -117,7 +117,7 @@ export const onUpdateVendor = /* GraphQL */ `
           priceBefore
           priceAfter
           description
-          rating
+          avgRating
           numRedeemed
           forQuantity
           imageURL
@@ -153,7 +153,7 @@ export const onDeleteVendor = /* GraphQL */ `
           priceBefore
           priceAfter
           description
-          rating
+          avgRating
           numRedeemed
           forQuantity
           imageURL
@@ -177,7 +177,7 @@ export const onCreateVoucher = /* GraphQL */ `
       priceBefore
       priceAfter
       description
-      rating
+      avgRating
       numRedeemed
       forQuantity
       imageURL
@@ -213,7 +213,7 @@ export const onUpdateVoucher = /* GraphQL */ `
       priceBefore
       priceAfter
       description
-      rating
+      avgRating
       numRedeemed
       forQuantity
       imageURL
@@ -249,7 +249,7 @@ export const onDeleteVoucher = /* GraphQL */ `
       priceBefore
       priceAfter
       description
-      rating
+      avgRating
       numRedeemed
       forQuantity
       imageURL

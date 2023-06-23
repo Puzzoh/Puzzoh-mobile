@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { colors } from "../styles/index";
 const { height } = Dimensions.get("window");
-import VoucherDetailPopup from "../components/VoucherDetailPopup";
+import VoucherMatchesPopup from "../components/VoucherMatchesPopup";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { listVouchers } from "../graphql/queries";
 
@@ -43,7 +43,7 @@ const VoucherMatches = () => {
               <Text style={nStyles.recommended}>Recommended</Text>
             )}
             <Text style={nStyles.title}>{item.title}</Text>
-            <Text style={nStyles.info}>Rating: {item.rating}</Text>
+            <Text style={nStyles.info}>Rating: {item.avgRating}</Text>
           </View>
           <Image style={nStyles.image} source={{ uri: item.imageURL }} />
         </View>
@@ -62,7 +62,7 @@ const VoucherMatches = () => {
         />
       </View>
       {selectedVoucher && (
-        <VoucherDetailPopup
+        <VoucherMatchesPopup
           voucher={selectedVoucher}
           onClose={handleClosePopup}
         />

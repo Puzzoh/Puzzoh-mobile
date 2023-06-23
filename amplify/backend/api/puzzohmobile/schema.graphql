@@ -38,7 +38,7 @@ type Voucher @model {
   priceBefore: Int!
   priceAfter: Int!
   description: String
-  rating: Int
+  avgRating: Int
   numRedeemed: Int
   forQuantity: Int
   imageURL: String

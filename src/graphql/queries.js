@@ -68,7 +68,7 @@ export const getVendor = /* GraphQL */ `
           priceBefore
           priceAfter
           description
-          rating
+          avgRating
           numRedeemed
           forQuantity
           imageURL
@@ -120,7 +120,7 @@ export const getVoucher = /* GraphQL */ `
       priceBefore
       priceAfter
       description
-      rating
+      avgRating
       numRedeemed
       forQuantity
       imageURL
@@ -161,7 +161,7 @@ export const listVouchers = /* GraphQL */ `
         priceBefore
         priceAfter
         description
-        rating
+        avgRating
         numRedeemed
         forQuantity
         imageURL

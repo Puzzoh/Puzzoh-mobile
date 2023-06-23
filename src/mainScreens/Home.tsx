@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -13,13 +13,24 @@ import styles, { colors } from "../styles/index";
 import CustomHeaderBar from "../components/CustomHeaderBar";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { listVouchers } from "../graphql/queries";
+import VoucherDetailPopup from "../components/VoucherDetailPopup";
 
 const GET_VOUCHERS = gql(listVouchers);
 
-export default function VoucherScreen() {
+export default function HomeScreen() {
   const { loading, error, data } = useQuery(GET_VOUCHERS);
 
   const vouchers = data?.listVouchers.items;
+
+  const [selectedVoucher, setSelectedVoucher] = useState(null);
+
+  const handleVoucherPress = (voucher) => {
+    setSelectedVoucher(voucher);
+  };
+
+  const handleClosePopup = () => {
+    setSelectedVoucher(null);
+  };
 
   if (loading) {
     return (
@@ -50,7 +61,11 @@ export default function VoucherScreen() {
       <CustomHeaderBar />
       <VoucherStack
         data={JSON.parse(JSON.stringify(vouchers))} // https://github.com/dohooo/react-native-reanimated-carousel/issues/66
-        renderItem={({ item }) => <VoucherCard voucher={item} />}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => handleVoucherPress(item)}>
+            <VoucherCard voucher={item} key={(item) => item.id} />
+          </TouchableOpacity>
+        )}
         onSwipeLeft={onSwipeLeft}
         onSwipeRight={onSwipeRight}
       />
@@ -90,6 +105,13 @@ export default function VoucherScreen() {
           <Icon name="arrow-right" size={20} color="white" />
         </TouchableOpacity>
       </View>
+
+      {selectedVoucher && (
+        <VoucherDetailPopup
+          voucher={selectedVoucher}
+          onClose={handleClosePopup}
+        />
+      )}
     </View>
   );
 }
