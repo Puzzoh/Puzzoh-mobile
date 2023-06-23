@@ -6,12 +6,46 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import DatePicker from "react-native-datepicker";
 import Slider from "@react-native-community/slider";
 import * as Location from "expo-location";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { colors } from "../styles/index";
+import Checkbox from "expo-checkbox";
+
+const screenWidth = Dimensions.get("window").width;
+const interests = [
+  "Traveling",
+  "Photo",
+  "Reading",
+  "Cooking",
+  "Sports",
+  "Gaming",
+  "Music",
+  "Movies",
+  "Gardening",
+  "Yoga",
+  "Painting",
+  "Writing",
+];
+
+const foodPreferences = [
+  "Vegan",
+  "Mediterranean",
+  "Italian",
+  "Chinese",
+  "Japanese",
+  "Mexican",
+  "American",
+  "Greek",
+  "Spanish",
+  "Korean",
+  "Vietnamese",
+  "Dessert",
+];
 
 const EditProfileInfoScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -20,17 +54,38 @@ const EditProfileInfoScreen = ({ navigation }) => {
   const [birthday, setBirthday] = useState("");
   const [purpose, setPurpose] = useState("");
   const [gender, setGender] = useState("");
-  const [ageRange, setAgeRange] = useState([18, 60]);
+  const [ageRange, setAgeRange] = useState(18);
   const [location, setLocation] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSave = () => {
-    // Save profile info logic
     navigation.goBack();
   };
+  const [selectedInterests, setSelectedInterests] = useState([]);
+  const [selectedFoodPreferences, setSelectedFoodPreferences] = useState([]);
 
-  const formatAgeRangeText = () => {
-    const [minAge, maxAge] = ageRange;
-    return `${minAge} - ${maxAge} years`;
+  const handleInterestChange = (interest) => {
+    setSelectedInterests((prevState) => {
+      if (prevState.includes(interest)) {
+        return prevState.filter((i) => i !== interest);
+      } else if (prevState.length < 3) {
+        return [...prevState, interest];
+      } else {
+        return prevState;
+      }
+    });
+  };
+
+  const handleFoodPreferenceChange = (preference) => {
+    setSelectedFoodPreferences((prevState) => {
+      if (prevState.includes(preference)) {
+        return prevState.filter((p) => p !== preference);
+      } else if (prevState.length < 3) {
+        return [...prevState, preference];
+      } else {
+        return prevState;
+      }
+    });
   };
 
   const fetchCurrentLocation = async () => {
@@ -63,43 +118,64 @@ const EditProfileInfoScreen = ({ navigation }) => {
             style={nStyles.input}
             placeholder="Username"
             value={username}
-            onChangeText={setUsername}
+            editable={false}
           />
+          <TouchableOpacity onPress={() => {}}>
+            <Text style={nStyles.requestChangeText}>
+              Request to change username
+            </Text>
+          </TouchableOpacity>
         </View>
         <View style={nStyles.inputContainer}>
           <Text style={nStyles.inputLabel}>Gender</Text>
           <View style={nStyles.optionsContainer}>
-            {["Man", "Woman", "LGBTQ+", "Prefer not to identify"].map(
-              (option, index) => (
-                <TouchableOpacity
-                  style={[
-                    nStyles.option,
-                    gender === option && nStyles.optionSelected,
-                  ]}
-                  onPress={() => setGender(option)}
+            {["Man", "Woman", "LGBTQ+"].map((option) => (
+              <TouchableOpacity
+                style={[
+                  nStyles.option,
+                  gender === option && {
+                    ...nStyles.optionSelected,
+                    backgroundColor: colors.primary,
+                  },
+                ]}
+                onPress={() => setGender(option)}
+              >
+                <Text
+                  style={
+                    gender === option ? { color: "white" } : nStyles.optionText
+                  }
                 >
-                  <Text style={nStyles.optionText}>{option}</Text>
-                </TouchableOpacity>
-              )
-            )}
+                  {option}
+                </Text>
+              </TouchableOpacity>
+            ))}
           </View>
         </View>
 
         <View style={nStyles.inputContainer}>
           <Text style={nStyles.inputLabel}>Pronounce</Text>
-          <View style={nStyles.optionsContainer}>
-            {["He/him", "She/her", "They/them"].map((option, index) => (
+          {["he/him", "she/her", "they/them"].map((option) => (
+            <View style={nStyles.optionsContainer} key={option}>
               <TouchableOpacity
                 style={[
                   nStyles.option,
-                  pronounce === option && nStyles.optionSelected,
+                  purpose === option && {
+                    ...nStyles.optionSelected,
+                    backgroundColor: colors.primary,
+                  },
                 ]}
-                onPress={() => setPronounce(option)}
+                onPress={() => setPurpose(option)}
               >
-                <Text style={nStyles.optionText}>{option}</Text>
+                <Text
+                  style={
+                    purpose === option ? { color: "white" } : nStyles.optionText
+                  }
+                >
+                  {option}
+                </Text>
               </TouchableOpacity>
-            ))}
-          </View>
+            </View>
+          ))}
         </View>
 
         <View style={nStyles.inputContainer}>
@@ -116,8 +192,8 @@ const EditProfileInfoScreen = ({ navigation }) => {
           <Text style={nStyles.inputLabel}>Birthday</Text>
           <DatePicker
             style={nStyles.datePickerStyle}
-            date={birthday} //initial date from state
-            mode="date" //The enum of date, datetime and time
+            date={birthday}
+            mode="date"
             placeholder="select date"
             format="DD-MM-YYYY"
             minDate="01-01-1900"
@@ -126,7 +202,6 @@ const EditProfileInfoScreen = ({ navigation }) => {
             cancelBtnText="Cancel"
             customStyles={{
               dateIcon: {
-                //display: 'none',
                 position: "absolute",
                 left: 0,
                 top: 4,
@@ -144,48 +219,90 @@ const EditProfileInfoScreen = ({ navigation }) => {
 
         <View style={nStyles.inputContainer}>
           <Text style={nStyles.inputLabel}>Purpose</Text>
-          <View style={nStyles.optionsContainer}>
-            {["making friends", "dating", "just exploring"].map(
-              (option, index) => (
-                <TouchableOpacity
-                  style={[
-                    nStyles.option,
-                    purpose === option && nStyles.optionSelected,
-                  ]}
-                  onPress={() => setPurpose(option)}
+        </View>
+        <View style={nStyles.inputContainer}>
+          <Text style={nStyles.inputLabel}>Purpose</Text>
+          {["making friends", "dating", "just exploring"].map((option) => (
+            <View style={nStyles.optionsContainer} key={option}>
+              <TouchableOpacity
+                style={[
+                  nStyles.option,
+                  purpose === option && {
+                    ...nStyles.optionSelected,
+                    backgroundColor: colors.primary,
+                  },
+                ]}
+                onPress={() => setPurpose(option)}
+              >
+                <Text
+                  style={
+                    purpose === option ? { color: "white" } : nStyles.optionText
+                  }
                 >
-                  <Text style={nStyles.optionText}>{option}</Text>
-                </TouchableOpacity>
-              )
-            )}
-          </View>
+                  {option}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ))}
         </View>
 
         <View style={nStyles.inputContainer}>
           <Text style={nStyles.inputLabel}>Age Range</Text>
-          {/* <Slider
-          style={nStyles.slider}
-          minimumValue={18}
-          maximumValue={60}
-          step={1}
-          value={[18, 20]}
-          onValueChange={(value) => setAgeRange(value)}
-        /> */}
-          {/* <Text style={nStyles.sliderValue}>{formatAgeRangeText()}</Text> */}
+          <Slider
+            style={{ width: screenWidth - 60, height: 40 }}
+            minimumValue={18}
+            maximumValue={65}
+            step={1}
+            value={ageRange}
+            onValueChange={(value) => setAgeRange(value)}
+          />
+          <Text>{ageRange}</Text>
         </View>
         <View style={nStyles.inputContainer}>
           <Text style={nStyles.inputLabel}>Interest</Text>
+          {interests.map((interest) => (
+            <View
+              key={interest}
+              style={{ flexDirection: "row", alignItems: "center" }}
+            >
+              <Checkbox
+                value={selectedInterests.includes(interest)}
+                onValueChange={() => handleInterestChange(interest)}
+                color={
+                  selectedInterests.includes(interest)
+                    ? colors.primary
+                    : undefined
+                }
+              />
+              <Text style={nStyles.checkboxLabel}>{interest}</Text>
+            </View>
+          ))}
         </View>
         <View style={nStyles.inputContainer}>
           <Text style={nStyles.inputLabel}>Food Preference</Text>
+          {foodPreferences.map((preference) => (
+            <View
+              key={preference}
+              style={{ flexDirection: "row", alignItems: "center" }}
+            >
+              <Checkbox
+                value={selectedFoodPreferences.includes(preference)}
+                onValueChange={() => handleFoodPreferenceChange(preference)}
+                color={
+                  selectedFoodPreferences.includes(preference)
+                    ? colors.primary
+                    : undefined
+                }
+              />
+              <Text style={nStyles.checkboxLabel}>{preference}</Text>
+            </View>
+          ))}
         </View>
         <View style={nStyles.inputContainer}>
           <Text style={nStyles.inputLabel}>Location</Text>
-          {/* <GooglePlacesAutocomplete
+          <GooglePlacesAutocomplete
             placeholder="Enter your location"
             onPress={(data, details = null) => {
-              // Handle selected location
-              console.log(data, details);
               setLocation(data.description);
             }}
             fetchDetails={true}
@@ -198,7 +315,7 @@ const EditProfileInfoScreen = ({ navigation }) => {
             }}
             debounce={300}
             currentLocation={false}
-          /> */}
+          />
         </View>
         <TouchableOpacity style={nStyles.button} onPress={handleSave}>
           <Text style={nStyles.buttonText}>Save</Text>
@@ -217,89 +334,112 @@ const nStyles = StyleSheet.create({
   },
   backButton: {
     position: "absolute",
-    top: 16,
+    top: 40,
     left: 16,
-    padding: 8,
+    zIndex: 10,
   },
   inputContainer: {
-    marginBottom: 16,
+    marginBottom: 24,
   },
   inputLabel: {
     fontSize: 16,
-    fontWeight: "bold",
+    color: "#333",
     marginBottom: 8,
   },
   input: {
-    height: 40,
-    borderColor: "#ccc",
+    height: 44,
+    borderRadius: 4,
     borderWidth: 1,
-    borderRadius: 8,
+    borderColor: "#ddd",
     paddingHorizontal: 12,
+    fontSize: 16,
+    color: "#333",
+  },
+  datePickerStyle: {
+    width: 200,
+    backgroundColor: "#fff",
+  },
+  requestChangeText: {
+    color: colors.primary,
+    marginTop: 4,
   },
   optionsContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    flexWrap: "wrap",
+    marginTop: 8,
   },
   option: {
-    flex: 1,
+    borderRadius: 20,
     borderWidth: 1,
-    borderRadius: 8,
+    borderColor: "#ddd",
+    paddingHorizontal: 16,
     paddingVertical: 8,
-    paddingHorizontal: 12,
-    marginHorizontal: 4,
-    borderColor: "#ccc",
-  },
-  optionSelected: {
-    backgroundColor: "#333",
-  },
-  optionText: {
-    textAlign: "center",
-    color: "#333",
-  },
-  slider: {
+    marginRight: 8,
     marginBottom: 8,
   },
-  sliderValue: {
-    fontSize: 16,
-    fontWeight: "bold",
-    textAlign: "center",
+  optionSelected: {
+    borderColor: colors.primary,
+  },
+  optionText: {
+    fontSize: 14,
+    color: "#333",
   },
   button: {
-    backgroundColor: "#333",
-    borderRadius: 8,
-    paddingVertical: 12,
+    backgroundColor: colors.primary,
+    height: 44,
+    borderRadius: 4,
+    justifyContent: "center",
     alignItems: "center",
   },
   buttonText: {
-    color: "#fff",
     fontSize: 16,
+    color: "#fff",
     fontWeight: "bold",
   },
-  datePickerStyle: {
-    width: 200,
+  checkboxContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  checkboxLabel: {
+    marginLeft: 8,
   },
 });
 
 const googlePlacesStyles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: screenWidth - 30,
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderRadius: 4,
+    borderColor: "#ddd",
+  },
+  radioButton: {
+    alignItems: "center",
+    justifyContent: "center",
   },
   textInputContainer: {
-    width: "100%",
+    paddingHorizontal: 10,
   },
   textInput: {
-    height: 40,
-    borderColor: "#ccc",
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 12,
+    fontSize: 16,
+    color: "#333",
   },
   listView: {
+    borderWidth: 1,
+    borderColor: "#ddd",
     backgroundColor: "#fff",
-    marginTop: 10,
+    marginHorizontal: 10,
+    elevation: 5,
+    zIndex: 100,
   },
-  description: {
-    fontSize: 16,
+  row: {
+    padding: 13,
+    height: 44,
+  },
+  separator: {
+    height: 0.5,
+    backgroundColor: "#919191",
   },
 });
 
