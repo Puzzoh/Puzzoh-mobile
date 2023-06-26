@@ -13,10 +13,8 @@ import {
 } from "react-native";
 import styles, { colors } from "../styles/index";
 import FontAwesome from "@expo/vector-icons/Ionicons";
-// import { validateEmail, validatePassword } from "../utils/validation";
 import { Auth } from "aws-amplify";
-import { useMutation, gql } from "@apollo/client";
-import { createUser } from "../graphql/mutations";
+// import { validateEmail, validatePassword } from "../utils/validation";
 
 const Logo = require("../../assets/imgs/logo1.png").default;
 
@@ -30,50 +28,6 @@ export default function SignIn({ navigation }) {
 
   const [loading, setLoading] = useState(false);
 
-  const CREATE_USER = gql(createUser);
-  const [createUserMutation] = useMutation(CREATE_USER);
-
-  const isFirstLogin = async () => {
-    try {
-      const user = await Auth.currentAuthenticatedUser();
-      const { attributes } = user;
-
-      if (attributes["cognito:username"]) {
-        // Set a flag or attribute to indicate first-time login
-        const isFirstLogin = attributes["isFirstLogin"] === "true";
-        return isFirstLogin;
-      }
-
-      return false; // User is not logging in for the first time
-    } catch (error) {
-      console.error("Error checking first-time login:", error);
-      return false;
-    }
-  };
-
-  const createUserInfo = async () => {
-    try {
-      const currUser = await Auth.currentAuthenticatedUser();
-      const { username } = currUser;
-      const email = currUser.attributes.email;
-      const id = currUser.attributes.sub;
-
-      const { data } = await createUserMutation({
-        variables: {
-          input: {
-            id,
-            username,
-            email,
-          },
-        },
-      });
-
-      console.log("User created:", data.createUser);
-    } catch (error) {
-      console.log("Error creating user:", error);
-    }
-  };
-
   const onSignInPressed = async () => {
     if (loading) return;
     setLoading(true);
@@ -83,12 +37,6 @@ export default function SignIn({ navigation }) {
         username: state.username,
         password: state.password,
       });
-
-      const userIsFirstLogin = await isFirstLogin();
-      if (userIsFirstLogin) {
-        console.log("User is first login");
-        createUserInfo();
-      }
     } catch (error) {
       Alert.alert(error.message);
     }
