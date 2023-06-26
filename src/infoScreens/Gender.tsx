@@ -12,37 +12,8 @@ import { useRoute } from "@react-navigation/native";
 import styles, { colors } from "../styles/index";
 import AskDialogPopup from "../components/AskDialogPopup";
 import OtherGender from "../components/OtherGenderPopup";
-import { useMutation, gql } from "@apollo/client";
-import { createUser } from "../graphql/mutations";
-import { Auth } from "aws-amplify";
 
 export default function Gender({ navigation }) {
-  const CREATE_USER = gql(createUser);
-  const [createUserMutation] = useMutation(CREATE_USER);
-
-  const createUserInfo = async () => {
-    try {
-      const currUser = await Auth.currentAuthenticatedUser();
-      const { username } = currUser;
-      const email = currUser.attributes.email;
-      const id = currUser.attributes.sub;
-
-      const { data } = await createUserMutation({
-        variables: {
-          input: {
-            id,
-            username,
-            email,
-          },
-        },
-      });
-
-      console.log("User created:", data.createUser);
-    } catch (error) {
-      console.log("Error creating user:", error);
-    }
-  };
-
   const route = useRoute();
 
   const [showPopup, setShowPopup] = useState(false);
@@ -53,7 +24,6 @@ export default function Gender({ navigation }) {
   }, []);
 
   const handleLater = async () => {
-    await createUserInfo();
     navigation.navigate("SignIn");
     // setShowPopup(false);
   };
