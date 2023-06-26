@@ -37,8 +37,6 @@ export default function HomeScreen() {
   const fetchUserAttributes = async () => {
     try {
       const user = await Auth.currentAuthenticatedUser();
-      const { attributes } = user;
-      console.log("All attributes:", attributes);
     } catch (error) {
       console.log("Error fetching user attributes:", error);
     }

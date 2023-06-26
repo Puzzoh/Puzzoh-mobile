@@ -10,22 +10,52 @@ import {
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import styles, { colors } from "../styles/index";
-import AskPopupDialog from "../components/DialogPopup";
+import AskDialogPopup from "../components/AskDialogPopup";
 import OtherGender from "../components/OtherGenderPopup";
+import { useMutation, gql } from "@apollo/client";
+import { createUser } from "../graphql/mutations";
+import { Auth } from "aws-amplify";
 
 export default function Gender({ navigation }) {
+  const CREATE_USER = gql(createUser);
+  const [createUserMutation] = useMutation(CREATE_USER);
+
+  const createUserInfo = async () => {
+    try {
+      const currUser = await Auth.currentAuthenticatedUser();
+      const { username } = currUser;
+      const email = currUser.attributes.email;
+      const id = currUser.attributes.sub;
+
+      const { data } = await createUserMutation({
+        variables: {
+          input: {
+            id,
+            username,
+            email,
+          },
+        },
+      });
+
+      console.log("User created:", data.createUser);
+    } catch (error) {
+      console.log("Error creating user:", error);
+    }
+  };
+
   const route = useRoute();
 
   const [showPopup, setShowPopup] = useState(false);
   const [showOtherGender, setShowOtherGender] = useState(false);
 
   useEffect(() => {
-    setShowPopup(true); // Show the popup when the component mounts
+    setShowPopup(true);
   }, []);
 
-  const handleLater = () => {
+  const handleLater = async () => {
+    await createUserInfo();
     navigation.navigate("SignIn");
-    setShowPopup(false);
+    // setShowPopup(false);
   };
 
   const handleContinue = () => {
@@ -64,7 +94,7 @@ export default function Gender({ navigation }) {
 
   return (
     <View style={nStyles.container}>
-      <AskPopupDialog
+      <AskDialogPopup
         showPopup={showPopup}
         handleYes={handleContinue}
         handleNo={handleLater}

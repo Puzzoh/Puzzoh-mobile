@@ -109,18 +109,6 @@ const App = () => {
     }
   };
 
-  const updateUserAttributes = async (attributeUpdates) => {
-    try {
-      await Auth.updateUserAttributes(
-        Auth.currentAuthenticatedUser(),
-        attributeUpdates
-      );
-      console.log("User attributes updated successfully");
-    } catch (error) {
-      console.log("Error updating user attributes:", error);
-    }
-  };
-
   useEffect(() => {
     authenticateUser();
   }, []);
