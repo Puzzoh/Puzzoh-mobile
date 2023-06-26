@@ -29,8 +29,6 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { createHttpLink } from "apollo-link-http";
 import { ApolloLink } from "apollo-link";
 import { setContext } from "apollo-link-context";
-import { useMutation, gql } from "@apollo/client";
-import { createUser } from "./src/graphql/mutations";
 
 Amplify.configure(awsconfig);
 
@@ -69,9 +67,9 @@ const client = new ApolloClient({
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  // const [fontLoaded, setFontLoaded] = useState(false);
-  const [mainScreens, showMainScreens] = useState(false);
   const [user, setUser] = useState(undefined);
+  const [mainScreens, showMainScreens] = useState(false);
+  // const [fontLoaded, setFontLoaded] = useState(false);
 
   const fetchFonts = () => {
     return Font.loadAsync({
@@ -99,60 +97,11 @@ const App = () => {
   //   );
   // }
 
-  const CREATE_USER = gql(createUser);
-  const [createUserMutation] = useMutation(CREATE_USER);
-
-  const isFirstLogin = async () => {
-    try {
-      const user = await Auth.currentAuthenticatedUser();
-      const { attributes } = user;
-
-      if (attributes["cognito:username"]) {
-        // Set a flag or attribute to indicate first-time login
-        const isFirstLogin = attributes["isFirstLogin"] === "true";
-        return isFirstLogin;
-      }
-
-      return false; // User is not logging in for the first time
-    } catch (error) {
-      console.error("Error checking first-time login:", error);
-      return false;
-    }
-  };
-
-  const createUserInfo = async () => {
-    try {
-      const currUser = await Auth.currentAuthenticatedUser();
-      const { username } = currUser;
-      const email = currUser.attributes.email;
-      const id = currUser.attributes.sub;
-
-      const { data } = await createUserMutation({
-        variables: {
-          input: {
-            id,
-            username,
-            email,
-          },
-        },
-      });
-
-      console.log("User created:", data.createUser);
-    } catch (error) {
-      console.log("Error creating user:", error);
-    }
-  };
-
   const authenticateUser = async () => {
     try {
       const user = await Auth.currentAuthenticatedUser({
         bypassCache: true,
       });
-      // const userIsFirstLogin = await isFirstLogin();
-      // if (isFirstLogin()) {
-      //   console.log("User is first login");
-      //   createUserInfo();
-      // }
       setUser(user);
     } catch (err) {
       setUser(null);

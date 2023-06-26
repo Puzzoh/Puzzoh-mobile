@@ -16,10 +16,6 @@ import FontAwesome from "@expo/vector-icons/Ionicons";
 import { Auth } from "aws-amplify";
 // import { validateEmail, validatePassword } from "../utils/validation";
 
-const Logo = require("../../assets/imgs/logo1.png").default;
-
-const windowWidth = Dimensions.get("window").width;
-
 export default function SignIn({ navigation }) {
   const [state, setState] = useState({
     username: "",
@@ -120,6 +116,8 @@ export default function SignIn({ navigation }) {
     </ScrollView>
   );
 }
+
+const windowWidth = Dimensions.get("window").width;
 
 const nStyles = StyleSheet.create({
   container: {

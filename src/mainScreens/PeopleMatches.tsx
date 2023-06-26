@@ -17,8 +17,6 @@ import { listUsers } from "../graphql/queries";
 
 const GET_PEOPLE_MATCHES = gql(listUsers);
 
-const { height } = Dimensions.get("window");
-
 const PeopleMatches = () => {
   const { data } = useQuery(GET_PEOPLE_MATCHES);
 
@@ -65,6 +63,8 @@ const PeopleMatches = () => {
     </SafeAreaView>
   );
 };
+
+const { height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   root: {

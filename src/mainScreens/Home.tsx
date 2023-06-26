@@ -34,13 +34,13 @@ export default function HomeScreen() {
     setSelectedVoucher(null);
   };
 
-  const fetchUserAttributes = async () => {
-    try {
-      const user = await Auth.currentAuthenticatedUser();
-    } catch (error) {
-      console.log("Error fetching user attributes:", error);
-    }
-  };
+  // const fetchUserAttributes = async () => {
+  //   try {
+  //     const user = await Auth.currentAuthenticatedUser();
+  //   } catch (error) {
+  //     console.log("Error fetching user attributes:", error);
+  //   }
+  // };
 
   if (loading) {
     return (
@@ -58,9 +58,9 @@ export default function HomeScreen() {
     );
   }
 
-  useEffect(() => {
-    fetchUserAttributes();
-  }, []);
+  // useEffect(() => {
+  //   fetchUserAttributes();
+  // }, []);
 
   const onSwipeLeft = (user) => {
     console.log("swipe left");
