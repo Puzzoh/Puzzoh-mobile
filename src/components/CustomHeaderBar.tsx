@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -6,58 +6,57 @@ import Constant from "expo-constants";
 import styles, { colors } from "../styles/index";
 
 export default function Header() {
+  const [isFilterActive, setFilterActive] = useState(false);
+
+  const toggleFilter = () => {
+    setFilterActive(!isFilterActive);
+  };
+
   return (
-    <View
-      style={{
-        // marginTop:Constant.statusBarHeight,
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        height: 45,
-        backgroundColor: "white",
-        flexDirection: "row",
-        justifyContent: "space-between",
-      }}
-    >
-      <View
-        style={{
-          flexDirection: "row",
-          margin: 5,
-        }}
-      >
-        <TouchableOpacity style={styles.blankButton}>
-          <Ionicons name="notifications" size={32} color={colors.primary} />
-        </TouchableOpacity>
+    <View style={headerStyles.container}>
+      <View style={headerStyles.wrapper}>
+        <View style={headerStyles.discoverContainer}>
+          <Text style={styles.heading2}>Discover</Text>
+          <Text style={styles.bgText}>New York, NY</Text>
+        </View>
       </View>
-      <View
-        style={{
-          flexDirection: "column",
-          margin: 5,
-          marginLeft: 60,
-          marginRight: 10,
-        }}
+      <TouchableOpacity
+        style={[
+          styles.blankButton,
+          isFilterActive && { backgroundColor: colors.primary },
+        ]}
+        onPress={toggleFilter}
       >
-        <Text style={styles.heading2}>Discover</Text>
-        <Text style={styles.bgText}>New York, NY</Text>
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-around",
-          width: 150,
-          margin: 5,
-        }}
-      >
-        <TouchableOpacity style={styles.blankButton}>
-          <Ionicons
-            name="filter"
-            size={32}
-            color={colors.primary}
-            style={{ textAlign: "center" }}
-          />
-        </TouchableOpacity>
-      </View>
+        <Ionicons
+          name="filter"
+          size={32}
+          color={isFilterActive ? "white" : colors.primary}
+          style={{ textAlign: "center" }}
+        />
+      </TouchableOpacity>
     </View>
   );
 }
+
+const headerStyles = StyleSheet.create({
+  container: {
+    position: "absolute",
+    top: 20,
+    left: 0,
+    right: 0,
+    height: 35,
+    backgroundColor: "white",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+  },
+  wrapper: {
+    flex: 1,
+    alignItems: "flex-start",
+  },
+  discoverContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+    padding: 5
+  },
+});

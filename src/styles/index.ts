@@ -1,7 +1,9 @@
 import { StyleSheet, Platform, Dimensions } from "react-native";
+import * as Font from 'expo-font';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
+
 
 export const colors = {
   primary: "#FF914D",
@@ -9,6 +11,7 @@ export const colors = {
   input: "#F5F5F5",
   btnShadow: "#030002",
 };
+
 
 export const sizes = {
   windowWidth,

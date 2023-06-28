@@ -14,7 +14,7 @@ const OnboardingSlider = (props) => {
               flex: 1,
               alignItems: "center",
               padding: 15,
-              paddingTop: 100,
+              paddingTop: 40,
             }}
           >
             <Image

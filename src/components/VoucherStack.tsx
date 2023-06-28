@@ -73,7 +73,7 @@ const AnimatedStack = (props) => {
   }));
 
   const gestureHandler = useAnimatedGestureHandler({
-    onStart: (_, context) => {
+    onStart: (_, context: { startX: number }) => {
       context.startX = translateX.value;
     },
     onActive: (event, context) => {

@@ -24,12 +24,20 @@ export default function HomeScreen() {
 
   const [selectedVoucher, setSelectedVoucher] = useState(null);
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const handleVoucherPress = (voucher) => {
     setSelectedVoucher(voucher);
   };
 
   const handleClosePopup = () => {
     setSelectedVoucher(null);
+  };
+
+  const [isStarButtonActive, setIsStarButtonActive] = useState(false);
+
+  const toggleStarButton = () => {
+    setIsStarButtonActive(!isStarButtonActive);
   };
 
   if (loading) {
@@ -48,30 +56,34 @@ export default function HomeScreen() {
     );
   }
 
-  const onSwipeLeft = (user) => {
-    console.log("swipe left");
+  const onSwipeLeft = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
   };
 
-  const onSwipeRight = (user) => {
-    console.log("swipe right");
+  const onSwipeRight = () => {
+    if (currentIndex < vouchers.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
   };
 
   return (
     <View style={nStyles.container}>
       <CustomHeaderBar />
       <VoucherStack
-        data={JSON.parse(JSON.stringify(vouchers))} // https://github.com/dohooo/react-native-reanimated-carousel/issues/66
+        data={JSON.parse(JSON.stringify(vouchers))}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => handleVoucherPress(item)}>
             <VoucherCard voucher={item} key={(item) => item.id} />
           </TouchableOpacity>
         )}
-        onSwipeLeft={onSwipeLeft}
-        onSwipeRight={onSwipeRight}
+        currentIndex={currentIndex}
       />
       <View style={nStyles.buttonRow}>
         <TouchableOpacity
           style={[nStyles.button, { backgroundColor: colors.primary }]}
+          onPress={onSwipeLeft}
         >
           <Icon name="arrow-left" size={20} color="white" />
         </TouchableOpacity>
@@ -79,13 +91,14 @@ export default function HomeScreen() {
           style={[
             nStyles.button,
             {
-              backgroundColor: "white",
+              backgroundColor: isStarButtonActive ? colors.primary : "white",
               borderColor: "gray",
               borderWidth: 0.25,
             },
           ]}
+          onPress={toggleStarButton}
         >
-          <Icon name="star" size={20} color={colors.primary} />
+          <Icon name="star" size={20} color={isStarButtonActive ? "white" : colors.primary} />
         </TouchableOpacity>
         <TouchableOpacity
           style={[
@@ -101,6 +114,7 @@ export default function HomeScreen() {
         </TouchableOpacity>
         <TouchableOpacity
           style={[nStyles.button, { backgroundColor: colors.primary }]}
+          onPress={onSwipeRight}
         >
           <Icon name="arrow-right" size={20} color="white" />
         </TouchableOpacity>
@@ -122,12 +136,14 @@ const nStyles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     width: "100%",
+    zIndex: 0,
   },
   buttonRow: {
     flexDirection: "row",
     gap: 50,
     marginTop: 0,
     marginBottom: 10,
+    zIndex: 1,
   },
   button: {
     backgroundColor: colors.primary,

@@ -28,8 +28,16 @@ const VoucherCard = (props) => {
   const { onClose } = props;
 
   const stars = [];
-  for (let i = 0; i < avgRating; i++) {
-    stars.push(<Icon key={i} name="star" size={20} color="gold" />);
+  const totalStars = 5;
+  const yellowStar = <Icon name="star" size={20} color="gold" />;
+  const grayStar = <Icon name="star" size={20} color="gray" />;
+
+  for (let i = 0; i < totalStars; i++) {
+    if (i < avgRating) {
+      stars.push(yellowStar);
+    } else {
+      stars.push(grayStar);
+    }
   }
 
   return (
@@ -148,7 +156,7 @@ const nStyles = StyleSheet.create({
     marginBottom: 12,
   },
   featuredDishContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "space-between",
     borderTopWidth: 1,
     borderColor: "#dddddd",
