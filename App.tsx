@@ -31,7 +31,7 @@ import { createUser } from "./src/graphql/mutations";
 Amplify.configure(awsconfig);
 const Stack = createNativeStackNavigator();
 
-const App = () => {
+const Navigation = () => {
   const [user, setUser] = useState(undefined);
   const [mainScreens, showMainScreens] = useState(false);
   // const [fontLoaded, setFontLoaded] = useState(false);
@@ -62,31 +62,31 @@ const App = () => {
   //   );
   // }
 
-  // const CREATE_USER = gql(createUser);
-  // const [createUserMutation] = useMutation(CREATE_USER);
+  const CREATE_USER = gql(createUser);
+  const [createUserMutation] = useMutation(CREATE_USER);
 
-  // const createUserInfo = async () => {
-  //   try {
-  //     const currUser = await Auth.currentAuthenticatedUser();
-  //     const { username } = currUser;
-  //     const email = currUser.attributes.email;
-  //     const id = currUser.attributes.sub;
+  const createUserInfo = async () => {
+    try {
+      const currUser = await Auth.currentAuthenticatedUser();
+      const { username } = currUser;
+      const email = currUser.attributes.email;
+      const id = currUser.attributes.sub;
 
-  //     const { data } = await createUserMutation({
-  //       variables: {
-  //         input: {
-  //           id,
-  //           username,
-  //           email,
-  //         },
-  //       },
-  //     });
+      const { data } = await createUserMutation({
+        variables: {
+          input: {
+            id,
+            username,
+            email,
+          },
+        },
+      });
 
-  //     console.log("User created:", data.createUser);
-  //   } catch (error) {
-  //     console.log("Error creating user:", error);
-  //   }
-  // };
+      console.log("User created:", data.createUser);
+    } catch (error) {
+      console.log("Error creating user:", error);
+    }
+  };
 
   const authenticateUser = async () => {
     try {
@@ -102,6 +102,7 @@ const App = () => {
 
   useEffect(() => {
     authenticateUser();
+    createUserInfo();
   }, []);
 
   useEffect(() => {
@@ -137,42 +138,42 @@ const App = () => {
   };
 
   return (
+    <NavigationContainer theme={MyTheme}>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        {user ? (
+          <>
+            <Stack.Screen name="Main" component={NavigationScreen} />
+            <Stack.Screen name={"Settings"} component={Settings} />
+            <Stack.Screen name={"EditInfo"} component={EditInfo} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="SignIn" component={SignIn} />
+            <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="ConfirmSignUp" component={ConfirmSignUp} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+            <Stack.Screen name="ChangePassword" component={ChangePassword} />
+            <Stack.Screen name="Gender" component={Gender} />
+            <Stack.Screen name="Pronounce" component={Pronounce} />
+            <Stack.Screen name="Purpose" component={Purpose} />
+            <Stack.Screen name="Interest" component={Interest} />
+            <Stack.Screen name="FoodPref" component={FoodPref} />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+const App = () => {
+  return (
     <RootProvider>
       <SafeAreaView style={appStyles.app}>
-        <NavigationContainer theme={MyTheme}>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            {user ? (
-              <>
-                <Stack.Screen name="Main" component={NavigationScreen} />
-                <Stack.Screen name={"Settings"} component={Settings} />
-                <Stack.Screen name={"EditInfo"} component={EditInfo} />
-              </>
-            ) : (
-              <>
-                <Stack.Screen name="SignIn" component={SignIn} />
-                <Stack.Screen name="SignUp" component={SignUp} />
-                <Stack.Screen name="ConfirmSignUp" component={ConfirmSignUp} />
-                <Stack.Screen
-                  name="ForgotPassword"
-                  component={ForgotPassword}
-                />
-                <Stack.Screen
-                  name="ChangePassword"
-                  component={ChangePassword}
-                />
-                <Stack.Screen name="Gender" component={Gender} />
-                <Stack.Screen name="Pronounce" component={Pronounce} />
-                <Stack.Screen name="Purpose" component={Purpose} />
-                <Stack.Screen name="Interest" component={Interest} />
-                <Stack.Screen name="FoodPref" component={FoodPref} />
-              </>
-            )}
-          </Stack.Navigator>
-        </NavigationContainer>
+        <Navigation />
       </SafeAreaView>
     </RootProvider>
   );
