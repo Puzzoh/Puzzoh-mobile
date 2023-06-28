@@ -1,13 +1,12 @@
+import { AppRegistry } from "react-native";
 import awsconfig from "./src/aws-exports";
-import React from "react";
+import React, { useEffect } from "react";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { createHttpLink } from "apollo-link-http";
 import { ApolloLink } from "apollo-link";
 import { setContext } from "apollo-link-context";
 import Amplify, { Auth } from "aws-amplify";
-import { SafeAreaView, StyleSheet } from "react-native";
-
-Amplify.configure(awsconfig);
+import App from "./App";
 
 const httpLink = createHttpLink({
   uri: awsconfig.aws_appsync_graphqlEndpoint,
@@ -41,20 +40,17 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const RootProvider = ({ children }) => {
+useEffect(() => {
+  console.log("hello world");
+}, []);
+
+const RootComponent = () => {
   return (
-    <SafeAreaView style={rootStyles.app}>
-      <ApolloProvider client={client}>{children}</ApolloProvider>
-    </SafeAreaView>
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   );
 };
 
-const rootStyles = StyleSheet.create({
-  app: {
-    flex: 1,
-    backgroundColor: "#FFF",
-    justifyContent: "center",
-  },
-});
-
-export default RootProvider;
+export default RootComponent;
+AppRegistry.registerComponent("App", () => RootComponent);

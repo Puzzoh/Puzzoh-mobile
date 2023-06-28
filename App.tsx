@@ -1,7 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import {
+  ActivityIndicator,
+  SafeAreaView,
+  StyleSheet,
+  View,
+} from "react-native";
 import Amplify, { Auth, Hub } from "aws-amplify";
+import awsconfig from "./src/aws-exports";
 import * as Font from "expo-font";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -19,10 +25,10 @@ import NavigationScreen from "./src/mainScreens/NavigationScreen";
 import OnboardingSlider from "./src/components/OnboardingSlider";
 import Settings from "./src/mainScreens/Settings";
 import EditInfo from "./src/mainScreens/EditInfo";
-import RootProvider from "./RootProvider";
 import { useMutation, gql } from "@apollo/client";
 import { createUser } from "./src/graphql/mutations";
 
+Amplify.configure(awsconfig);
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -131,7 +137,7 @@ const App = () => {
   };
 
   return (
-    <RootProvider>
+    <SafeAreaView style={appStyles.app}>
       <NavigationContainer theme={MyTheme}>
         <Stack.Navigator
           screenOptions={{
@@ -160,12 +166,12 @@ const App = () => {
           )}
         </Stack.Navigator>
       </NavigationContainer>
-    </RootProvider>
+    </SafeAreaView>
   );
 };
 
 const appStyles = StyleSheet.create({
-  root: {
+  app: {
     flex: 1,
     backgroundColor: "#FFF",
     justifyContent: "center",
