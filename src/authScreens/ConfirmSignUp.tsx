@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import styles from "../styles/index";
 import { Auth } from "aws-amplify";
+import { useMutation, gql } from "@apollo/client";
+import { createUser } from "../graphql/mutations";
 
 export default function ConfirmSignUp({ navigation }) {
   const [code, setCode] = useState("");

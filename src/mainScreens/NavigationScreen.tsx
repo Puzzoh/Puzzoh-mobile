@@ -24,9 +24,6 @@ export default function MainScreen() {
   // Animated Tab Indicator...
   const tabOffsetValue = useRef(new Animated.Value(0)).current;
 
-  // const CREATE_USER = gql(createUser);
-  // const [createUserMutation] = useMutation(CREATE_USER);
-
   // const isFirstLogin = async () => {
   //   try {
   //     const user = await Auth.currentAuthenticatedUser();
@@ -42,29 +39,6 @@ export default function MainScreen() {
   //   } catch (error) {
   //     console.error("Error checking first-time login:", error);
   //     return false;
-  //   }
-  // };
-
-  // const createUserInfo = async () => {
-  //   try {
-  //     const currUser = await Auth.currentAuthenticatedUser();
-  //     const { username } = currUser;
-  //     const email = currUser.attributes.email;
-  //     const id = currUser.attributes.sub;
-
-  //     const { data } = await createUserMutation({
-  //       variables: {
-  //         input: {
-  //           id,
-  //           username,
-  //           email,
-  //         },
-  //       },
-  //     });
-
-  //     console.log("User created:", data.createUser);
-  //   } catch (error) {
-  //     console.log("Error creating user:", error);
   //   }
   // };
 
