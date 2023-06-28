@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -9,6 +8,7 @@ import {
 import Amplify, { Auth, Hub } from "aws-amplify";
 import awsconfig from "./src/aws-exports";
 import * as Font from "expo-font";
+import RootProvider from "./RootProvider";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SignIn from "./src/authScreens/SignIn";
@@ -25,7 +25,7 @@ import NavigationScreen from "./src/mainScreens/NavigationScreen";
 import OnboardingSlider from "./src/components/OnboardingSlider";
 import Settings from "./src/mainScreens/Settings";
 import EditInfo from "./src/mainScreens/EditInfo";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation, gql, ApolloProvider } from "@apollo/client";
 import { createUser } from "./src/graphql/mutations";
 
 Amplify.configure(awsconfig);
@@ -137,36 +137,44 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView style={appStyles.app}>
-      <NavigationContainer theme={MyTheme}>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          {user ? (
-            <>
-              <Stack.Screen name="Main" component={NavigationScreen} />
-              <Stack.Screen name={"Settings"} component={Settings} />
-              <Stack.Screen name={"EditInfo"} component={EditInfo} />
-            </>
-          ) : (
-            <>
-              <Stack.Screen name="SignIn" component={SignIn} />
-              <Stack.Screen name="SignUp" component={SignUp} />
-              <Stack.Screen name="ConfirmSignUp" component={ConfirmSignUp} />
-              <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-              <Stack.Screen name="ChangePassword" component={ChangePassword} />
-              <Stack.Screen name="Gender" component={Gender} />
-              <Stack.Screen name="Pronounce" component={Pronounce} />
-              <Stack.Screen name="Purpose" component={Purpose} />
-              <Stack.Screen name="Interest" component={Interest} />
-              <Stack.Screen name="FoodPref" component={FoodPref} />
-            </>
-          )}
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaView>
+    <RootProvider>
+      <SafeAreaView style={appStyles.app}>
+        <NavigationContainer theme={MyTheme}>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            {user ? (
+              <>
+                <Stack.Screen name="Main" component={NavigationScreen} />
+                <Stack.Screen name={"Settings"} component={Settings} />
+                <Stack.Screen name={"EditInfo"} component={EditInfo} />
+              </>
+            ) : (
+              <>
+                <Stack.Screen name="SignIn" component={SignIn} />
+                <Stack.Screen name="SignUp" component={SignUp} />
+                <Stack.Screen name="ConfirmSignUp" component={ConfirmSignUp} />
+                <Stack.Screen
+                  name="ForgotPassword"
+                  component={ForgotPassword}
+                />
+                <Stack.Screen
+                  name="ChangePassword"
+                  component={ChangePassword}
+                />
+                <Stack.Screen name="Gender" component={Gender} />
+                <Stack.Screen name="Pronounce" component={Pronounce} />
+                <Stack.Screen name="Purpose" component={Purpose} />
+                <Stack.Screen name="Interest" component={Interest} />
+                <Stack.Screen name="FoodPref" component={FoodPref} />
+              </>
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaView>
+    </RootProvider>
   );
 };
 
