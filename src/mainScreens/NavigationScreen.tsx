@@ -24,31 +24,6 @@ export default function MainScreen() {
   // Animated Tab Indicator...
   const tabOffsetValue = useRef(new Animated.Value(0)).current;
 
-  // const isFirstLogin = async () => {
-  //   try {
-  //     const user = await Auth.currentAuthenticatedUser();
-  //     const { attributes } = user;
-
-  //     if (attributes["cognito:username"]) {
-  //       // Set a flag or attribute to indicate first-time login
-  //       const isFirstLogin = attributes["isFirstLogin"] === "true";
-  //       return isFirstLogin;
-  //     }
-
-  //     return false; // User is not logging in for the first time
-  //   } catch (error) {
-  //     console.error("Error checking first-time login:", error);
-  //     return false;
-  //   }
-  // };
-
-  // if (isFirstLogin) {
-  //   console.log("User is first login");
-  //   //   createUserInfo();
-  // } else {
-  //   console.log("Not first login");
-  // }
-
   return (
     <>
       <Tab.Navigator

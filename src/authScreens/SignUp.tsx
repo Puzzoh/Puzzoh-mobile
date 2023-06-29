@@ -33,6 +33,7 @@ export default function SignUp({ navigation }) {
         attributes: {
           email: state.email,
           name: state.username,
+          "custom:isFirstLogin": "true",
         },
       });
 

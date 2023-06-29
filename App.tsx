@@ -25,7 +25,7 @@ import NavigationScreen from "./src/mainScreens/NavigationScreen";
 import OnboardingSlider from "./src/components/OnboardingSlider";
 import Settings from "./src/mainScreens/Settings";
 import EditInfo from "./src/mainScreens/EditInfo";
-import { useMutation, gql, ApolloProvider } from "@apollo/client";
+import { useMutation, gql } from "@apollo/client";
 import { createUser } from "./src/graphql/mutations";
 
 Amplify.configure(awsconfig);
@@ -100,9 +100,27 @@ const Navigation = () => {
     }
   };
 
+  const checkFirstLogin = async () => {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      const { attributes } = user;
+      const isFirstLogin = attributes["custom:firstLogin"];
+
+      if (isFirstLogin === "true") {
+        await createUserInfo();
+
+        await Auth.updateUserAttributes(user, {
+          "custom:isFirstLogin": "false",
+        });
+      }
+    } catch (error) {
+      console.error("Error checking first-time login:", error);
+    }
+  };
+
   useEffect(() => {
     authenticateUser();
-    createUserInfo();
+    checkFirstLogin();
   }, []);
 
   useEffect(() => {

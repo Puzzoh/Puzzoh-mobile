@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,10 +8,37 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Auth } from "aws-amplify";
-import { colors } from "../styles/index";
 import * as ImagePicker from "expo-image-picker";
+import { gql, useQuery } from "@apollo/client";
+import { getUser } from "../graphql/queries";
+
+const GET_USER_INFO = gql(getUser);
 
 const ProfileScreen = ({ navigation }) => {
+  const [userID, setUserID] = useState(null);
+
+  const { data } = useQuery(GET_USER_INFO, {
+    variables: {
+      id: userID,
+      skip: !userID,
+    },
+  });
+
+  const user = data?.getUser;
+
+  useEffect(() => {
+    const getUserID = async () => {
+      try {
+        const currUser = await Auth.currentAuthenticatedUser();
+        setUserID(currUser.attributes.sub);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getUserID();
+  }, []);
+
   const signOut = () => {
     Auth.signOut();
   };
@@ -70,8 +97,8 @@ const ProfileScreen = ({ navigation }) => {
             <Ionicons name="pencil-outline" size={24} color="#333" />
           </TouchableOpacity>
         </TouchableOpacity>
-        <Text style={styles.username}>John</Text>
-        <Text style={styles.infoText}>Email | Age</Text>
+        <Text style={styles.username}>{user?.username}</Text>
+        <Text style={styles.infoText}>{user?.email} </Text>
         <TouchableOpacity style={styles.button} onPress={handleEditInfo}>
           <Text style={styles.buttonText}>Edit Profile Info</Text>
         </TouchableOpacity>
