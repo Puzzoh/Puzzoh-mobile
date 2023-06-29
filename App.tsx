@@ -104,7 +104,7 @@ const Navigation = () => {
     try {
       const user = await Auth.currentAuthenticatedUser();
       const { attributes } = user;
-      const isFirstLogin = attributes["custom:firstLogin"];
+      const isFirstLogin = attributes["custom:isFirstLogin"];
 
       if (isFirstLogin === "true") {
         await createUserInfo();
@@ -119,8 +119,12 @@ const Navigation = () => {
   };
 
   useEffect(() => {
-    authenticateUser();
-    checkFirstLogin();
+    const initializeUser = async () => {
+      await authenticateUser();
+      checkFirstLogin();
+    };
+
+    initializeUser();
   }, []);
 
   useEffect(() => {
