@@ -75,7 +75,7 @@ export default function HomeScreen() {
         data={JSON.parse(JSON.stringify(vouchers))}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => handleVoucherPress(item)}>
-            <VoucherCard voucher={item} key={(item) => item.id} />
+            <VoucherCard voucher={item} key={item.id} />
           </TouchableOpacity>
         )}
         currentIndex={currentIndex}
