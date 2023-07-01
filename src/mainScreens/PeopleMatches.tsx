@@ -38,20 +38,20 @@ const PeopleMatches = () => {
         <Text style={styles.title}>People Matches</Text>
         <FlatList
           data={people}
-          keyExtractor={(item) => item?.id.toString()}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={({ item, index }) => (
             <TouchableOpacity onPress={() => handleUserPress(item)}>
               <View style={styles.user}>
                 <View style={styles.textContainer}>
-                  {index < 3 && (
+                  {index < 3 && item.purpose && (
                     <Text style={styles.recommended}>
-                      Looking for: {item?.purpose[0]}, {item?.purpose[1]}
+                      Looking for: {item.purpose[0]}, {item.purpose[1]}
                     </Text>
                   )}
-                  <Text style={styles.name}>{item?.username}</Text>
-                  <Text style={styles.bio}>{item?.bio}</Text>
+                  <Text style={styles.name}>{item.username}</Text>
+                  <Text style={styles.bio}>{item.bio}</Text>
                 </View>
-                <Image style={styles.image} source={{ uri: item?.imageURL }} />
+                <Image style={styles.image} source={{ uri: item.imageURL }} />
               </View>
             </TouchableOpacity>
           )}

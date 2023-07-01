@@ -42,10 +42,10 @@ const VoucherMatches = () => {
             {isRecommended && (
               <Text style={nStyles.recommended}>Recommended</Text>
             )}
-            <Text style={nStyles.title}>{item?.title}</Text>
-            <Text style={nStyles.info}>Rating: {item?.avgRating}</Text>
+            <Text style={nStyles.title}>{item.title}</Text>
+            <Text style={nStyles.info}>Rating: {item.avgRating}</Text>
           </View>
-          <Image style={nStyles.image} source={{ uri: item?.imageURL }} />
+          <Image style={nStyles.image} source={{ uri: item.imageURL }} />
         </View>
       </TouchableOpacity>
     );
