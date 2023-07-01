@@ -14,14 +14,10 @@ import { useRef } from "react";
 import Voucher from "./Home";
 import Matches from "./Matches";
 import Profile from "./Profile";
-import { Auth } from "aws-amplify";
-import { useMutation, gql } from "@apollo/client";
-import { createUser } from "../graphql/mutations";
 
 const Tab = createBottomTabNavigator();
 
 export default function MainScreen() {
-  // Animated Tab Indicator...
   const tabOffsetValue = useRef(new Animated.Value(0)).current;
 
   return (
@@ -40,23 +36,14 @@ export default function MainScreen() {
           options={{
             headerShown: false,
             tabBarIcon: ({ focused }) => (
-              <View
-                style={{
-                  // centring Tab Button...
-                  position: "absolute",
-                  top: 20,
-                }}
-              >
-                <FontAwesome5
-                  name="globe-americas"
-                  size={20}
-                  color={focused ? colors.primary : "gray"}
-                ></FontAwesome5>
-              </View>
+              <FontAwesome5
+                name="globe-americas"
+                size={15}
+                color={focused ? colors.primary : "gray"}
+              />
             ),
           }}
           listeners={({ navigation, route }) => ({
-            // Onpress Update....
             tabPress: (e) => {
               Animated.spring(tabOffsetValue, {
                 toValue: 0,
@@ -64,7 +51,7 @@ export default function MainScreen() {
               }).start();
             },
           })}
-        ></Tab.Screen>
+        />
 
         <Tab.Screen
           name={"Matches"}
@@ -74,7 +61,6 @@ export default function MainScreen() {
             tabBarIcon: ({ focused }) => (
               <View
                 style={{
-                  // centring Tab Button...
                   position: "absolute",
                   top: 20,
                 }}
@@ -88,7 +74,6 @@ export default function MainScreen() {
             ),
           }}
           listeners={({ navigation, route }) => ({
-            // Onpress Update....
             tabPress: (e) => {
               Animated.spring(tabOffsetValue, {
                 toValue: getWidth(),
@@ -106,7 +91,6 @@ export default function MainScreen() {
             tabBarIcon: ({ focused }) => (
               <View
                 style={{
-                  // centring Tab Button...
                   position: "absolute",
                   top: 20,
                 }}
@@ -120,7 +104,6 @@ export default function MainScreen() {
             ),
           }}
           listeners={({ navigation, route }) => ({
-            // Onpress Update....
             tabPress: (e) => {
               Animated.spring(tabOffsetValue, {
                 toValue: getWidth() * 2,

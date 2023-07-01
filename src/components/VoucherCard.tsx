@@ -1,8 +1,7 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
-import styles from "../styles/index";
-
+import styles, { colors } from "../styles/index";
 const VoucherCard = (props) => {
   const {
     id,
@@ -23,20 +22,14 @@ const VoucherCard = (props) => {
   return (
     <View style={nStyles.card} key={id}>
       <Image source={{ uri: imageURL }} style={nStyles.image} />
-
       <View style={nStyles.cardInner}>
         <Text style={styles.heading3}>{title}</Text>
-        <View style={[nStyles.row, { gap: 50 }]}>
-          <View style={{ flexDirection: "row" }}>{stars}</View>
+        <View style={[nStyles.row]}>
           <Text style={styles.bodyText}>{numRedeemed} Redeemed </Text>
         </View>
-        <View style={[nStyles.row, { gap: 50 }]}>
-          <Text style={styles.bodyText}> 0.5 miles </Text>
-          <Text style={styles.bodyText}>For {forQuantity} people</Text>
+        <View style={[nStyles.row]}>
+          <Text style={styles.bodyText}>{forQuantity}+ people</Text>
         </View>
-        <Text style={[styles.bodyText, { color: "#888888", marginBottom: 16 }]}>
-          800 Lancaster Ave, Villanova, PA 19085
-        </Text>
         <View style={nStyles.row}>
           <Text
             style={[
@@ -53,19 +46,13 @@ const VoucherCard = (props) => {
           <Text
             style={[
               styles.heading3,
-              { color: "#34A853", marginBottom: 12, marginLeft: 10 },
+              { color: colors.primary, marginBottom: 12, marginLeft: 10 },
             ]}
           >
             ${priceAfter}
           </Text>
         </View>
-        <View style={nStyles.featuredDishContainer}>
-          {["Dish 1", "Dish 2", "Dish 3"].map((dish, index) => (
-            <TouchableOpacity style={nStyles.featuredDish}>
-              <Text style={{ textAlign: "center", color: "#333" }}>{dish}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+
         <View style={{ marginTop: 10 }}>
           <Text style={styles.heading4}>
             Popular Review:{" "}
@@ -93,38 +80,36 @@ const nStyles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 6.68,
+    top: 40,
+    borderWidth: 1,
+    borderColor: colors.primary,
   },
   image: {
     width: "100%",
-    height: 200,
+    alignItems: "center",
+    height: 150,
     borderRadius: 10,
     marginBottom: 12,
   },
   cardInner: {
-    padding: 10,
+    padding: 15,
   },
-  voucherName: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
+
   row: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 4,
   },
   oldPrice: {
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: "bold",
   },
   newPrice: {
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: "bold",
-    marginBottom: 12,
   },
   featuredDishContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+
     borderTopWidth: 1,
     borderColor: "#dddddd",
     paddingTop: 12,

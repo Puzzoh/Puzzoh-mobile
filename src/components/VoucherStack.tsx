@@ -16,10 +16,9 @@ import Dislike from "../../assets/imgs/thumbs-down.png";
 const ROTATION = 60;
 const SWIPE_VELOCITY = 800;
 
-const AnimatedStack = (props) => {
-  const { data, renderItem, onSwipeRight, onSwipeLeft } = props;
+const VoucherStack = (props) => {
+  const { data, renderItem, currentIndex } = props;
 
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [nextIndex, setNextIndex] = useState(currentIndex + 1);
 
   const currentOne = data[currentIndex];
@@ -73,7 +72,7 @@ const AnimatedStack = (props) => {
   }));
 
   const gestureHandler = useAnimatedGestureHandler({
-    onStart: (_, context) => {
+    onStart: (_, context: { startX: number }) => {
       context.startX = translateX.value;
     },
     onActive: (event, context) => {
@@ -88,11 +87,8 @@ const AnimatedStack = (props) => {
       translateX.value = withSpring(
         hiddenTranslateX * Math.sign(event.velocityX),
         {},
-        () => runOnJS(setCurrentIndex)(currentIndex + 1)
+        () => setNextIndex(currentIndex + 1)
       );
-
-      const onSwipe = event.velocityX > 0 ? onSwipeRight : onSwipeLeft;
-      onSwipe && runOnJS(onSwipe)(currentOne);
     },
   });
 
@@ -146,7 +142,6 @@ const styles = StyleSheet.create({
   },
   nextCardContainer: {
     ...StyleSheet.absoluteFillObject,
-
     justifyContent: "center",
     alignItems: "center",
   },
@@ -159,4 +154,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AnimatedStack;
+export default VoucherStack;

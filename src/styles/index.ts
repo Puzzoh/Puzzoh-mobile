@@ -1,4 +1,5 @@
 import { StyleSheet, Platform, Dimensions } from "react-native";
+import * as Font from "expo-font";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
