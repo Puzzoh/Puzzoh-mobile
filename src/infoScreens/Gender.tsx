@@ -9,7 +9,7 @@ import {
   Modal,
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import styles, { colors } from "../styles/index";
+import styles from "../styles/index";
 import AskDialogPopup from "../components/AskDialogPopup";
 import OtherGender from "../components/OtherGenderPopup";
 

@@ -4,12 +4,10 @@ import {
   View,
   ScrollView,
   TextInput,
-  Image,
   Alert,
   TouchableOpacity,
   Dimensions,
   StyleSheet,
-  useWindowDimensions,
 } from "react-native";
 import styles, { colors } from "../styles/index";
 import FontAwesome from "@expo/vector-icons/Ionicons";

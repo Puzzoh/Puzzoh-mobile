@@ -10,7 +10,7 @@ import {
   Dimensions,
 } from "react-native";
 import { colors } from "../styles/index";
-import ChatWindow from "../components/ChatWindowPopup";
+import ChatWindow from "../components/ChatWindow";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { listUsers } from "../graphql/queries";
 
@@ -40,7 +40,7 @@ const PeopleMatches = () => {
             <TouchableOpacity onPress={() => handleUserPress(item)}>
               <View style={styles.user}>
                 <View style={styles.textContainer}>
-                  {index < 3 && item.purpose && (
+                  {item.purpose && (
                     <Text style={styles.recommended}>
                       Looking for: {item.purpose[0]}, {item.purpose[1]}
                     </Text>
