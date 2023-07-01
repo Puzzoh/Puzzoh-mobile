@@ -8,9 +8,44 @@ import {
 } from "react-native";
 import styles, { colors } from "../styles/index";
 import { BackButton } from "../components/CustomButtons";
+import { Auth } from "aws-amplify";
+import { gql, useMutation } from "@apollo/client";
+import { updateUser } from "../graphql/mutations";
 
-const FoodPref = ({ navigation }) => {
-  const [selected, setSelected] = useState(Array(12).fill(false)); // An array of 12 booleans for the 12 options
+const FoodPref = ({ navigation, route }) => {
+  const UPDATE_USER = gql(updateUser);
+  const [updateUserMutation] = useMutation(UPDATE_USER);
+
+  const updateUserInfo = async () => {
+    try {
+      const currUser = await Auth.currentAuthenticatedUser();
+      const id = currUser.attributes.sub;
+
+      const { data } = await updateUserMutation({
+        variables: {
+          input: {
+            id,
+            gender: selectedGender,
+            pronounce: selectedPronounce,
+            purpose: selectedPurpose,
+            interest: selectedInterest,
+            foodPref: selectedFoodPref,
+          },
+        },
+      });
+
+      console.log("User updated:", data.updateUser);
+    } catch (error) {
+      console.log("Error updating user:", error);
+    }
+  };
+
+  // console.log(route?.params);
+  const selectedGender = route?.params?.gender;
+  const selectedPronounce = route?.params?.pronounce;
+  const selectedPurpose = route?.params?.purpose;
+  const selectedInterest = route?.params?.interest;
+
   const foodPref = [
     "Vegan",
     "Mediterranean",
@@ -25,10 +60,13 @@ const FoodPref = ({ navigation }) => {
     "Vietnamese",
     "Dessert",
   ];
+
+  const [selected, setSelected] = useState(Array(12).fill(false)); // An array of 12 booleans for the 12 options
+  const [selectedFoodPref, setSelectedFoodPref] = useState([]);
   const [loading, setLoading] = useState(false);
   const [pressed, setPressed] = useState(false);
 
-  const handlePress = (index) => {
+  const handlePress = (index, foodPrefValue) => {
     let newSelected = [...selected];
     let count = newSelected.reduce((n, x) => n + (x === true), 0);
 
@@ -37,9 +75,17 @@ const FoodPref = ({ navigation }) => {
     }
 
     setSelected(newSelected);
+    if (selectedFoodPref.includes(foodPrefValue)) {
+      setSelectedFoodPref(
+        selectedFoodPref.filter((element) => element !== foodPrefValue)
+      );
+    } else {
+      setSelectedFoodPref([...selectedFoodPref, foodPrefValue]);
+    }
   };
 
-  const onDone = () => {
+  const onDone = async () => {
+    await updateUserInfo();
     navigation.navigate("Main");
   };
 
@@ -47,7 +93,9 @@ const FoodPref = ({ navigation }) => {
     <View style={nStyles.container}>
       <BackButton onPress={() => navigation.navigate("Interest")} />
       <View style={nStyles.container}>
-        <Text style={nStyles.heading}>Food Preferences</Text>
+        <Text style={[styles.heading2, { marginBottom: 20, top: 50 }]}>
+          Food Preferences
+        </Text>
         <Text style={nStyles.subHeading}>
           Select up to 3 of your favorite cuisines and let us know what you like
         </Text>
@@ -59,31 +107,30 @@ const FoodPref = ({ navigation }) => {
           <View style={nStyles.row} key={rowStartIndex}>
             {foodPref
               .slice(rowStartIndex, rowStartIndex + 2)
-              .map((interest, idx) => {
-                const interestIndex = rowStartIndex + idx;
+              .map((foodPref, idx) => {
+                const foodPrefIndex = rowStartIndex + idx;
                 return (
                   <TouchableOpacity
-                    key={interestIndex}
+                    key={foodPrefIndex}
                     style={[
                       nStyles.button,
-                      selected[interestIndex] ? nStyles.selected : null,
+                      selected[foodPrefIndex] ? nStyles.selected : null,
                       nStyles.interest, // new style for interests
                     ]}
-                    onPress={() => handlePress(interestIndex)}
+                    onPress={() => handlePress(foodPrefIndex, foodPref)}
                     disabled={
                       selected.filter(Boolean).length === 3 &&
-                      !selected[interestIndex]
+                      !selected[foodPrefIndex]
                     }
                   >
                     <Text
                       style={[
                         styles.optionText,
-                        selected[interestIndex] ? styles.whitetext : null,
+                        selected[foodPrefIndex] ? styles.whiteText : null,
                       ]}
                     >
-                      {interest}
+                      {foodPref}
                     </Text>
-                    {/* replace this text with your icon */}
                   </TouchableOpacity>
                 );
               })}
@@ -110,13 +157,6 @@ const nStyles = StyleSheet.create({
     flex: 1,
     //justifyContent: 'center',
     alignItems: "center",
-  },
-  heading: {
-    fontSize: 32,
-    fontFamily: "Lexend",
-    marginBottom: 20,
-    top: 50,
-    bottom: 10,
   },
   subHeading: {
     top: 35,

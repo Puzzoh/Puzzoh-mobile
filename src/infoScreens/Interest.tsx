@@ -10,8 +10,11 @@ import { Ionicons } from "@expo/vector-icons";
 import styles from "../styles/index";
 import { BackButton } from "../components/CustomButtons";
 
-const Interest = ({ navigation }) => {
-  const [selected, setSelected] = useState(Array(12).fill(false)); // An array of 12 booleans for the 12 options
+const Interest = ({ navigation, route }) => {
+  const selectedGender = route?.params?.gender;
+  const selectedPronounce = route?.params?.pronounce;
+  const selectedPurpose = route?.params?.purpose;
+
   const interests = [
     { name: "Traveling", icon: "airplane-outline" },
     { name: "Photo", icon: "camera-outline" },
@@ -27,9 +30,11 @@ const Interest = ({ navigation }) => {
     { name: "Writing", icon: "create-outline" },
   ];
 
+  const [selected, setSelected] = useState(Array(12).fill(false)); // An array of 12 booleans for the 12 options
+  const [selectedInterest, setSelectedInterest] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const handlePress = (index) => {
+  const handlePress = (index, interestValue) => {
     let newSelected = [...selected];
     let count = newSelected.reduce((n, x) => n + (x === true), 0);
 
@@ -38,17 +43,30 @@ const Interest = ({ navigation }) => {
     }
 
     setSelected(newSelected);
+
+    if (selectedInterest.includes(interestValue)) {
+      setSelectedInterest(
+        selectedInterest.filter((element) => element !== interestValue)
+      );
+    } else {
+      setSelectedInterest([...selectedInterest, interestValue]);
+    }
   };
 
   const onNext = () => {
-    navigation.navigate("FoodPref");
+    navigation.navigate("FoodPref", {
+      gender: selectedGender,
+      pronounce: selectedPronounce,
+      purpose: selectedPurpose,
+      interest: selectedInterest,
+    });
   };
 
   return (
     <View style={nStyles.container}>
       <BackButton onPress={() => navigation.navigate("Purpose")} />
       <View style={nStyles.container}>
-        <Text style={[styles.interestHeading, { top: 70 }]}>Your Interest</Text>
+        <Text style={[styles.heading2, { top: 70 }]}>Your Interest</Text>
         <Text style={styles.subHeading}>
           Select up to 3 of your interest and let us know what you are
           passionate about
@@ -71,7 +89,7 @@ const Interest = ({ navigation }) => {
                       selected[interestIndex] ? styles.selected : null,
                       nStyles.interest, // new style for interests
                     ]}
-                    onPress={() => handlePress(interestIndex)}
+                    onPress={() => handlePress(interestIndex, interest.name)}
                     disabled={
                       selected.filter(Boolean).length === 3 &&
                       !selected[interestIndex]
@@ -86,7 +104,7 @@ const Interest = ({ navigation }) => {
                     <Text
                       style={[
                         styles.optionText,
-                        selected[interestIndex] ? styles.whitetext : null,
+                        selected[interestIndex] ? styles.whiteText : null,
                       ]}
                     >
                       {interest.name}

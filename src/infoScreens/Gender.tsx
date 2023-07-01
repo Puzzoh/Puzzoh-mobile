@@ -8,14 +8,11 @@ import {
   Dimensions,
   Modal,
 } from "react-native";
-import { useRoute } from "@react-navigation/native";
 import styles from "../styles/index";
 import AskDialogPopup from "../components/AskDialogPopup";
 import OtherGender from "../components/OtherGenderPopup";
 
-const Gender = ({ navigation }) => {
-  const route = useRoute();
-
+const Gender = ({ navigation, route }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [showOtherGender, setShowOtherGender] = useState(false);
 
@@ -36,15 +33,17 @@ const Gender = ({ navigation }) => {
   };
 
   const [selected, setSelected] = useState([false, false, false]);
+  const [selectedGender, setSelectedGender] = useState(null);
   const [showOption4, setShowOption4] = useState(false);
   const [option4Selected, setOption4Selected] = useState(false);
   const [option4Value, setOption4Value] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handlePress = (index) => {
+  const handlePress = (index, genderValue) => {
     const newSelected = [false, false, false]; // Reset all selections
     newSelected[index] = true; // Set selected state on pressed button
     setSelected(newSelected);
+    setSelectedGender(genderValue);
     if (index === 2) {
       setShowOtherGender(true);
     }
@@ -55,7 +54,7 @@ const Gender = ({ navigation }) => {
       selected.includes(true) ||
       (showOption4 && option4Value.trim() !== "")
     ) {
-      navigation.navigate("Pronounce");
+      navigation.navigate("Pronounce", { gender: selectedGender });
     } else {
       alert("Please select an option before proceeding");
     }
@@ -80,12 +79,12 @@ const Gender = ({ navigation }) => {
             <TouchableOpacity
               key={index}
               style={[nStyles.button, selected[index] ? styles.selected : null]}
-              onPress={() => handlePress(index)}
+              onPress={() => handlePress(index, option)}
             >
               <Text
                 style={[
                   styles.optionText,
-                  selected[index] ? styles.whitetext : null,
+                  selected[index] ? styles.whiteText : null,
                 ]}
               >
                 {option}
@@ -134,18 +133,18 @@ const nStyles = StyleSheet.create({
     paddingHorizontal: 20, // Add some padding for better spacing
   },
   option4: {
-    width: (Dimensions.get("window").width * 5) / 6, // Increased the width
+    width: (Dimensions.get("window").width * 5) / 6,
     height: 60,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
     marginVertical: 10,
-    borderWidth: 1, // add border
-    borderColor: "black", // set border color
+    borderWidth: 1,
+    borderColor: "black",
   },
   button: {
-    width: (Dimensions.get("window").width * 5) / 6, // Increased the width
+    width: (Dimensions.get("window").width * 5) / 6,
     height: 60,
     flexDirection: "row",
     justifyContent: "center",
@@ -163,10 +162,10 @@ const nStyles = StyleSheet.create({
     right: 10,
   },
   space: {
-    height: 120, // This creates space for 2 option buttons
+    height: 120,
   },
   spaceSmall: {
-    height: 10, // This creates a small gap between the heading and the options
+    height: 10,
   },
 });
 

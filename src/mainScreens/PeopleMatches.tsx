@@ -40,11 +40,9 @@ const PeopleMatches = () => {
             <TouchableOpacity onPress={() => handleUserPress(item)}>
               <View style={styles.user}>
                 <View style={styles.textContainer}>
-                  {item.purpose && (
-                    <Text style={styles.recommended}>
-                      Looking for: {item.purpose[0]}, {item.purpose[1]}
-                    </Text>
-                  )}
+                  <Text style={styles.recommended}>
+                    Looking for: {item.purpose}
+                  </Text>
                   <Text style={styles.name}>{item.username}</Text>
                   <Text style={styles.bio}>{item.bio}</Text>
                 </View>

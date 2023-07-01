@@ -50,7 +50,11 @@ const Profile = ({ navigation }) => {
   };
 
   const handleEditInfo = () => {
-    navigation.navigate("EditInfo");
+    navigation.navigate("EditInfo", { user });
+  };
+
+  const handleEditFilter = () => {
+    navigation.navigate("EditFilter", { user });
   };
 
   const handleEditPicture = async () => {
@@ -104,6 +108,10 @@ const Profile = ({ navigation }) => {
         <Text style={nStyles.infoText}>{user?.email} </Text>
         <TouchableOpacity style={nStyles.button} onPress={handleEditInfo}>
           <Text style={nStyles.buttonText}>Edit Profile Info</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={nStyles.button} onPress={handleEditFilter}>
+          <Text style={nStyles.buttonText}>Edit Matching Filter</Text>
         </TouchableOpacity>
       </View>
     </View>

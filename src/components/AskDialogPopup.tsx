@@ -9,12 +9,12 @@ import {
 } from "react-native";
 import styles from "../styles/index";
 
-const AskDialogPopup = ({ showPopup, handleNo, handleYes, username }) => {
+const AskDialogPopup = ({ showPopup, handleNo, handleYes }) => {
   return (
     <Modal visible={showPopup} animationType="slide" transparent={true}>
       <View style={nStyles.popupContainer}>
         <View style={nStyles.popupContent}>
-          <Text style={styles.heading3}>Welcome {username}!</Text>
+          <Text style={styles.heading3}>Welcome!</Text>
 
           <Text style={[styles.heading3, { marginTop: 50 }]}>
             We&apos;d like to ask you a few questions. Your answers to those

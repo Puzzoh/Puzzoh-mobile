@@ -9,19 +9,28 @@ import {
 import styles from "../styles/index";
 import { BackButton } from "../components/CustomButtons";
 
-const Purpose = ({ navigation }) => {
+const Purpose = ({ navigation, route }) => {
+  const selectedGender = route?.params?.gender;
+  const selectedPronounce = route?.params?.pronounce;
+
   const [selected, setSelected] = useState([false, false, false]);
+  const [selectedPurpose, setSelectedPurpose] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handlePress = (index) => {
+  const handlePress = (index, purposeValue) => {
     const newSelected = [false, false, false]; // Reset all selections
     newSelected[index] = true; // Set selected state on pressed button
     setSelected(newSelected);
+    setSelectedPurpose(purposeValue);
   };
 
   const onNext = async () => {
     if (selected.includes(true)) {
-      navigation.navigate("Interest");
+      navigation.navigate("Interest", {
+        gender: selectedGender,
+        pronounce: selectedPronounce,
+        purpose: selectedPurpose,
+      });
     } else {
       alert("Please select an option before proceeding");
     }
@@ -37,12 +46,12 @@ const Purpose = ({ navigation }) => {
           <TouchableOpacity
             key={index}
             style={[nStyles.button, selected[index] ? styles.selected : null]}
-            onPress={() => handlePress(index)}
+            onPress={() => handlePress(index, option)}
           >
             <Text
               style={[
                 styles.optionText,
-                selected[index] ? styles.whitetext : null,
+                selected[index] ? styles.whiteText : null,
               ]}
             >
               {option}

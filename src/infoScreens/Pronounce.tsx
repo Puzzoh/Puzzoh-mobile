@@ -10,19 +10,26 @@ import { Ionicons } from "@expo/vector-icons"; // Import Ionicons from @expo/vec
 import styles from "../styles/index";
 import { BackButton } from "../components/CustomButtons";
 
-const Pronounce = ({ navigation }) => {
+const Pronounce = ({ navigation, route }) => {
+  const selectedGender = route?.params?.gender;
+
   const [selected, setSelected] = useState([false, false, false]);
+  const [selectedPronounce, setSelectedPronounce] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handlePress = (index) => {
+  const handlePress = (index, pronounceValue) => {
     const newSelected = [false, false, false]; // Reset all selections
     newSelected[index] = true; // Set selected state on pressed button
     setSelected(newSelected);
+    setSelectedPronounce(pronounceValue);
   };
 
   const onNext = async () => {
     if (selected.includes(true)) {
-      navigation.navigate("Purpose");
+      navigation.navigate("Purpose", {
+        gender: selectedGender,
+        pronounce: selectedPronounce,
+      });
     } else {
       alert("Please select an option before proceeding");
     }
@@ -35,19 +42,19 @@ const Pronounce = ({ navigation }) => {
       <View style={nStyles.spaceSmall} />
       <View style={nStyles.buttonContainer}>
         {[
-          { label: "She/her", icon: "female-outline" },
           { label: "He/him", icon: "male-outline" },
+          { label: "She/her", icon: "female-outline" },
           { label: "They/them", icon: "ellipsis-horizontal-outline" },
         ].map((option, index) => (
           <TouchableOpacity
             key={index}
             style={[nStyles.button, selected[index] ? styles.selected : null]}
-            onPress={() => handlePress(index)}
+            onPress={() => handlePress(index, option.label)}
           >
             <Text
               style={[
                 styles.optionText,
-                selected[index] ? styles.whitetext : null,
+                selected[index] ? styles.whiteText : null,
               ]}
             >
               {option.label}
