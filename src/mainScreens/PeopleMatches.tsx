@@ -43,7 +43,7 @@ const PeopleMatches = () => {
             <TouchableOpacity onPress={() => handleUserPress(item)}>
               <View style={styles.user}>
                 <View style={styles.textContainer}>
-                  {index < 3 && item.purpose && (
+                  {item.purpose && (
                     <Text style={styles.recommended}>
                       Looking for: {item.purpose[0]}, {item.purpose[1]}
                     </Text>
