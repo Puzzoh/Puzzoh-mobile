@@ -1,5 +1,5 @@
 import { useRoute } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import styles from "../styles/index";
 import { Auth } from "aws-amplify";
+import { useMutation, gql } from "@apollo/client";
+import { createUser } from "../graphql/mutations";
 
 export default function ConfirmSignUp({ navigation }) {
   const [code, setCode] = useState("");
@@ -22,7 +24,7 @@ export default function ConfirmSignUp({ navigation }) {
     try {
       await Auth.confirmSignUp(registeredName, code);
       Alert.alert("Successful confirmation");
-      navigation.navigate("Gender", { username: registeredName });
+      navigation.navigate("SignIn");
     } catch (error) {
       Alert.alert(error.message);
     }

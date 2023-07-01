@@ -12,13 +12,9 @@ import {
   useWindowDimensions,
 } from "react-native";
 import styles, { colors } from "../styles/index";
-// import { validateEmail, validatePassword } from "../utils/validation";
-import { Auth } from "aws-amplify";
 import FontAwesome from "@expo/vector-icons/Ionicons";
-
-const Logo = require("../../assets/imgs/logo1.png").default;
-
-const windowWidth = Dimensions.get("window").width;
+import { Auth } from "aws-amplify";
+// import { validateEmail, validatePassword } from "../utils/validation";
 
 export default function SignIn({ navigation }) {
   const [state, setState] = useState({
@@ -27,13 +23,13 @@ export default function SignIn({ navigation }) {
   });
 
   const [loading, setLoading] = useState(false);
-  const { height } = useWindowDimensions();
 
   const onSignInPressed = async () => {
     if (loading) return;
     setLoading(true);
+
     try {
-      const response = await Auth.signIn({
+      await Auth.signIn({
         username: state.username,
         password: state.password,
       });
@@ -120,6 +116,8 @@ export default function SignIn({ navigation }) {
     </ScrollView>
   );
 }
+
+const windowWidth = Dimensions.get("window").width;
 
 const nStyles = StyleSheet.create({
   container: {

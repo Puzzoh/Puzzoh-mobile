@@ -15,6 +15,8 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 import { listVouchers } from "../graphql/queries";
 import VoucherDetailPopup from "../components/VoucherDetailPopup";
 
+import { Auth } from "aws-amplify";
+
 const GET_VOUCHERS = gql(listVouchers);
 
 export default function HomeScreen() {
@@ -32,6 +34,14 @@ export default function HomeScreen() {
     setSelectedVoucher(null);
   };
 
+  // const fetchUserAttributes = async () => {
+  //   try {
+  //     const user = await Auth.currentAuthenticatedUser();
+  //   } catch (error) {
+  //     console.log("Error fetching user attributes:", error);
+  //   }
+  // };
+
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -47,6 +57,10 @@ export default function HomeScreen() {
       </View>
     );
   }
+
+  // useEffect(() => {
+  //   fetchUserAttributes();
+  // }, []);
 
   const onSwipeLeft = (user) => {
     console.log("swipe left");

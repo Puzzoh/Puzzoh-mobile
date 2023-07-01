@@ -18,6 +18,7 @@ export const getUser = /* GraphQL */ `
       foodPref
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -43,8 +44,10 @@ export const listUsers = /* GraphQL */ `
         foodPref
         createdAt
         updatedAt
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -76,11 +79,14 @@ export const getVendor = /* GraphQL */ `
           createdAt
           updatedAt
           vendorVouchersId
+          __typename
         }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -104,11 +110,14 @@ export const listVendors = /* GraphQL */ `
         location
         vouchers {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -138,13 +147,16 @@ export const getVoucher = /* GraphQL */ `
         location
         vouchers {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
       vendorVouchersId
+      __typename
     }
   }
 `;
@@ -179,12 +191,15 @@ export const listVouchers = /* GraphQL */ `
           location
           createdAt
           updatedAt
+          __typename
         }
         createdAt
         updatedAt
         vendorVouchersId
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;

@@ -14,6 +14,9 @@ import { useRef } from "react";
 import Voucher from "./Home";
 import Matches from "./Matches";
 import Profile from "./Profile";
+import { Auth } from "aws-amplify";
+import { useMutation, gql } from "@apollo/client";
+import { createUser } from "../graphql/mutations";
 
 const Tab = createBottomTabNavigator();
 

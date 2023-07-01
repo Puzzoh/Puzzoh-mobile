@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import styles, { colors } from "../styles/index";
-import AskPopupDialog from "../components/DialogPopup";
+import AskDialogPopup from "../components/AskDialogPopup";
 import OtherGender from "../components/OtherGenderPopup";
 
 export default function Gender({ navigation }) {
@@ -20,12 +20,11 @@ export default function Gender({ navigation }) {
   const [showOtherGender, setShowOtherGender] = useState(false);
 
   useEffect(() => {
-    setShowPopup(true); // Show the popup when the component mounts
+    setShowPopup(true);
   }, []);
 
-  const handleLater = () => {
-    navigation.navigate("SignIn");
-    setShowPopup(false);
+  const handleLater = async () => {
+    navigation.navigate("Main");
   };
 
   const handleContinue = () => {
@@ -64,7 +63,7 @@ export default function Gender({ navigation }) {
 
   return (
     <View style={nStyles.container}>
-      <AskPopupDialog
+      <AskDialogPopup
         showPopup={showPopup}
         handleYes={handleContinue}
         handleNo={handleLater}

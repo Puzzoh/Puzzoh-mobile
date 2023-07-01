@@ -18,6 +18,7 @@ export const onCreateUser = /* GraphQL */ `
       foodPref
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -38,6 +39,7 @@ export const onUpdateUser = /* GraphQL */ `
       foodPref
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -58,6 +60,7 @@ export const onDeleteUser = /* GraphQL */ `
       foodPref
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -89,11 +92,14 @@ export const onCreateVendor = /* GraphQL */ `
           createdAt
           updatedAt
           vendorVouchersId
+          __typename
         }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -125,11 +131,14 @@ export const onUpdateVendor = /* GraphQL */ `
           createdAt
           updatedAt
           vendorVouchersId
+          __typename
         }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -161,11 +170,14 @@ export const onDeleteVendor = /* GraphQL */ `
           createdAt
           updatedAt
           vendorVouchersId
+          __typename
         }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -195,13 +207,16 @@ export const onCreateVoucher = /* GraphQL */ `
         location
         vouchers {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
       vendorVouchersId
+      __typename
     }
   }
 `;
@@ -231,13 +246,16 @@ export const onUpdateVoucher = /* GraphQL */ `
         location
         vouchers {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
       vendorVouchersId
+      __typename
     }
   }
 `;
@@ -267,13 +285,16 @@ export const onDeleteVoucher = /* GraphQL */ `
         location
         vouchers {
           nextToken
+          __typename
         }
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
       vendorVouchersId
+      __typename
     }
   }
 `;

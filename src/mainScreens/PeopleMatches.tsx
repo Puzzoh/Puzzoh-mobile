@@ -17,8 +17,6 @@ import { listUsers } from "../graphql/queries";
 
 const GET_PEOPLE_MATCHES = gql(listUsers);
 
-const { height } = Dimensions.get("window");
-
 const PeopleMatches = () => {
   const { data } = useQuery(GET_PEOPLE_MATCHES);
 
@@ -45,7 +43,7 @@ const PeopleMatches = () => {
             <TouchableOpacity onPress={() => handleUserPress(item)}>
               <View style={styles.user}>
                 <View style={styles.textContainer}>
-                  {index < 3 && (
+                  {index < 3 && item.purpose && (
                     <Text style={styles.recommended}>
                       Looking for: {item.purpose[0]}, {item.purpose[1]}
                     </Text>
@@ -65,6 +63,8 @@ const PeopleMatches = () => {
     </SafeAreaView>
   );
 };
+
+const { height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   root: {
