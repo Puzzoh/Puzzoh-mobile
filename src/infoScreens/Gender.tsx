@@ -24,8 +24,7 @@ export default function Gender({ navigation }) {
   }, []);
 
   const handleLater = async () => {
-    navigation.navigate("SignIn");
-    // setShowPopup(false);
+    navigation.navigate("Main");
   };
 
   const handleContinue = () => {

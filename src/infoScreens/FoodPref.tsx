@@ -40,7 +40,7 @@ const Interest = ({ navigation }) => {
   };
 
   const onDone = () => {
-    navigation.navigate("SignIn");
+    navigation.navigate("Main");
   };
 
   return (

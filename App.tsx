@@ -9,7 +9,6 @@ import Amplify, { Auth, Hub } from "aws-amplify";
 import awsconfig from "./src/aws-exports";
 import * as Font from "expo-font";
 import RootProvider from "./RootProvider";
-import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SignIn from "./src/authScreens/SignIn";
 import SignUp from "./src/authScreens/SignUp";
@@ -25,8 +24,7 @@ import NavigationScreen from "./src/mainScreens/NavigationScreen";
 import OnboardingSlider from "./src/components/OnboardingSlider";
 import Settings from "./src/mainScreens/Settings";
 import EditInfo from "./src/mainScreens/EditInfo";
-import { useMutation, gql } from "@apollo/client";
-import { createUser } from "./src/graphql/mutations";
+import Initializer from "./src/mainScreens/Initializer";
 
 Amplify.configure(awsconfig);
 const Stack = createNativeStackNavigator();
@@ -62,32 +60,6 @@ const Navigation = () => {
   //   );
   // }
 
-  const CREATE_USER = gql(createUser);
-  const [createUserMutation] = useMutation(CREATE_USER);
-
-  const createUserInfo = async () => {
-    try {
-      const currUser = await Auth.currentAuthenticatedUser();
-      const { username } = currUser;
-      const email = currUser.attributes.email;
-      const id = currUser.attributes.sub;
-
-      const { data } = await createUserMutation({
-        variables: {
-          input: {
-            id,
-            username,
-            email,
-          },
-        },
-      });
-
-      console.log("User created:", data.createUser);
-    } catch (error) {
-      console.log("Error creating user:", error);
-    }
-  };
-
   const authenticateUser = async () => {
     try {
       const user = await Auth.currentAuthenticatedUser({
@@ -100,31 +72,8 @@ const Navigation = () => {
     }
   };
 
-  const checkFirstLogin = async () => {
-    try {
-      const user = await Auth.currentAuthenticatedUser();
-      const { attributes } = user;
-      const isFirstLogin = attributes["custom:isFirstLogin"];
-
-      if (isFirstLogin === "true") {
-        await createUserInfo();
-
-        await Auth.updateUserAttributes(user, {
-          "custom:isFirstLogin": "false",
-        });
-      }
-    } catch (error) {
-      console.error("Error checking first-time login:", error);
-    }
-  };
-
   useEffect(() => {
-    const initializeUser = async () => {
-      await authenticateUser();
-      checkFirstLogin();
-    };
-
-    initializeUser();
+    authenticateUser();
   }, []);
 
   useEffect(() => {
@@ -151,43 +100,34 @@ const Navigation = () => {
     );
   }
 
-  const MyTheme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      background: "white",
-    },
-  };
-
   return (
-    <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        {user ? (
-          <>
-            <Stack.Screen name="Main" component={NavigationScreen} />
-            <Stack.Screen name={"Settings"} component={Settings} />
-            <Stack.Screen name={"EditInfo"} component={EditInfo} />
-          </>
-        ) : (
-          <>
-            <Stack.Screen name="SignIn" component={SignIn} />
-            <Stack.Screen name="SignUp" component={SignUp} />
-            <Stack.Screen name="ConfirmSignUp" component={ConfirmSignUp} />
-            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-            <Stack.Screen name="ChangePassword" component={ChangePassword} />
-            <Stack.Screen name="Gender" component={Gender} />
-            <Stack.Screen name="Pronounce" component={Pronounce} />
-            <Stack.Screen name="Purpose" component={Purpose} />
-            <Stack.Screen name="Interest" component={Interest} />
-            <Stack.Screen name="FoodPref" component={FoodPref} />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      {user ? (
+        <>
+          <Stack.Screen name="Initializer" component={Initializer} />
+          <Stack.Screen name="Gender" component={Gender} />
+          <Stack.Screen name="Pronounce" component={Pronounce} />
+          <Stack.Screen name="Purpose" component={Purpose} />
+          <Stack.Screen name="Interest" component={Interest} />
+          <Stack.Screen name="FoodPref" component={FoodPref} />
+          <Stack.Screen name="Main" component={NavigationScreen} />
+          <Stack.Screen name={"Settings"} component={Settings} />
+          <Stack.Screen name={"EditInfo"} component={EditInfo} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="SignIn" component={SignIn} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="ConfirmSignUp" component={ConfirmSignUp} />
+          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+          <Stack.Screen name="ChangePassword" component={ChangePassword} />
+        </>
+      )}
+    </Stack.Navigator>
   );
 };
 

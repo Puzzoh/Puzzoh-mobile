@@ -24,7 +24,7 @@ export default function ConfirmSignUp({ navigation }) {
     try {
       await Auth.confirmSignUp(registeredName, code);
       Alert.alert("Successful confirmation");
-      navigation.navigate("Gender", { username: registeredName });
+      navigation.navigate("SignIn");
     } catch (error) {
       Alert.alert(error.message);
     }
