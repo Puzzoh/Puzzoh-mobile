@@ -3,18 +3,23 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Image,
   StyleSheet,
   Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Auth } from "aws-amplify";
+import { Auth, Storage } from "aws-amplify";
 import * as ImagePicker from "expo-image-picker";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 import { getUser } from "../graphql/queries";
+import { updateUser } from "../graphql/mutations";
 
 const GET_USER_INFO = gql(getUser);
 
 const Profile = ({ navigation }) => {
+  const UPDATE_USER = gql(updateUser);
+  const [updateUserMutation] = useMutation(UPDATE_USER);
+
   const [userID, setUserID] = useState(null);
 
   const { data } = useQuery(GET_USER_INFO, {
@@ -43,7 +48,7 @@ const Profile = ({ navigation }) => {
     Auth.signOut();
   };
 
-  const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState(user?.imageURL);
 
   const handleSettings = () => {
     navigation.navigate("Settings");
@@ -73,7 +78,31 @@ const Profile = ({ navigation }) => {
     });
 
     if (!imageResult.canceled) {
-      setAvatar(imageResult.uri);
+      const { uri } = imageResult;
+      const fileName = `user_${userID}_${Date.now()}.jpg`;
+
+      try {
+        await Storage.put(fileName, uri, {
+          contentType: "image/jpeg",
+        });
+
+        const s3ImageURL = await Storage.get(fileName);
+
+        const { data } = await updateUserMutation({
+          variables: {
+            input: {
+              id: userID,
+              imageURL: s3ImageURL,
+            },
+          },
+        });
+
+        console.log("Image uploaded successfully:", data.updateUser.imageURL);
+
+        setAvatar(s3ImageURL);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
     }
   };
 

@@ -1,0 +1,14 @@
+{
+  "resourceName": "images",
+  "policyUUID": "1dcffd65",
+  "bucketName": "puzzohresources",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "S3Triggerd94ee2d7",
+  "groupAccess": {}
+}
