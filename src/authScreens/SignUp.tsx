@@ -13,9 +13,7 @@ import styles, { colors } from "../styles/index";
 import { Auth } from "aws-amplify";
 import FontAwesome from "@expo/vector-icons/Ionicons";
 
-const windowWidth = Dimensions.get("window").width;
-
-export default function SignUp({ navigation }) {
+const SignUp = ({ navigation }) => {
   const [state, setState] = useState({
     username: "",
     email: "",
@@ -150,7 +148,9 @@ export default function SignUp({ navigation }) {
       </View>
     </ScrollView>
   );
-}
+};
+
+const windowWidth = Dimensions.get("window").width;
 
 const nStyles = StyleSheet.create({
   container1: {
@@ -167,9 +167,6 @@ const nStyles = StyleSheet.create({
     flex: 1,
     margin: 10,
   },
-  heading3: {
-    marginBottom: 5,
-  },
   input: {
     height: 40,
     borderColor: "gray",
@@ -183,3 +180,5 @@ const nStyles = StyleSheet.create({
     paddingHorizontal: 50,
   },
 });
+
+export default SignUp;

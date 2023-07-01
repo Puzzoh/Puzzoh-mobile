@@ -39,9 +39,9 @@ const OnboardingSlider = (props) => {
         width: 30,
       }}
       showSkipButton
-      renderNextButton={() => buttonLabel("Next")}
-      renderSkipButton={() => buttonLabel("Skip")}
-      renderDoneButton={() => buttonLabel("Done")}
+      renderNextButton={() => ButtonLabel("Next")}
+      renderSkipButton={() => ButtonLabel("Skip")}
+      renderDoneButton={() => ButtonLabel("Done")}
       {...props}
     />
   );
@@ -83,7 +83,7 @@ const slides = [
   },
 ];
 
-const buttonLabel = (label) => {
+const ButtonLabel = (label) => {
   return (
     <View style={{ padding: 12 }}>
       <Text style={styles.highlightText}>{label}</Text>

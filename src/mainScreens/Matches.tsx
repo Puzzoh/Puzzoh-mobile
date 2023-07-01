@@ -1,14 +1,12 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
-
 import PeopleMatches from "./PeopleMatches";
 import VoucherMatches from "./VoucherMatches";
-import { colors } from "../styles/index";
 
 const Tab = createMaterialTopTabNavigator();
 
-const App = () => {
+const Matches = () => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -41,4 +39,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Matches;

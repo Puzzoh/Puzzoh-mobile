@@ -10,7 +10,7 @@ import {
 import styles from "../styles/index";
 import { Auth } from "aws-amplify";
 
-const ForgotPasswordScreen = ({ navigation }) => {
+const ForgotPassword = ({ navigation }) => {
   const [username, setUsername] = useState("");
 
   const onSendPressed = async () => {
@@ -58,4 +58,4 @@ const nStyles = StyleSheet.create({
   },
 });
 
-export default ForgotPasswordScreen;
+export default ForgotPassword;

@@ -2,6 +2,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 import styles, { colors } from "../styles/index";
+
 const VoucherCard = (props) => {
   const {
     id,
@@ -109,7 +110,6 @@ const nStyles = StyleSheet.create({
   },
   featuredDishContainer: {
     flexDirection: "row",
-
     borderTopWidth: 1,
     borderColor: "#dddddd",
     paddingTop: 12,

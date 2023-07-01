@@ -20,7 +20,6 @@ const VoucherStack = (props) => {
   const { data, renderItem, currentIndex } = props;
 
   const [nextIndex, setNextIndex] = useState(currentIndex + 1);
-
   const currentOne = data[currentIndex];
   const nextOne = data[nextIndex];
 

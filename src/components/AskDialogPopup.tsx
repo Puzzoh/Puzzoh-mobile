@@ -7,9 +7,9 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
-import styles, { colors } from "../styles/index";
+import styles from "../styles/index";
 
-const PopupDialog = ({ showPopup, handleNo, handleYes, username }) => {
+const AskDialogPopup = ({ showPopup, handleNo, handleYes, username }) => {
   return (
     <Modal visible={showPopup} animationType="slide" transparent={true}>
       <View style={nStyles.popupContainer}>
@@ -51,7 +51,7 @@ const nStyles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     height: Dimensions.get("window").height * 0.67,
-    justifyContent: "space-between", // New line
+    justifyContent: "space-between",
   },
   buttonContainer: {
     flexDirection: "row",
@@ -60,4 +60,4 @@ const nStyles = StyleSheet.create({
   },
 });
 
-export default PopupDialog;
+export default AskDialogPopup;

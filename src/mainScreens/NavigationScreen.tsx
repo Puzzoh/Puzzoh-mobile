@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Animated,
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Animated, Dimensions, StyleSheet, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { colors } from "../styles/index";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
@@ -17,7 +10,7 @@ import Profile from "./Profile";
 
 const Tab = createBottomTabNavigator();
 
-export default function MainScreen() {
+const NavigationScreen = () => {
   const tabOffsetValue = useRef(new Animated.Value(0)).current;
 
   return (
@@ -127,18 +120,11 @@ export default function MainScreen() {
       ></Animated.View>
     </>
   );
-}
+};
 
 function getWidth() {
   let width = Dimensions.get("window").width;
   return width / 3;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+export default NavigationScreen;

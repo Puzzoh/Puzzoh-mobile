@@ -10,65 +10,65 @@ import {
 import { colors } from "../styles/index";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function SettingsScreen({ navigation }) {
+const Settings = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <View style={nStyles.container}>
       <TouchableOpacity
-        style={styles.backButton}
+        style={nStyles.backButton}
         onPress={() => navigation.goBack()}
       >
         <Ionicons name="arrow-back-outline" size={24} color="#333" />
       </TouchableOpacity>
 
-      <View style={[styles.sectionContainer, { marginTop: 50 }]}>
-        <Text style={styles.sectionTitle}>Notifications</Text>
-        <View style={styles.row}>
-          <Text style={styles.optionText}>Push Notifications</Text>
+      <View style={[nStyles.sectionContainer, { marginTop: 50 }]}>
+        <Text style={nStyles.sectionTitle}>Notifications</Text>
+        <View style={nStyles.row}>
+          <Text style={nStyles.optionText}>Push Notifications</Text>
           <Switch
-            style={styles.switch}
+            style={nStyles.switch}
             value={true}
             onValueChange={(value) => {}}
           />
         </View>
-        <View style={styles.row}>
-          <Text style={styles.optionText}>Email Notifications</Text>
+        <View style={nStyles.row}>
+          <Text style={nStyles.optionText}>Email Notifications</Text>
           <Switch
-            style={styles.switch}
+            style={nStyles.switch}
             value={false}
             onValueChange={(value) => {}}
           />
         </View>
       </View>
 
-      <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>Account</Text>
+      <View style={nStyles.sectionContainer}>
+        <Text style={nStyles.sectionTitle}>Account</Text>
 
-        <TouchableOpacity style={styles.row}>
-          <Text style={styles.optionText}>Change Password</Text>
-          {/* <Image source={require("password_icon.png")} style={styles.icon} /> */}
+        <TouchableOpacity style={nStyles.row}>
+          <Text style={nStyles.optionText}>Change Password</Text>
+          {/* <Image source={require("password_icon.png")} style={nStyles.icon} /> */}
         </TouchableOpacity>
       </View>
 
-      <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>About</Text>
-        <TouchableOpacity style={styles.row}>
-          <Text style={styles.optionText}>Terms of Service</Text>
-          {/* <Image source={require("arrow_icon.png")} style={styles.icon} /> */}
+      <View style={nStyles.sectionContainer}>
+        <Text style={nStyles.sectionTitle}>About</Text>
+        <TouchableOpacity style={nStyles.row}>
+          <Text style={nStyles.optionText}>Terms of Service</Text>
+          {/* <Image source={require("arrow_icon.png")} style={nStyles.icon} /> */}
         </TouchableOpacity>
-        <TouchableOpacity style={styles.row}>
-          <Text style={styles.optionText}>Privacy Policy</Text>
-          {/* <Image source={require("arrow_icon.png")} style={styles.icon} /> */}
+        <TouchableOpacity style={nStyles.row}>
+          <Text style={nStyles.optionText}>Privacy Policy</Text>
+          {/* <Image source={require("arrow_icon.png")} style={nStyles.icon} /> */}
         </TouchableOpacity>
-        <TouchableOpacity style={styles.row}>
-          <Text style={styles.optionText}>Contact Us</Text>
-          {/* <Image source={require("arrow_icon.png")} style={styles.icon} /> */}
+        <TouchableOpacity style={nStyles.row}>
+          <Text style={nStyles.optionText}>Contact Us</Text>
+          {/* <Image source={require("arrow_icon.png")} style={nStyles.icon} /> */}
         </TouchableOpacity>
       </View>
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
+const nStyles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
@@ -110,3 +110,5 @@ const styles = StyleSheet.create({
     height: 24,
   },
 });
+
+export default Settings;

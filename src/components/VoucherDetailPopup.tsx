@@ -13,7 +13,7 @@ import styles, { colors } from "../styles/index";
 import Modal from "react-native-modal";
 import { Ionicons } from "@expo/vector-icons";
 
-const VoucherCard = (props) => {
+const VoucherDetailPopup = (props) => {
   const {
     id,
     title,
@@ -114,7 +114,6 @@ const nStyles = StyleSheet.create({
     height: "100%",
     borderRadius: 10,
     backgroundColor: "#fefefe",
-
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -184,4 +183,4 @@ const nStyles = StyleSheet.create({
   },
 });
 
-export default VoucherCard;
+export default VoucherDetailPopup;

@@ -14,7 +14,7 @@ import { getUser } from "../graphql/queries";
 
 const GET_USER_INFO = gql(getUser);
 
-const ProfileScreen = ({ navigation }) => {
+const Profile = ({ navigation }) => {
   const [userID, setUserID] = useState(null);
 
   const { data } = useQuery(GET_USER_INFO, {
@@ -74,42 +74,43 @@ const ProfileScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.iconContainer} onPress={handleSettings}>
+    <View style={nStyles.container}>
+      <View style={nStyles.header}>
+        <TouchableOpacity
+          style={nStyles.iconContainer}
+          onPress={handleSettings}
+        >
           <Ionicons name="settings-outline" size={24} color="#333" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.iconContainer} onPress={signOut}>
+        <TouchableOpacity style={nStyles.iconContainer} onPress={signOut}>
           <Ionicons name="log-out-outline" size={24} color="#333" />
         </TouchableOpacity>
       </View>
-      <View style={styles.profileContainer}>
-        <TouchableOpacity style={styles.avatarContainer}>
+      <View style={nStyles.profileContainer}>
+        <TouchableOpacity style={nStyles.avatarContainer}>
           {avatar ? (
-            <Image source={{ uri: avatar }} style={styles.avatarImage} />
+            <Image source={{ uri: avatar }} style={nStyles.avatarImage} />
           ) : (
             <Ionicons name="person-circle-outline" size={120} color="#ccc" />
           )}
           <TouchableOpacity
-            style={styles.editIconContainer}
+            style={nStyles.editIconContainer}
             onPress={handleEditPicture}
           >
             <Ionicons name="pencil-outline" size={24} color="#333" />
           </TouchableOpacity>
         </TouchableOpacity>
-        <Text style={styles.username}>{user?.username}</Text>
-        <Text style={styles.infoText}>{user?.email} </Text>
-        <TouchableOpacity style={styles.button} onPress={handleEditInfo}>
-          <Text style={styles.buttonText}>Edit Profile Info</Text>
+        <Text style={nStyles.username}>{user?.username}</Text>
+        <Text style={nStyles.infoText}>{user?.email} </Text>
+        <TouchableOpacity style={nStyles.button} onPress={handleEditInfo}>
+          <Text style={nStyles.buttonText}>Edit Profile Info</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-const windowWidth = Dimensions.get("window").width;
-
-const styles = StyleSheet.create({
+const nStyles = StyleSheet.create({
   container: {
     flex: 1,
   },
@@ -171,4 +172,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen;
+export default Profile;

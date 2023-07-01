@@ -4,8 +4,9 @@ import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import { useMutation, gql } from "@apollo/client";
 import { createUser } from "../graphql/mutations";
 import { useNavigation } from "@react-navigation/native";
+import styles from "../styles/index";
 
-const LoadingScreen = () => {
+const Initializer = () => {
   const navigation = useNavigation();
 
   const checkFirstLogin = async () => {
@@ -69,24 +70,21 @@ const LoadingScreen = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={nStyles.container}>
       <ActivityIndicator size="large" color="#000000" />
-      <Text style={styles.text}>Loading...</Text>
+      <Text style={[styles.heading4, { fontWeight: "bold", marginTop: 16 }]}>
+        Loading...
+      </Text>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+const nStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-  text: {
-    marginTop: 16,
-    fontSize: 16,
-    fontWeight: "bold",
-  },
 });
 
-export default LoadingScreen;
+export default Initializer;

@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { colors } from "../styles/index";
 import ChatWindow from "../components/ChatWindowPopup";
-
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { listUsers } from "../graphql/queries";
 
@@ -19,9 +18,7 @@ const GET_PEOPLE_MATCHES = gql(listUsers);
 
 const PeopleMatches = () => {
   const { data } = useQuery(GET_PEOPLE_MATCHES);
-
   const people = data?.listUsers.items;
-
   const [selectedUser, setSelectedUser] = useState(null);
 
   const handleUserPress = (user) => {
@@ -43,7 +40,7 @@ const PeopleMatches = () => {
             <TouchableOpacity onPress={() => handleUserPress(item)}>
               <View style={styles.user}>
                 <View style={styles.textContainer}>
-                  {item.purpose && (
+                  {index < 3 && item.purpose && (
                     <Text style={styles.recommended}>
                       Looking for: {item.purpose[0]}, {item.purpose[1]}
                     </Text>

@@ -13,7 +13,7 @@ import styles, { colors } from "../styles/index";
 import AskDialogPopup from "../components/AskDialogPopup";
 import OtherGender from "../components/OtherGenderPopup";
 
-export default function Gender({ navigation }) {
+const Gender = ({ navigation }) => {
   const route = useRoute();
 
   const [showPopup, setShowPopup] = useState(false);
@@ -115,7 +115,7 @@ export default function Gender({ navigation }) {
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const nStyles = StyleSheet.create({
   container: {
@@ -169,3 +169,5 @@ const nStyles = StyleSheet.create({
     height: 10, // This creates a small gap between the heading and the options
   },
 });
+
+export default Gender;

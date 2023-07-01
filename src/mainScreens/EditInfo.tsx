@@ -16,38 +16,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { colors } from "../styles/index";
 import Checkbox from "expo-checkbox";
 
-const screenWidth = Dimensions.get("window").width;
-const interests = [
-  "Traveling",
-  "Photo",
-  "Reading",
-  "Cooking",
-  "Sports",
-  "Gaming",
-  "Music",
-  "Movies",
-  "Gardening",
-  "Yoga",
-  "Painting",
-  "Writing",
-];
-
-const foodPreferences = [
-  "Vegan",
-  "Mediterranean",
-  "Italian",
-  "Chinese",
-  "Japanese",
-  "Mexican",
-  "American",
-  "Greek",
-  "Spanish",
-  "Korean",
-  "Vietnamese",
-  "Dessert",
-];
-
-const EditProfileInfoScreen = ({ navigation }) => {
+const EditInfo = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [pronounce, setPronounce] = useState("");
   const [bio, setBio] = useState("");
@@ -325,6 +294,8 @@ const EditProfileInfoScreen = ({ navigation }) => {
   );
 };
 
+const screenWidth = Dimensions.get("window").width;
+
 const nStyles = StyleSheet.create({
   container: {
     flex: 1,
@@ -443,4 +414,34 @@ const googlePlacesStyles = StyleSheet.create({
   },
 });
 
-export default EditProfileInfoScreen;
+const interests = [
+  "Traveling",
+  "Photo",
+  "Reading",
+  "Cooking",
+  "Sports",
+  "Gaming",
+  "Music",
+  "Movies",
+  "Gardening",
+  "Yoga",
+  "Painting",
+  "Writing",
+];
+
+const foodPreferences = [
+  "Vegan",
+  "Mediterranean",
+  "Italian",
+  "Chinese",
+  "Japanese",
+  "Mexican",
+  "American",
+  "Greek",
+  "Spanish",
+  "Korean",
+  "Vietnamese",
+  "Dessert",
+];
+
+export default EditInfo;

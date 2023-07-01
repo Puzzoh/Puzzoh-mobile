@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import styles, { colors } from "../styles/index";
 
-function OtherGender({ onDone }) {
+const OtherGenderPopup = ({ onDone }) => {
   const [selected, setSelected] = useState([false, false, false, false, false]);
 
   const handlePress = (index) => {
@@ -58,7 +58,7 @@ function OtherGender({ onDone }) {
       </View>
     </Modal>
   );
-}
+};
 
 const nStyles = StyleSheet.create({
   modalContainer: {
@@ -106,4 +106,4 @@ const nStyles = StyleSheet.create({
   },
 });
 
-export default OtherGender;
+export default OtherGenderPopup;

@@ -1,5 +1,5 @@
 import { useRoute } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,10 +10,8 @@ import {
 } from "react-native";
 import styles from "../styles/index";
 import { Auth } from "aws-amplify";
-import { useMutation, gql } from "@apollo/client";
-import { createUser } from "../graphql/mutations";
 
-export default function ConfirmSignUp({ navigation }) {
+const ConfirmSignUp = ({ navigation }) => {
   const [code, setCode] = useState("");
 
   const route = useRoute();
@@ -77,13 +75,14 @@ export default function ConfirmSignUp({ navigation }) {
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const nStyles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-
     padding: 20,
   },
 });
+
+export default ConfirmSignUp;

@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import styles, { colors } from "../styles/index";
+import styles from "../styles/index";
 import { BackButton } from "../components/CustomButtons";
 
 const Interest = ({ navigation }) => {
@@ -48,7 +48,7 @@ const Interest = ({ navigation }) => {
     <View style={nStyles.container}>
       <BackButton onPress={() => navigation.navigate("Purpose")} />
       <View style={nStyles.container}>
-        <Text style={styles.interestheading}>Your Interest</Text>
+        <Text style={[styles.interestHeading, { top: 70 }]}>Your Interest</Text>
         <Text style={styles.subHeading}>
           Select up to 3 of your interest and let us know what you are
           passionate about

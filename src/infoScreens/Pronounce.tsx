@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Import Ionicons from @expo/vector-icons
-import styles, { colors } from "../styles/index";
+import styles from "../styles/index";
 import { BackButton } from "../components/CustomButtons";
 
 const Pronounce = ({ navigation }) => {

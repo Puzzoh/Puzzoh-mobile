@@ -16,7 +16,7 @@ import FontAwesome from "@expo/vector-icons/Ionicons";
 import { Auth } from "aws-amplify";
 // import { validateEmail, validatePassword } from "../utils/validation";
 
-export default function SignIn({ navigation }) {
+const SignIn = ({ navigation }) => {
   const [state, setState] = useState({
     username: "",
     password: "",
@@ -115,7 +115,7 @@ export default function SignIn({ navigation }) {
       </View>
     </ScrollView>
   );
-}
+};
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -133,3 +133,5 @@ const nStyles = StyleSheet.create({
     paddingHorizontal: 50,
   },
 });
+
+export default SignIn;

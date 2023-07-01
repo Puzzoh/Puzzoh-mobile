@@ -17,13 +17,10 @@ import VoucherDetailPopup from "../components/VoucherDetailPopup";
 
 const GET_VOUCHERS = gql(listVouchers);
 
-export default function HomeScreen() {
+const Home = () => {
   const { loading, error, data } = useQuery(GET_VOUCHERS);
-
   const vouchers = data?.listVouchers.items;
-
   const [selectedVoucher, setSelectedVoucher] = useState(null);
-
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleVoucherPress = (voucher) => {
@@ -132,7 +129,7 @@ export default function HomeScreen() {
       )}
     </View>
   );
-}
+};
 
 const nStyles = StyleSheet.create({
   container: {
@@ -155,3 +152,5 @@ const nStyles = StyleSheet.create({
     padding: 12,
   },
 });
+
+export default Home;

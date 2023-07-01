@@ -9,7 +9,7 @@ import {
 import styles, { colors } from "../styles/index";
 import { BackButton } from "../components/CustomButtons";
 
-const Interest = ({ navigation }) => {
+const FoodPref = ({ navigation }) => {
   const [selected, setSelected] = useState(Array(12).fill(false)); // An array of 12 booleans for the 12 options
   const foodPref = [
     "Vegan",
@@ -162,4 +162,4 @@ const nStyles = StyleSheet.create({
   },
 });
 
-export default Interest;
+export default FoodPref;

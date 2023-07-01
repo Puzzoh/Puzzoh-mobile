@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import Constant from "expo-constants";
 import styles, { colors } from "../styles/index";
 
-export default function Header() {
+const CustomHeaderBar = () => {
   const [isFilterActive, setFilterActive] = useState(false);
 
   const toggleFilter = () => {
@@ -36,7 +35,7 @@ export default function Header() {
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const headerStyles = StyleSheet.create({
   container: {
@@ -60,3 +59,5 @@ const headerStyles = StyleSheet.create({
     padding: 5,
   },
 });
+
+export default CustomHeaderBar;
