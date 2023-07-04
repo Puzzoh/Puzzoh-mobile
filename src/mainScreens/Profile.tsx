@@ -48,8 +48,6 @@ const Profile = ({ navigation }) => {
     Auth.signOut();
   };
 
-  const [avatar, setAvatar] = useState(user?.imageURL);
-
   const handleSettings = () => {
     navigation.navigate("Settings");
   };
@@ -62,6 +60,12 @@ const Profile = ({ navigation }) => {
     navigation.navigate("EditFilter", { user });
   };
 
+  const fetchImageUri = async (uri) => {
+    const res = await fetch(uri);
+    const blob = await res.blob();
+    return blob;
+  };
+
   const handleEditPicture = async () => {
     const permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -71,19 +75,34 @@ const Profile = ({ navigation }) => {
       return;
     }
 
+    // let buf = Buffer.from(image.toString().replace(/^data:image\/\w+;base64,/, ""), "base64");
+
     const imageResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
     });
 
     if (!imageResult.canceled) {
-      const { uri } = imageResult;
+      const { uri } = imageResult.assets[0];
+
+      const img = await fetchImageUri(uri);
+
       const fileName = `user_${userID}_${Date.now()}.jpg`;
 
       try {
-        await Storage.put(fileName, uri, {
+        await Storage.put(fileName, img, {
+          level: "public",
+          // contentEncoding: "base64",
           contentType: "image/jpeg",
+          progressCallback: (uploadProgress) =>
+            console.log(
+              "PROGRESS__",
+              uploadProgress,
+              "/",
+              uploadProgress.total
+            ),
         });
 
         const s3ImageURL = await Storage.get(fileName);
@@ -98,8 +117,6 @@ const Profile = ({ navigation }) => {
         });
 
         console.log("Image uploaded successfully:", data.updateUser.imageURL);
-
-        setAvatar(s3ImageURL);
       } catch (error) {
         console.error("Error uploading image:", error);
       }
@@ -121,8 +138,11 @@ const Profile = ({ navigation }) => {
       </View>
       <View style={nStyles.profileContainer}>
         <TouchableOpacity style={nStyles.avatarContainer}>
-          {avatar ? (
-            <Image source={{ uri: avatar }} style={nStyles.avatarImage} />
+          {user?.imageURL ? (
+            <Image
+              source={{ uri: user?.imageURL }}
+              style={nStyles.avatarImage}
+            />
           ) : (
             <Ionicons name="person-circle-outline" size={120} color="#ccc" />
           )}
