@@ -14,15 +14,11 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 import { getUser } from "../graphql/queries";
 import { updateUser } from "../graphql/mutations";
 
-const GET_USER_INFO = gql(getUser);
-
 const Profile = ({ navigation }) => {
-  const UPDATE_USER = gql(updateUser);
-  const [updateUserMutation] = useMutation(UPDATE_USER);
-
   const [userID, setUserID] = useState(null);
 
-  const { data } = useQuery(GET_USER_INFO, {
+  const GET_USER_INFO = gql(getUser);
+  const { data, refetch } = useQuery(GET_USER_INFO, {
     variables: {
       id: userID,
       skip: !userID,
@@ -30,6 +26,13 @@ const Profile = ({ navigation }) => {
   });
 
   const user = data?.getUser;
+
+  const UPDATE_USER = gql(updateUser);
+  const [updateUserMutation] = useMutation(UPDATE_USER, {
+    onCompleted: () => {
+      refetch();
+    },
+  });
 
   useEffect(() => {
     const getUserID = async () => {
@@ -75,8 +78,6 @@ const Profile = ({ navigation }) => {
       return;
     }
 
-    // let buf = Buffer.from(image.toString().replace(/^data:image\/\w+;base64,/, ""), "base64");
-
     const imageResult = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -94,14 +95,12 @@ const Profile = ({ navigation }) => {
       try {
         await Storage.put(fileName, img, {
           level: "public",
-          // contentEncoding: "base64",
           contentType: "image/jpeg",
           progressCallback: (uploadProgress) =>
             console.log(
-              "PROGRESS__",
-              uploadProgress,
-              "/",
-              uploadProgress.total
+              "PROGRESS:",
+              (uploadProgress.loaded / uploadProgress.total) * 100,
+              "%"
             ),
         });
 
@@ -144,7 +143,7 @@ const Profile = ({ navigation }) => {
               style={nStyles.avatarImage}
             />
           ) : (
-            <Ionicons name="person-circle-outline" size={120} color="#ccc" />
+            <Ionicons name="person-circle-outline" size={120} color="black" />
           )}
           <TouchableOpacity
             style={nStyles.editIconContainer}
@@ -188,7 +187,7 @@ const nStyles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: "#ccc",
+    backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 16,
@@ -202,7 +201,7 @@ const nStyles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     right: 0,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     borderRadius: 12,
     padding: 4,
   },
