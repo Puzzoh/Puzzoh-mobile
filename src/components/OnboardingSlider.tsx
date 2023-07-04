@@ -28,7 +28,7 @@ const OnboardingSlider = (props) => {
             <Text style={[styles.heading2, { color: colors.primary }]}>
               {item.title}
             </Text>
-            <Text style={[styles.bodyText, { paddingTop: 30 }]}>
+            <Text style={[styles.heading5, { paddingTop: 30 }]}>
               {item.description}
             </Text>
           </View>

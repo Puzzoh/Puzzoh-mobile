@@ -39,7 +39,7 @@ const Navigation = () => {
     return Font.loadAsync({
       Lexend: require("./assets/fonts/LexendDeca.ttf"),
       Poppins: require("./assets/fonts/Poppins-Regular.ttf"),
-      Poppins_Semibold: require("./assets/fonts/Poppins-SemiBold.ttf"),
+      Poppins_SemiBold: require("./assets/fonts/Poppins-SemiBold.ttf"),
       Poppins_Bold: require("./assets/fonts/Poppins-Bold.ttf"),
       Poppins_Italic: require("./assets/fonts/Poppins-Italic.ttf"),
     });

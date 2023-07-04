@@ -13,6 +13,7 @@ import * as ImagePicker from "expo-image-picker";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { getUser } from "../graphql/queries";
 import { updateUser } from "../graphql/mutations";
+import styles from "../styles/index";
 
 const Profile = ({ navigation }) => {
   const [userID, setUserID] = useState(null);
@@ -152,14 +153,20 @@ const Profile = ({ navigation }) => {
             <Ionicons name="pencil-outline" size={24} color="#333" />
           </TouchableOpacity>
         </TouchableOpacity>
-        <Text style={nStyles.username}>{user?.username}</Text>
-        <Text style={nStyles.infoText}>{user?.email} </Text>
+        <Text style={styles.heading3}>{user?.username}</Text>
+        <Text style={[styles.heading5, { color: "gray", marginBottom: 16 }]}>
+          {user?.email}
+        </Text>
         <TouchableOpacity style={nStyles.button} onPress={handleEditInfo}>
-          <Text style={nStyles.buttonText}>Edit Profile Info</Text>
+          <Text style={[styles.heading4, { color: "white" }]}>
+            Edit Profile Info
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={nStyles.button} onPress={handleEditFilter}>
-          <Text style={nStyles.buttonText}>Edit Matching Filter</Text>
+          <Text style={[styles.heading4, { color: "white" }]}>
+            Edit Matching Filter
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -205,26 +212,12 @@ const nStyles = StyleSheet.create({
     borderRadius: 12,
     padding: 4,
   },
-  username: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  infoText: {
-    fontSize: 16,
-    color: "#666",
-    marginBottom: 16,
-  },
   button: {
     backgroundColor: "#333",
     borderRadius: 8,
     paddingVertical: 12,
     paddingHorizontal: 24,
     marginBottom: 12,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
   },
 });
 

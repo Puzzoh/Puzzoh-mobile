@@ -9,11 +9,15 @@ import {
   Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import Slider from "@react-native-community/slider";
-import { colors } from "../styles/index";
+import styles, { colors } from "../styles/index";
+import MultiSlider from "@ptomasroos/react-native-multi-slider";
 
 const EditFilter = ({ navigation, route }) => {
-  const [ageRange, setAgeRange] = useState(18);
+  const [values, setValues] = useState([18, 65]);
+
+  const handleValuesChange = (newValues) => {
+    setValues(newValues);
+  };
 
   const handleSave = async () => {
     // navigation.goBack();
@@ -29,20 +33,27 @@ const EditFilter = ({ navigation, route }) => {
       </TouchableOpacity>
       <ScrollView>
         <View style={nStyles.inputContainer}>
-          <Text style={nStyles.inputLabel}>Age Range</Text>
-          <Slider
-            style={{ width: screenWidth - 60, height: 40 }}
-            minimumValue={18}
-            maximumValue={65}
-            step={1}
-            value={ageRange}
-            onValueChange={(value) => setAgeRange(value)}
-          />
-          <Text>{ageRange}</Text>
+          <Text style={styles.heading5}>Age Range</Text>
+          <View style={nStyles.sliderContainer}>
+            <Text style={styles.heading5}>{values[0]}</Text>
+            <Text style={styles.heading5}>{values[1]} </Text>
+          </View>
+          <View style={nStyles.sliderWrapper}>
+            <MultiSlider
+              values={values}
+              sliderLength={280}
+              onValuesChange={handleValuesChange}
+              min={18}
+              max={65}
+              step={1}
+              allowOverlap={false}
+              snapped
+            />
+          </View>
         </View>
 
         <TouchableOpacity style={nStyles.button} onPress={handleSave}>
-          <Text style={nStyles.buttonText}>Save</Text>
+          <Text style={[styles.heading5, { color: "white" }]}>Save</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>
@@ -58,6 +69,14 @@ const nStyles = StyleSheet.create({
     paddingVertical: 24,
     backgroundColor: "#fff",
   },
+  sliderContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+  sliderWrapper: {
+    alignItems: "center",
+  },
   backButton: {
     position: "absolute",
     top: 40,
@@ -65,21 +84,8 @@ const nStyles = StyleSheet.create({
     zIndex: 10,
   },
   inputContainer: {
+    marginTop: 40,
     marginBottom: 24,
-  },
-  inputLabel: {
-    fontSize: 16,
-    color: "#333",
-    marginBottom: 8,
-  },
-  input: {
-    height: 44,
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: "#ddd",
-    paddingHorizontal: 12,
-    fontSize: 16,
-    color: "#333",
   },
   button: {
     backgroundColor: colors.primary,
@@ -87,11 +93,6 @@ const nStyles = StyleSheet.create({
     borderRadius: 4,
     justifyContent: "center",
     alignItems: "center",
-  },
-  buttonText: {
-    fontSize: 16,
-    color: "#fff",
-    fontWeight: "bold",
   },
 });
 

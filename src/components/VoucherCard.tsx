@@ -26,10 +26,10 @@ const VoucherCard = (props) => {
       <View style={nStyles.cardInner}>
         <Text style={styles.heading3}>{title}</Text>
         <View style={[nStyles.row]}>
-          <Text style={styles.bodyText}>{numRedeemed} Redeemed </Text>
+          <Text style={styles.heading5}>{numRedeemed} Redeemed </Text>
         </View>
         <View style={[nStyles.row]}>
-          <Text style={styles.bodyText}>{forQuantity}+ people</Text>
+          <Text style={styles.heading5}>{forQuantity}+ people</Text>
         </View>
         <View style={nStyles.row}>
           <Text
@@ -55,7 +55,7 @@ const VoucherCard = (props) => {
         </View>
 
         <View style={{ marginTop: 10 }}>
-          <Text style={styles.heading4}>
+          <Text style={styles.heading5}>
             Popular Review:{" "}
             <Text style={[styles.italicText, { color: "gray" }]}>
               &apos;Good food with nice service.&apos; - Abcxyz

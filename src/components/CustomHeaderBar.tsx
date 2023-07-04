@@ -1,14 +1,22 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { useNavigation, useTheme } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useTheme } from "@react-navigation/native";
+import NotificationPopup from "./NotificationPopup";
 import styles, { colors } from "../styles/index";
 
-const CustomHeaderBar = () => {
+export default function Header() {
   const [isFilterActive, setFilterActive] = useState(false);
+  const [isBellActive, setBellActive] = useState(false);
+  const [isNotiOpen, setNotiOpen] = useState(false);
 
   const toggleFilter = () => {
     setFilterActive(!isFilterActive);
+  };
+
+  const toggleBell = () => {
+    setBellActive(!isBellActive);
+    setNotiOpen(!isNotiOpen);
   };
 
   return (
@@ -16,26 +24,56 @@ const CustomHeaderBar = () => {
       <View style={headerStyles.wrapper}>
         <View style={headerStyles.discoverContainer}>
           <Text style={styles.heading2}>Discover</Text>
-          <Text style={styles.bgText}>New York, NY</Text>
+          <Text style={[styles.heading5, { color: "gray" }]}>New York, NY</Text>
         </View>
       </View>
-      <TouchableOpacity
-        style={[
-          styles.blankButton,
-          isFilterActive && { backgroundColor: colors.primary },
-        ]}
-        onPress={toggleFilter}
-      >
-        <Ionicons
-          name="filter"
-          size={32}
-          color={isFilterActive ? "white" : colors.primary}
-          style={{ textAlign: "center" }}
-        />
-      </TouchableOpacity>
+      <View style={headerStyles.buttonContainer}>
+        <TouchableOpacity
+          style={[
+            styles.blankButton,
+            isFilterActive && { backgroundColor: colors.primary },
+          ]}
+          onPress={toggleFilter}
+        >
+          <MaterialCommunityIcons
+            name="filter-variant"
+            size={32}
+            color={isFilterActive ? "white" : colors.primary}
+            style={{ textAlign: "center" }}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.blankButton,
+            isBellActive && { backgroundColor: colors.primary },
+          ]}
+          onPress={toggleBell}
+        >
+          <View style={headerStyles.badgeContainer}>
+            {!isBellActive && (
+              <MaterialCommunityIcons
+                name="bell"
+                size={32}
+                color={isBellActive ? "white" : colors.primary}
+                style={{ textAlign: "center" }}
+              />
+            )}
+            {isBellActive && (
+              <MaterialCommunityIcons
+                name="bell-outline"
+                size={32}
+                color={isBellActive ? "white" : colors.primary}
+                style={{ textAlign: "center" }}
+              />
+            )}
+            {isBellActive && <View style={headerStyles.badge} />}
+          </View>
+        </TouchableOpacity>
+      </View>
+      {isNotiOpen && <NotificationPopup onClose={() => setNotiOpen(false)} />}
     </View>
   );
-};
+}
 
 const headerStyles = StyleSheet.create({
   container: {
@@ -48,6 +86,7 @@ const headerStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 16,
+    zIndex: 999,
   },
   wrapper: {
     flex: 1,
@@ -58,6 +97,22 @@ const headerStyles = StyleSheet.create({
     alignItems: "center",
     padding: 5,
   },
+  buttonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    left: 0,
+    padding: 20,
+  },
+  badgeContainer: {
+    position: "relative",
+  },
+  badge: {
+    position: "absolute",
+    top: -8,
+    right: -8,
+    backgroundColor: "red",
+    borderRadius: 8,
+    width: 16,
+    height: 16,
+  },
 });
-
-export default CustomHeaderBar;

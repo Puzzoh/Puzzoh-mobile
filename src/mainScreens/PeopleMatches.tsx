@@ -9,7 +9,7 @@ import {
   FlatList,
   Dimensions,
 } from "react-native";
-import { colors } from "../styles/index";
+import styles, { colors } from "../styles/index";
 import ChatWindow from "../components/ChatWindow";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { listUsers } from "../graphql/queries";
@@ -19,6 +19,7 @@ const GET_PEOPLE_MATCHES = gql(listUsers);
 const PeopleMatches = () => {
   const { data } = useQuery(GET_PEOPLE_MATCHES);
   const people = data?.listUsers.items;
+
   const [selectedUser, setSelectedUser] = useState(null);
 
   const handleUserPress = (user) => {
@@ -30,23 +31,29 @@ const PeopleMatches = () => {
   };
 
   return (
-    <SafeAreaView style={styles.root}>
-      <View style={styles.container}>
-        <Text style={styles.title}>People Matches</Text>
+    <SafeAreaView style={nStyles.root}>
+      <View style={nStyles.container}>
         <FlatList
           data={people}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item, index }) => (
-            <TouchableOpacity onPress={() => handleUserPress(item)}>
-              <View style={styles.user}>
-                <View style={styles.textContainer}>
-                  <Text style={styles.recommended}>
+            <TouchableOpacity onPress={() => handleUserPress(item)} key={index}>
+              <View style={nStyles.user}>
+                <View style={nStyles.textContainer}>
+                  <Text style={[styles.bodyText3, { color: colors.primary }]}>
                     Looking for: {item.purpose}
                   </Text>
-                  <Text style={styles.name}>{item.username}</Text>
-                  <Text style={styles.bio}>{item.bio}</Text>
+                  <Text style={styles.heading4}>{item.username}</Text>
+                  <Text
+                    style={[
+                      styles.bodyText2,
+                      { marginBottom: 3, color: "gray" },
+                    ]}
+                  >
+                    {item.bio}
+                  </Text>
                 </View>
-                <Image style={styles.image} source={{ uri: item.imageURL }} />
+                <Image style={nStyles.image} source={{ uri: item.imageURL }} />
               </View>
             </TouchableOpacity>
           )}
@@ -61,7 +68,7 @@ const PeopleMatches = () => {
 
 const { height } = Dimensions.get("window");
 
-const styles = StyleSheet.create({
+const nStyles = StyleSheet.create({
   root: {
     width: "100%",
     flex: 1,
@@ -69,13 +76,7 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 5,
-    marginTop: 20, // Added margin at the top of the container
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 24,
-    color: colors.primary,
-    marginBottom: 10,
+    marginTop: 20,
   },
   user: {
     flexDirection: "row",
@@ -93,21 +94,6 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1,
-  },
-  recommended: {
-    fontSize: 12,
-    color: colors.primary,
-    marginBottom: 2,
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
-  bio: {
-    fontSize: 16,
-    color: "#666",
-    marginBottom: 3,
   },
 });
 

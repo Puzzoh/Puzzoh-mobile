@@ -40,8 +40,8 @@ const Gender = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false);
 
   const handlePress = (index, genderValue) => {
-    const newSelected = [false, false, false]; // Reset all selections
-    newSelected[index] = true; // Set selected state on pressed button
+    const newSelected = [false, false, false];
+    newSelected[index] = true;
     setSelected(newSelected);
     setSelectedGender(genderValue);
     if (index === 2) {
@@ -84,6 +84,7 @@ const Gender = ({ navigation, route }) => {
               <Text
                 style={[
                   styles.optionText,
+                  { textAlign: "center", paddingLeft: 10, paddingRight: 10 },
                   selected[index] ? styles.whiteText : null,
                 ]}
               >
@@ -123,14 +124,13 @@ const nStyles = StyleSheet.create({
     alignItems: "center",
   },
   headingContainer: {
-    marginTop: -10, // Increased the negative margin to move the content up
+    marginTop: -10,
   },
   optionsContainer: {
     justifyContent: "space-between",
-    marginTop: 40, // Decrease the margin to move options up
-    // Remove the fixed height to let it adjust based on the content
+    marginTop: 40,
     width: "100%",
-    paddingHorizontal: 20, // Add some padding for better spacing
+    paddingHorizontal: 20,
   },
   option4: {
     width: (Dimensions.get("window").width * 5) / 6,

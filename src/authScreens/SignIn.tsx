@@ -81,7 +81,7 @@ const SignIn = ({ navigation }) => {
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <Text style={styles.bodyText}>New to Puzzoh?</Text>
+            <Text style={styles.heading5}>New to Puzzoh?</Text>
             <TouchableOpacity onPress={onSignUpPress}>
               <Text style={styles.highlightText}> Sign Up</Text>
             </TouchableOpacity>
@@ -91,7 +91,9 @@ const SignIn = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.bgText}>or continue with</Text>
+        <Text style={[styles.heading5, { color: "gray" }]}>
+          or continue with
+        </Text>
         <View style={nStyles.socialLogin}>
           <FontAwesome
             name="ios-logo-facebook"

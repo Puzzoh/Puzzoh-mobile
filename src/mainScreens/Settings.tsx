@@ -7,7 +7,7 @@ import {
   Switch,
   TouchableOpacity,
 } from "react-native";
-import { colors } from "../styles/index";
+import styles, { colors } from "../styles/index";
 import { Ionicons } from "@expo/vector-icons";
 
 const Settings = ({ navigation }) => {
@@ -21,9 +21,11 @@ const Settings = ({ navigation }) => {
       </TouchableOpacity>
 
       <View style={[nStyles.sectionContainer, { marginTop: 50 }]}>
-        <Text style={nStyles.sectionTitle}>Notifications</Text>
+        <Text style={[styles.heading3, { marginBottom: 12 }]}>
+          Notifications
+        </Text>
         <View style={nStyles.row}>
-          <Text style={nStyles.optionText}>Push Notifications</Text>
+          <Text style={styles.heading5}>Push Notifications</Text>
           <Switch
             style={nStyles.switch}
             value={true}
@@ -31,7 +33,7 @@ const Settings = ({ navigation }) => {
           />
         </View>
         <View style={nStyles.row}>
-          <Text style={nStyles.optionText}>Email Notifications</Text>
+          <Text style={styles.heading5}>Email Notifications</Text>
           <Switch
             style={nStyles.switch}
             value={false}
@@ -41,26 +43,26 @@ const Settings = ({ navigation }) => {
       </View>
 
       <View style={nStyles.sectionContainer}>
-        <Text style={nStyles.sectionTitle}>Account</Text>
+        <Text style={[styles.heading3, { marginBottom: 12 }]}>Account</Text>
 
         <TouchableOpacity style={nStyles.row}>
-          <Text style={nStyles.optionText}>Change Password</Text>
+          <Text style={styles.heading5}>Change Password</Text>
           {/* <Image source={require("password_icon.png")} style={nStyles.icon} /> */}
         </TouchableOpacity>
       </View>
 
       <View style={nStyles.sectionContainer}>
-        <Text style={nStyles.sectionTitle}>About</Text>
+        <Text style={[styles.heading3, { marginBottom: 12 }]}>About</Text>
         <TouchableOpacity style={nStyles.row}>
-          <Text style={nStyles.optionText}>Terms of Service</Text>
+          <Text style={styles.heading5}>Terms of Service</Text>
           {/* <Image source={require("arrow_icon.png")} style={nStyles.icon} /> */}
         </TouchableOpacity>
         <TouchableOpacity style={nStyles.row}>
-          <Text style={nStyles.optionText}>Privacy Policy</Text>
+          <Text style={styles.heading5}>Privacy Policy</Text>
           {/* <Image source={require("arrow_icon.png")} style={nStyles.icon} /> */}
         </TouchableOpacity>
         <TouchableOpacity style={nStyles.row}>
-          <Text style={nStyles.optionText}>Contact Us</Text>
+          <Text style={styles.heading5}>Contact Us</Text>
           {/* <Image source={require("arrow_icon.png")} style={nStyles.icon} /> */}
         </TouchableOpacity>
       </View>
@@ -88,20 +90,13 @@ const nStyles = StyleSheet.create({
   sectionContainer: {
     marginBottom: 24,
   },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 12,
-  },
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 12,
   },
-  optionText: {
-    fontSize: 16,
-  },
+
   switch: {
     transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }],
   },

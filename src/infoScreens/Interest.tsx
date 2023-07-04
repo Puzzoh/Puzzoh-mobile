@@ -39,7 +39,7 @@ const Interest = ({ navigation, route }) => {
     let count = newSelected.reduce((n, x) => n + (x === true), 0);
 
     if (count < 3 || newSelected[index] === true) {
-      newSelected[index] = !newSelected[index]; // Toggle selected state on pressed button
+      newSelected[index] = !newSelected[index];
     }
 
     setSelected(newSelected);
@@ -67,7 +67,12 @@ const Interest = ({ navigation, route }) => {
       <BackButton onPress={() => navigation.navigate("Purpose")} />
       <View style={nStyles.container}>
         <Text style={[styles.heading2, { top: 70 }]}>Your Interest</Text>
-        <Text style={styles.subHeading}>
+        <Text
+          style={[
+            styles.bodyText2,
+            { top: 80, flexWrap: "wrap", marginLeft: 15, marginRight: 15 },
+          ]}
+        >
           Select up to 3 of your interest and let us know what you are
           passionate about
         </Text>
@@ -104,6 +109,11 @@ const Interest = ({ navigation, route }) => {
                     <Text
                       style={[
                         styles.optionText,
+                        {
+                          textAlign: "center",
+                          paddingLeft: 10,
+                          paddingRight: 10,
+                        },
                         selected[interestIndex] ? styles.whiteText : null,
                       ]}
                     >

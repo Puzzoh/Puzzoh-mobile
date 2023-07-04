@@ -120,13 +120,15 @@ const SignUp = ({ navigation }) => {
           <Text style={styles.chosenText}>Register</Text>
         </TouchableOpacity>
         <View style={{ flexDirection: "row", marginTop: 50, flexWrap: "wrap" }}>
-          <Text style={styles.bodyText}>Already have an account?</Text>
+          <Text style={styles.heading5}>Already have an account?</Text>
           <TouchableOpacity onPress={onSignInPress}>
             <Text style={styles.highlightText}> Sign In</Text>
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.bgText}>or continue with</Text>
+        <Text style={[styles.heading5, { color: "gray" }]}>
+          or continue with
+        </Text>
         <View style={nStyles.socialLogin}>
           <FontAwesome
             name="ios-logo-facebook"

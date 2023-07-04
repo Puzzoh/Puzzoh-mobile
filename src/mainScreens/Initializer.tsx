@@ -72,7 +72,7 @@ const Initializer = () => {
   return (
     <View style={nStyles.container}>
       <ActivityIndicator size="large" color="#000000" />
-      <Text style={[styles.heading4, { fontWeight: "bold", marginTop: 16 }]}>
+      <Text style={[styles.heading5, { fontWeight: "bold", marginTop: 16 }]}>
         Loading...
       </Text>
     </View>

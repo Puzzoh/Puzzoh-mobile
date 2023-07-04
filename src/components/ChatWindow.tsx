@@ -9,36 +9,47 @@ import {
 import Modal from "react-native-modal";
 import { colors } from "../styles/index";
 
-const ChatWindow = ({ user, closeChat }) => {
+export default function ChatWindow({ user, closeChat }) {
   const [message, setMessage] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
 
   const handleSendMessage = () => {
     console.log(`Sending message "${message}" to user ${user.id}`);
     setMessage("");
+    setIsTyping(false);
+  };
+
+  const handleTyping = (text) => {
+    setMessage(text);
+    setIsTyping(text !== "");
   };
 
   return (
     <Modal isVisible={true} onBackdropPress={closeChat}>
-      <View style={nStyles.container}>
-        <Text style={nStyles.header}>Chat with User #{user.id}</Text>
+      <View style={chatStyle.container}>
+        <Text style={chatStyle.header}>Chat with User #{user.id}</Text>
+        <View style={chatStyle.messageContainer}>
+          <Text style={chatStyle.messageText}>{message}</Text>
+          {isTyping && <Text style={chatStyle.typingIndicator}>...</Text>}
+        </View>
         <TextInput
-          style={nStyles.input}
+          style={chatStyle.input}
           value={message}
-          onChangeText={setMessage}
+          onChangeText={handleTyping}
           placeholder="Type your message here..."
         />
         <TouchableOpacity
           onPress={handleSendMessage}
-          style={nStyles.sendButton}
+          style={chatStyle.sendButton}
         >
-          <Text style={nStyles.sendButtonText}>Send</Text>
+          <Text style={chatStyle.sendButtonText}>Send</Text>
         </TouchableOpacity>
       </View>
     </Modal>
   );
-};
+}
 
-const nStyles = StyleSheet.create({
+const chatStyle = StyleSheet.create({
   container: {
     backgroundColor: "white",
     padding: 22,
@@ -49,6 +60,20 @@ const nStyles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
+  },
+  messageContainer: {
+    flexDirection: "row",
+    marginBottom: 10,
+  },
+  messageText: {
+    flex: 1,
+    fontSize: 16,
+    marginRight: 5,
+  },
+  typingIndicator: {
+    fontSize: 16,
+    color: colors.primary,
+    fontStyle: "italic",
   },
   input: {
     borderWidth: 1,
@@ -67,5 +92,3 @@ const nStyles = StyleSheet.create({
     textAlign: "center",
   },
 });
-
-export default ChatWindow;

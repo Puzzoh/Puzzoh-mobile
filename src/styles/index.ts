@@ -22,14 +22,6 @@ const styles = StyleSheet.create({
     lineHeight: 50,
     fontFamily: "Lexend",
   },
-  subHeading: {
-    top: 80, // adjust this value to increase the space below the heading
-    fontSize: 13,
-    flexWrap: "wrap",
-    marginLeft: 15,
-    marginRight: 15,
-    fontFamily: "Lexend",
-  },
   heading2: {
     fontSize: 32,
     fontFamily: "Lexend",
@@ -39,10 +31,10 @@ const styles = StyleSheet.create({
     fontFamily: "Lexend",
   },
   heading4: {
-    fontSize: 16,
+    fontSize: 20,
     fontFamily: "Lexend",
   },
-  bodyText: {
+  heading5: {
     fontSize: 16,
     fontFamily: "Poppins",
   },
@@ -50,10 +42,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Poppins_Italic",
   },
-  bgText: {
+  bodyText1: {
     fontSize: 16,
     fontFamily: "Poppins",
-    color: "gray",
+  },
+  bodyText2: {
+    fontSize: 14,
+    fontFamily: "Poppins",
+  },
+  bodyText3: {
+    fontSize: 12,
+    fontFamily: "Poppins",
   },
 
   skipText: {
@@ -64,7 +63,7 @@ const styles = StyleSheet.create({
   skipButton: {
     position: "absolute",
     top: 10,
-    right: 5, // adjust this value to position the button on the right
+    right: 5,
     borderRadius: 10,
     padding: 5,
     backgroundColor: "transparent",
@@ -78,12 +77,12 @@ const styles = StyleSheet.create({
   },
   highlightText: {
     fontSize: 16,
-    fontFamily: "Poppins_Semibold",
+    fontFamily: "Poppins_SemiBold",
     color: colors.primary,
   },
   chosenText: {
     color: "#fff",
-    fontFamily: "Poppins_Semibold",
+    fontFamily: "Poppins_SemiBold",
     fontSize: 16,
     textAlign: "center",
     paddingLeft: 10,
@@ -91,11 +90,8 @@ const styles = StyleSheet.create({
   },
   optionText: {
     color: "black",
-    fontFamily: "Poppins_Semibold",
+    fontFamily: "Poppins_SemiBold",
     fontSize: 12,
-    textAlign: "center",
-    paddingLeft: 10,
-    paddingRight: 10,
   },
 
   users: {

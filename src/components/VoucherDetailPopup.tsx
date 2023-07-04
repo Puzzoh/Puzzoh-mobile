@@ -22,6 +22,7 @@ const VoucherDetailPopup = (props) => {
     priceAfter,
     priceBefore,
     imageURL,
+    location,
   } = props.voucher;
 
   const { onClose } = props;
@@ -49,9 +50,9 @@ const VoucherDetailPopup = (props) => {
         <View style={nStyles.cardInner}>
           <Text style={styles.heading3}>{title}</Text>
           <Text
-            style={[styles.bodyText, { color: "#888888", marginBottom: 16 }]}
+            style={[styles.heading5, { color: "#888888", marginBottom: 16 }]}
           >
-            800 Lancaster Ave, Villanova, PA 19085
+            {location}
           </Text>
           <View style={nStyles.row}>
             <Text
@@ -84,7 +85,7 @@ const VoucherDetailPopup = (props) => {
               <TouchableOpacity style={nStyles.featuredDish}>
                 <Text
                   style={[
-                    styles.bodyText,
+                    styles.heading4,
                     { textAlign: "center", color: colors.primary },
                   ]}
                 >
@@ -98,7 +99,7 @@ const VoucherDetailPopup = (props) => {
             Reviews (NumReviews)
           </Text>
           <View style={[nStyles.row, { gap: 10 }]}>
-            <Text style={styles.bodyText}> {avgRating} </Text>
+            <Text style={styles.heading5}> {avgRating} </Text>
             <View style={{ flexDirection: "row" }}>{stars}</View>
           </View>
         </View>

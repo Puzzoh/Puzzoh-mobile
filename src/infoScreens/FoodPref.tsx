@@ -96,7 +96,12 @@ const FoodPref = ({ navigation, route }) => {
         <Text style={[styles.heading2, { marginBottom: 20, top: 50 }]}>
           Food Preferences
         </Text>
-        <Text style={nStyles.subHeading}>
+        <Text
+          style={[
+            styles.bodyText2,
+            { top: 35, flexWrap: "wrap", marginLeft: 15, marginRight: 15 },
+          ]}
+        >
           Select up to 3 of your favorite cuisines and let us know what you like
         </Text>
         <View style={nStyles.spaceSmall} />
@@ -126,6 +131,11 @@ const FoodPref = ({ navigation, route }) => {
                     <Text
                       style={[
                         styles.optionText,
+                        {
+                          textAlign: "center",
+                          paddingLeft: 10,
+                          paddingRight: 10,
+                        },
                         selected[foodPrefIndex] ? styles.whiteText : null,
                       ]}
                     >
@@ -157,14 +167,6 @@ const nStyles = StyleSheet.create({
     flex: 1,
     //justifyContent: 'center',
     alignItems: "center",
-  },
-  subHeading: {
-    top: 35,
-    fontSize: 13,
-    fontFamily: "Lexend",
-    flexWrap: "wrap",
-    marginLeft: 15,
-    marginRight: 15,
   },
   row: {
     top: 30,

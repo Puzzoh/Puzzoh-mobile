@@ -9,10 +9,9 @@ import {
   Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import DatePicker from "react-native-datepicker";
 import * as Location from "expo-location";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { colors } from "../styles/index";
+import styles, { colors } from "../styles/index";
 import Checkbox from "expo-checkbox";
 import { gql, useMutation } from "@apollo/client";
 import { updateUser } from "../graphql/mutations";
@@ -34,7 +33,6 @@ const EditInfo = ({ navigation, route }) => {
             pronounce: pronounce,
             bio: bio,
             purpose: purpose,
-            // birthday: birthday,
             // interest: interest,
             // foodPref: foodPref,
           },
@@ -50,13 +48,10 @@ const EditInfo = ({ navigation, route }) => {
   const [username, setUsername] = useState(user.username);
   const [pronounce, setPronounce] = useState(user.pronounce);
   const [bio, setBio] = useState(user.bio);
-  const [birthday, setBirthday] = useState("");
   const [purpose, setPurpose] = useState(user.purpose);
   const [gender, setGender] = useState(user.gender);
   const [location, setLocation] = useState("");
   const [loading, setLoading] = useState(false);
-
-  console.log(gender, pronounce, bio, purpose);
 
   const handleSave = async () => {
     await updateUserInfo();
@@ -114,21 +109,26 @@ const EditInfo = ({ navigation, route }) => {
       </TouchableOpacity>
       <ScrollView>
         <View style={[nStyles.inputContainer, { marginTop: 50 }]}>
-          <Text style={nStyles.inputLabel}>Username</Text>
+          <Text style={styles.heading5}>Username</Text>
           <TextInput
-            style={nStyles.input}
+            style={[styles.bodyText1, nStyles.input]}
             value={username}
             onChangeText={setUsername}
             editable={true}
           />
           <TouchableOpacity onPress={() => {}}>
-            <Text style={nStyles.requestChangeText}>
+            <Text
+              style={[
+                styles.bodyText2,
+                { marginTop: 4, color: colors.primary },
+              ]}
+            >
               Request to change username
             </Text>
           </TouchableOpacity>
         </View>
         <View style={nStyles.inputContainer}>
-          <Text style={nStyles.inputLabel}>Gender</Text>
+          <Text style={styles.heading5}>Gender</Text>
           <View style={nStyles.optionsContainer}>
             {["Man", "Woman", "LGBTQ+"].map((option) => (
               <TouchableOpacity
@@ -142,9 +142,16 @@ const EditInfo = ({ navigation, route }) => {
                 onPress={() => setGender(option)}
               >
                 <Text
-                  style={
-                    gender === option ? { color: "white" } : nStyles.optionText
-                  }
+                  style={[
+                    styles.bodyText2,
+                    gender === option
+                      ? { color: "white" }
+                      : {
+                          textAlign: "center",
+                          paddingLeft: 10,
+                          paddingRight: 10,
+                        },
+                  ]}
                 >
                   {option}
                 </Text>
@@ -154,7 +161,7 @@ const EditInfo = ({ navigation, route }) => {
         </View>
 
         <View style={nStyles.inputContainer}>
-          <Text style={nStyles.inputLabel}>Pronounce</Text>
+          <Text style={styles.heading5}>Pronounce</Text>
           {["He/him", "She/her", "They/them"].map((option) => (
             <View style={nStyles.optionsContainer} key={option}>
               <TouchableOpacity
@@ -168,11 +175,16 @@ const EditInfo = ({ navigation, route }) => {
                 onPress={() => setPronounce(option)}
               >
                 <Text
-                  style={
+                  style={[
+                    styles.bodyText2,
                     pronounce === option
                       ? { color: "white" }
-                      : nStyles.optionText
-                  }
+                      : {
+                          textAlign: "center",
+                          paddingLeft: 10,
+                          paddingRight: 10,
+                        },
+                  ]}
                 >
                   {option}
                 </Text>
@@ -182,46 +194,18 @@ const EditInfo = ({ navigation, route }) => {
         </View>
 
         <View style={nStyles.inputContainer}>
-          <Text style={nStyles.inputLabel}>Bio</Text>
+          <Text style={styles.heading5}>Bio</Text>
           <TextInput
-            style={nStyles.input}
+            style={[styles.bodyText2, nStyles.input]}
             placeholder="Bio"
             value={bio}
             onChangeText={setBio}
             multiline
           />
         </View>
-        <View style={nStyles.inputContainer}>
-          <Text style={nStyles.inputLabel}>Birthday</Text>
-          <DatePicker
-            style={nStyles.datePickerStyle}
-            date={birthday}
-            mode="date"
-            placeholder="select date"
-            format="DD-MM-YYYY"
-            minDate="01-01-1900"
-            maxDate="01-01-2019"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-              dateIcon: {
-                position: "absolute",
-                left: 0,
-                top: 4,
-                marginLeft: 0,
-              },
-              dateInput: {
-                marginLeft: 36,
-              },
-            }}
-            onDateChange={(date) => {
-              setBirthday(date);
-            }}
-          />
-        </View>
 
         <View style={nStyles.inputContainer}>
-          <Text style={nStyles.inputLabel}>Purpose</Text>
+          <Text style={styles.heading5}>Purpose</Text>
           {["making friends", "dating", "just exploring"].map((option) => (
             <View style={nStyles.optionsContainer} key={option}>
               <TouchableOpacity
@@ -235,9 +219,16 @@ const EditInfo = ({ navigation, route }) => {
                 onPress={() => setPurpose(option)}
               >
                 <Text
-                  style={
-                    purpose === option ? { color: "white" } : nStyles.optionText
-                  }
+                  style={[
+                    styles.bodyText2,
+                    purpose === option
+                      ? { color: "white" }
+                      : {
+                          textAlign: "center",
+                          paddingLeft: 10,
+                          paddingRight: 10,
+                        },
+                  ]}
                 >
                   {option}
                 </Text>
@@ -247,7 +238,7 @@ const EditInfo = ({ navigation, route }) => {
         </View>
 
         <View style={nStyles.inputContainer}>
-          <Text style={nStyles.inputLabel}>Interest</Text>
+          <Text style={styles.heading5}>Interest</Text>
           {interests.map((interest) => (
             <View
               key={interest}
@@ -262,12 +253,14 @@ const EditInfo = ({ navigation, route }) => {
                     : undefined
                 }
               />
-              <Text style={nStyles.checkboxLabel}>{interest}</Text>
+              <Text style={[styles.bodyText2, nStyles.checkboxLabel]}>
+                {interest}
+              </Text>
             </View>
           ))}
         </View>
         <View style={nStyles.inputContainer}>
-          <Text style={nStyles.inputLabel}>Food Preference</Text>
+          <Text style={styles.heading5}>Food Preference</Text>
           {foodPreferences.map((preference) => (
             <View
               key={preference}
@@ -282,12 +275,14 @@ const EditInfo = ({ navigation, route }) => {
                     : undefined
                 }
               />
-              <Text style={nStyles.checkboxLabel}>{preference}</Text>
+              <Text style={[styles.bodyText2, nStyles.checkboxLabel]}>
+                {preference}
+              </Text>
             </View>
           ))}
         </View>
         <View style={nStyles.inputContainer}>
-          <Text style={nStyles.inputLabel}>Location</Text>
+          <Text style={styles.heading5}>Location</Text>
           <GooglePlacesAutocomplete
             placeholder="Enter your location"
             onPress={(data, details = null) => {
@@ -306,7 +301,7 @@ const EditInfo = ({ navigation, route }) => {
           />
         </View>
         <TouchableOpacity style={nStyles.button} onPress={handleSave}>
-          <Text style={nStyles.buttonText}>Save</Text>
+          <Text style={[styles.heading5, { color: "white" }]}>Save</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>
@@ -331,27 +326,16 @@ const nStyles = StyleSheet.create({
   inputContainer: {
     marginBottom: 24,
   },
-  inputLabel: {
-    fontSize: 16,
-    color: "#333",
-    marginBottom: 8,
-  },
   input: {
     height: 44,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: "#ddd",
     paddingHorizontal: 12,
-    fontSize: 16,
-    color: "#333",
   },
   datePickerStyle: {
     width: 200,
     backgroundColor: "#fff",
-  },
-  requestChangeText: {
-    color: colors.primary,
-    marginTop: 4,
   },
   optionsContainer: {
     flexDirection: "row",
@@ -371,21 +355,12 @@ const nStyles = StyleSheet.create({
   optionSelected: {
     borderColor: colors.primary,
   },
-  optionText: {
-    fontSize: 14,
-    color: "#333",
-  },
   button: {
     backgroundColor: colors.primary,
     height: 44,
     borderRadius: 4,
     justifyContent: "center",
     alignItems: "center",
-  },
-  buttonText: {
-    fontSize: 16,
-    color: "#fff",
-    fontWeight: "bold",
   },
   checkboxContainer: {
     flexDirection: "row",
@@ -407,13 +382,6 @@ const googlePlacesStyles = StyleSheet.create({
   radioButton: {
     alignItems: "center",
     justifyContent: "center",
-  },
-  textInputContainer: {
-    paddingHorizontal: 10,
-  },
-  textInput: {
-    fontSize: 16,
-    color: "#333",
   },
   listView: {
     borderWidth: 1,

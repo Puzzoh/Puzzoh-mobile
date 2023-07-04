@@ -9,7 +9,7 @@ import {
   FlatList,
   Dimensions,
 } from "react-native";
-import { colors } from "../styles/index";
+import styles, { colors } from "../styles/index";
 import VoucherMatchesPopup from "../components/VoucherMatchesPopup";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { listVouchers } from "../graphql/queries";
@@ -19,6 +19,7 @@ const GET_VOUCHER_MATCHES = gql(listVouchers);
 const VoucherMatches = () => {
   const { data } = useQuery(GET_VOUCHER_MATCHES);
   const vouchers = data?.listVouchers.items;
+
   const [selectedVoucher, setSelectedVoucher] = useState(null);
 
   const handleVoucherPress = (voucher) => {
@@ -37,10 +38,18 @@ const VoucherMatches = () => {
         <View style={nStyles.voucher}>
           <View style={nStyles.textContainer}>
             {isRecommended && (
-              <Text style={nStyles.recommended}>Recommended</Text>
+              <Text style={[styles.bodyText3, { color: colors.primary }]}>
+                Recommended
+              </Text>
             )}
-            <Text style={nStyles.title}>{item.title}</Text>
-            <Text style={nStyles.info}>Rating: {item.avgRating}</Text>
+            <Text style={[styles.heading4, { marginBottom: 5 }]}>
+              {item.title}
+            </Text>
+            <Text
+              style={[styles.bodyText2, { marginBottom: 3, color: "gray" }]}
+            >
+              Rating: {item.avgRating}
+            </Text>
           </View>
           <Image style={nStyles.image} source={{ uri: item.imageURL }} />
         </View>
@@ -51,7 +60,11 @@ const VoucherMatches = () => {
   return (
     <SafeAreaView style={nStyles.root}>
       <View style={nStyles.container}>
-        <Text style={nStyles.screenTitle}>Recent Voucher Matches</Text>
+        <Text
+          style={[styles.heading3, { color: colors.primary, marginBottom: 10 }]}
+        >
+          Recent Voucher Swipes
+        </Text>
         <FlatList
           data={vouchers}
           keyExtractor={(item) => item.id.toString()}
@@ -80,12 +93,6 @@ const nStyles = StyleSheet.create({
     padding: 5,
     marginTop: 20,
   },
-  screenTitle: {
-    fontWeight: "bold",
-    fontSize: 24,
-    color: colors.primary,
-    marginBottom: 10,
-  },
   voucher: {
     flexDirection: "row",
     alignItems: "center",
@@ -107,11 +114,6 @@ const nStyles = StyleSheet.create({
     fontSize: 12,
     color: colors.primary,
     marginBottom: 2,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 5,
   },
   info: {
     fontSize: 16,

@@ -97,10 +97,10 @@ const VoucherStack = (props) => {
   }, [currentIndex, translateX]);
 
   return (
-    <View style={styles.root}>
+    <View style={nStyles.root}>
       {nextOne && (
-        <View style={styles.nextCardContainer}>
-          <Animated.View style={[styles.animatedCard, nextCardStyle]}>
+        <View style={nStyles.nextCardContainer}>
+          <Animated.View style={[nStyles.animatedCard, nextCardStyle]}>
             {renderItem({ item: nextOne })}
           </Animated.View>
         </View>
@@ -108,15 +108,15 @@ const VoucherStack = (props) => {
 
       {currentOne && (
         <PanGestureHandler onGestureEvent={gestureHandler}>
-          <Animated.View style={[styles.animatedCard, cardStyle]}>
+          <Animated.View style={[nStyles.animatedCard, cardStyle]}>
             <Animated.Image
               source={Like}
-              style={[styles.like, { left: 10 }, likeStyle]}
+              style={[nStyles.like, { left: 10 }, likeStyle]}
               resizeMode="contain"
             />
             <Animated.Image
               source={Dislike}
-              style={[styles.like, { right: 10 }, dislikeStyle]}
+              style={[nStyles.like, { right: 10 }, dislikeStyle]}
               resizeMode="contain"
             />
             {renderItem({ item: currentOne })}
@@ -127,7 +127,7 @@ const VoucherStack = (props) => {
   );
 };
 
-const styles = StyleSheet.create({
+const nStyles = StyleSheet.create({
   root: {
     justifyContent: "center",
     alignItems: "center",

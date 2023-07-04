@@ -51,6 +51,7 @@ const Purpose = ({ navigation, route }) => {
             <Text
               style={[
                 styles.optionText,
+                { textAlign: "center", paddingLeft: 10, paddingRight: 10 },
                 selected[index] ? styles.whiteText : null,
               ]}
             >
