@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     lineHeight: 50,
     fontFamily: "Lexend",
   },
-
   subHeading: {
     top: 80, // adjust this value to increase the space below the heading
     fontSize: 13,
@@ -31,17 +30,10 @@ const styles = StyleSheet.create({
     marginRight: 15,
     fontFamily: "Lexend",
   },
-
   heading2: {
     fontSize: 32,
     fontFamily: "Lexend",
   },
-  interestheading: {
-    fontSize: 32,
-    fontFamily: "Lexend",
-    top: 70,
-  },
-
   heading3: {
     fontSize: 24,
     fontFamily: "Lexend",
@@ -58,13 +50,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Poppins_Italic",
   },
-
   bgText: {
     fontSize: 16,
     fontFamily: "Poppins",
     color: "gray",
   },
 
+  skipText: {
+    color: colors.primary,
+    fontSize: 20,
+    fontWeight: "bold",
+  },
   skipButton: {
     position: "absolute",
     top: 10,
@@ -75,25 +71,16 @@ const styles = StyleSheet.create({
     borderColor: "transparent",
     borderWidth: 1,
   },
-
-  skipText: {
-    color: colors.primary,
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-
   skipWrapper: {
     position: "absolute",
     right: 0,
     zIndex: 1,
   },
-
   highlightText: {
     fontSize: 16,
     fontFamily: "Poppins_Semibold",
     color: colors.primary,
   },
-
   chosenText: {
     color: "#fff",
     fontFamily: "Poppins_Semibold",
@@ -102,6 +89,15 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
   },
+  optionText: {
+    color: "black",
+    fontFamily: "Poppins_Semibold",
+    fontSize: 12,
+    textAlign: "center",
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+
   users: {
     width: 100,
     height: 100,
@@ -110,15 +106,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     padding: 3,
     borderColor: colors.primary,
-  },
-
-  optionText: {
-    color: "black",
-    fontFamily: "Poppins_Semibold",
-    fontSize: 12,
-    textAlign: "center",
-    paddingLeft: 10,
-    paddingRight: 10,
   },
 
   button: {
@@ -186,7 +173,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
   },
 
-  whitetext: {
+  whiteText: {
     color: "white",
   },
 

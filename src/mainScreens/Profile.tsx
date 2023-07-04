@@ -3,21 +3,22 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Image,
   StyleSheet,
   Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Auth } from "aws-amplify";
+import { Auth, Storage } from "aws-amplify";
 import * as ImagePicker from "expo-image-picker";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 import { getUser } from "../graphql/queries";
-
-const GET_USER_INFO = gql(getUser);
+import { updateUser } from "../graphql/mutations";
 
 const Profile = ({ navigation }) => {
   const [userID, setUserID] = useState(null);
 
-  const { data } = useQuery(GET_USER_INFO, {
+  const GET_USER_INFO = gql(getUser);
+  const { data, refetch } = useQuery(GET_USER_INFO, {
     variables: {
       id: userID,
       skip: !userID,
@@ -25,6 +26,13 @@ const Profile = ({ navigation }) => {
   });
 
   const user = data?.getUser;
+
+  const UPDATE_USER = gql(updateUser);
+  const [updateUserMutation] = useMutation(UPDATE_USER, {
+    onCompleted: () => {
+      refetch();
+    },
+  });
 
   useEffect(() => {
     const getUserID = async () => {
@@ -43,14 +51,22 @@ const Profile = ({ navigation }) => {
     Auth.signOut();
   };
 
-  const [avatar, setAvatar] = useState(null);
-
   const handleSettings = () => {
     navigation.navigate("Settings");
   };
 
   const handleEditInfo = () => {
-    navigation.navigate("EditInfo");
+    navigation.navigate("EditInfo", { user });
+  };
+
+  const handleEditFilter = () => {
+    navigation.navigate("EditFilter", { user });
+  };
+
+  const fetchImageUri = async (uri) => {
+    const res = await fetch(uri);
+    const blob = await res.blob();
+    return blob;
   };
 
   const handleEditPicture = async () => {
@@ -63,13 +79,46 @@ const Profile = ({ navigation }) => {
     }
 
     const imageResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
     });
 
     if (!imageResult.canceled) {
-      setAvatar(imageResult.uri);
+      const { uri } = imageResult.assets[0];
+
+      const img = await fetchImageUri(uri);
+
+      const fileName = `user_${userID}_${Date.now()}.jpg`;
+
+      try {
+        await Storage.put(fileName, img, {
+          level: "public",
+          contentType: "image/jpeg",
+          progressCallback: (uploadProgress) =>
+            console.log(
+              "PROGRESS:",
+              (uploadProgress.loaded / uploadProgress.total) * 100,
+              "%"
+            ),
+        });
+
+        const s3ImageURL = await Storage.get(fileName);
+
+        const { data } = await updateUserMutation({
+          variables: {
+            input: {
+              id: userID,
+              imageURL: s3ImageURL,
+            },
+          },
+        });
+
+        console.log("Image uploaded successfully:", data.updateUser.imageURL);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
     }
   };
 
@@ -88,10 +137,13 @@ const Profile = ({ navigation }) => {
       </View>
       <View style={nStyles.profileContainer}>
         <TouchableOpacity style={nStyles.avatarContainer}>
-          {avatar ? (
-            <Image source={{ uri: avatar }} style={nStyles.avatarImage} />
+          {user?.imageURL ? (
+            <Image
+              source={{ uri: user?.imageURL }}
+              style={nStyles.avatarImage}
+            />
           ) : (
-            <Ionicons name="person-circle-outline" size={120} color="#ccc" />
+            <Ionicons name="person-circle-outline" size={120} color="black" />
           )}
           <TouchableOpacity
             style={nStyles.editIconContainer}
@@ -104,6 +156,10 @@ const Profile = ({ navigation }) => {
         <Text style={nStyles.infoText}>{user?.email} </Text>
         <TouchableOpacity style={nStyles.button} onPress={handleEditInfo}>
           <Text style={nStyles.buttonText}>Edit Profile Info</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={nStyles.button} onPress={handleEditFilter}>
+          <Text style={nStyles.buttonText}>Edit Matching Filter</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -131,7 +187,7 @@ const nStyles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: "#ccc",
+    backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 16,
@@ -145,7 +201,7 @@ const nStyles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     right: 0,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     borderRadius: 12,
     padding: 4,
   },

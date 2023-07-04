@@ -1,4 +1,3 @@
-import { useRoute } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -11,10 +10,8 @@ import {
 import styles from "../styles/index";
 import { Auth } from "aws-amplify";
 
-const ConfirmSignUp = ({ navigation }) => {
+const ConfirmSignUp = ({ navigation, route }) => {
   const [code, setCode] = useState("");
-
-  const route = useRoute();
 
   const registeredName = route?.params?.username;
 

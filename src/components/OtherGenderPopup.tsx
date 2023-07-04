@@ -41,7 +41,7 @@ const OtherGenderPopup = ({ onDone }) => {
                 <Text
                   style={[
                     styles.optionText,
-                    selected[index] ? styles.whitetext : null,
+                    selected[index] ? styles.whiteText : null,
                   ]}
                 >
                   {option}

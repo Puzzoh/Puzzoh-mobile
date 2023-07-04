@@ -10,24 +10,56 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import DatePicker from "react-native-datepicker";
-import Slider from "@react-native-community/slider";
 import * as Location from "expo-location";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { colors } from "../styles/index";
 import Checkbox from "expo-checkbox";
+import { gql, useMutation } from "@apollo/client";
+import { updateUser } from "../graphql/mutations";
 
-const EditInfo = ({ navigation }) => {
-  const [username, setUsername] = useState("");
-  const [pronounce, setPronounce] = useState("");
-  const [bio, setBio] = useState("");
+const EditInfo = ({ navigation, route }) => {
+  const UPDATE_USER = gql(updateUser);
+  const [updateUserMutation] = useMutation(UPDATE_USER);
+
+  const { user } = route?.params;
+
+  const updateUserInfo = async () => {
+    try {
+      const { data } = await updateUserMutation({
+        variables: {
+          input: {
+            id: user.id,
+            // username: username,
+            gender: gender,
+            pronounce: pronounce,
+            bio: bio,
+            purpose: purpose,
+            // birthday: birthday,
+            // interest: interest,
+            // foodPref: foodPref,
+          },
+        },
+      });
+
+      console.log("User updated:", data.updateUser);
+    } catch (error) {
+      console.log("Error updating user:", error);
+    }
+  };
+
+  const [username, setUsername] = useState(user.username);
+  const [pronounce, setPronounce] = useState(user.pronounce);
+  const [bio, setBio] = useState(user.bio);
   const [birthday, setBirthday] = useState("");
-  const [purpose, setPurpose] = useState("");
-  const [gender, setGender] = useState("");
-  const [ageRange, setAgeRange] = useState(18);
+  const [purpose, setPurpose] = useState(user.purpose);
+  const [gender, setGender] = useState(user.gender);
   const [location, setLocation] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSave = () => {
+  console.log(gender, pronounce, bio, purpose);
+
+  const handleSave = async () => {
+    await updateUserInfo();
     navigation.goBack();
   };
   const [selectedInterests, setSelectedInterests] = useState([]);
@@ -85,9 +117,9 @@ const EditInfo = ({ navigation }) => {
           <Text style={nStyles.inputLabel}>Username</Text>
           <TextInput
             style={nStyles.input}
-            placeholder="Username"
             value={username}
-            editable={false}
+            onChangeText={setUsername}
+            editable={true}
           />
           <TouchableOpacity onPress={() => {}}>
             <Text style={nStyles.requestChangeText}>
@@ -123,21 +155,23 @@ const EditInfo = ({ navigation }) => {
 
         <View style={nStyles.inputContainer}>
           <Text style={nStyles.inputLabel}>Pronounce</Text>
-          {["he/him", "she/her", "they/them"].map((option) => (
+          {["He/him", "She/her", "They/them"].map((option) => (
             <View style={nStyles.optionsContainer} key={option}>
               <TouchableOpacity
                 style={[
                   nStyles.option,
-                  purpose === option && {
+                  pronounce === option && {
                     ...nStyles.optionSelected,
                     backgroundColor: colors.primary,
                   },
                 ]}
-                onPress={() => setPurpose(option)}
+                onPress={() => setPronounce(option)}
               >
                 <Text
                   style={
-                    purpose === option ? { color: "white" } : nStyles.optionText
+                    pronounce === option
+                      ? { color: "white" }
+                      : nStyles.optionText
                   }
                 >
                   {option}
@@ -188,9 +222,6 @@ const EditInfo = ({ navigation }) => {
 
         <View style={nStyles.inputContainer}>
           <Text style={nStyles.inputLabel}>Purpose</Text>
-        </View>
-        <View style={nStyles.inputContainer}>
-          <Text style={nStyles.inputLabel}>Purpose</Text>
           {["making friends", "dating", "just exploring"].map((option) => (
             <View style={nStyles.optionsContainer} key={option}>
               <TouchableOpacity
@@ -215,18 +246,6 @@ const EditInfo = ({ navigation }) => {
           ))}
         </View>
 
-        <View style={nStyles.inputContainer}>
-          <Text style={nStyles.inputLabel}>Age Range</Text>
-          <Slider
-            style={{ width: screenWidth - 60, height: 40 }}
-            minimumValue={18}
-            maximumValue={65}
-            step={1}
-            value={ageRange}
-            onValueChange={(value) => setAgeRange(value)}
-          />
-          <Text>{ageRange}</Text>
-        </View>
         <View style={nStyles.inputContainer}>
           <Text style={nStyles.inputLabel}>Interest</Text>
           {interests.map((interest) => (

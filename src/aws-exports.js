@@ -3,6 +3,10 @@
 
 const awsmobile = {
     "aws_project_region": "us-east-2",
+    "aws_appsync_graphqlEndpoint": "https://nctturvkgff3fm6mapepyxvfxa.appsync-api.us-east-2.amazonaws.com/graphql",
+    "aws_appsync_region": "us-east-2",
+    "aws_appsync_authenticationType": "API_KEY",
+    "aws_appsync_apiKey": "da2-7v3asrxezngjbdu4ayxoumkgii",
     "aws_cognito_identity_pool_id": "us-east-2:14968292-14a6-4815-8c24-b8b70f03c225",
     "aws_cognito_region": "us-east-2",
     "aws_user_pools_id": "us-east-2_bTQyQo9Ar",
@@ -30,10 +34,8 @@ const awsmobile = {
     "aws_cognito_verification_mechanisms": [
         "EMAIL"
     ],
-    "aws_appsync_graphqlEndpoint": "https://nctturvkgff3fm6mapepyxvfxa.appsync-api.us-east-2.amazonaws.com/graphql",
-    "aws_appsync_region": "us-east-2",
-    "aws_appsync_authenticationType": "API_KEY",
-    "aws_appsync_apiKey": "da2-7v3asrxezngjbdu4ayxoumkgii"
+    "aws_user_files_s3_bucket": "puzzohresources14224-staging",
+    "aws_user_files_s3_bucket_region": "us-east-2"
 };
 
 

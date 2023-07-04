@@ -13,7 +13,7 @@ type User @model {
   location: String
   bio: String
   imageURL: String
-  purpose: [PurposeType]
+  purpose: String
   interest: [InterestType]
   foodPref: [FoodPrefType]
 }

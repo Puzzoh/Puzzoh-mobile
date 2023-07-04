@@ -17,6 +17,15 @@
       },
       "api": {
         "puzzohmobile": {}
+      },
+      "function": {
+        "S3Triggerd94ee2d7": {
+          "deploymentBucketName": "amplify-puzzohmobile-staging-14224-deployment",
+          "s3Key": "amplify-builds/S3Triggerd94ee2d7-566376634157546e364b-build.zip"
+        }
+      },
+      "storage": {
+        "images": {}
       }
     }
   }
