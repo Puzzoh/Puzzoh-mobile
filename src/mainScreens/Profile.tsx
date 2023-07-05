@@ -28,6 +28,8 @@ const Profile = ({ navigation }) => {
 
   const user = data?.getUser;
 
+  console.log(user);
+
   const UPDATE_USER = gql(updateUser);
   const [updateUserMutation] = useMutation(UPDATE_USER, {
     onCompleted: () => {
