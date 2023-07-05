@@ -17,7 +17,7 @@ type User @model {
   interest: [InterestType]
   foodPref: [FoodPrefType]
   swipedVouchers: [Voucher!] @hasMany
-  matches: [Match!] @hasMany
+  matches: [Match!] @hasMany(indexName: "byUser", fields: ["id"])
 }
 
 type Vendor @model {
@@ -51,8 +51,12 @@ type Voucher @model {
 
 type Match @model {
   id: ID!
-  user: User! @belongsTo
-  matchedUser: User! @belongsTo
+  user1: User! @belongsTo(fields: ["user1ID"])
+  user1ID: ID!
+  user2: User! @belongsTo(fields: ["user2ID"])
+  user2ID: ID!
+  isMatch: Boolean!
+  matchID: ID! @index(name: "byUser", sortKeyFields: ["user1ID", "user2ID"])
 }
 
 enum VendorType {
