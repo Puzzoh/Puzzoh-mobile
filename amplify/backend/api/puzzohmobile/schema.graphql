@@ -16,6 +16,8 @@ type User @model {
   purpose: String
   interest: [InterestType]
   foodPref: [FoodPrefType]
+  swipedVouchers: [Voucher!] @hasMany
+  matches: [Match!] @hasMany
 }
 
 type Vendor @model {
@@ -44,6 +46,13 @@ type Voucher @model {
   imageURL: String
   location: String
   vendor: Vendor @belongsTo
+  user: User @belongsTo
+}
+
+type Match @model {
+  id: ID!
+  user: User! @belongsTo
+  matchedUser: User! @belongsTo
 }
 
 enum VendorType {

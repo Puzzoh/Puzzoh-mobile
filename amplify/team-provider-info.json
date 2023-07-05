@@ -21,7 +21,7 @@
       "function": {
         "S3Triggerd94ee2d7": {
           "deploymentBucketName": "amplify-puzzohmobile-staging-14224-deployment",
-          "s3Key": "amplify-builds/S3Triggerd94ee2d7-566376634157546e364b-build.zip"
+          "s3Key": "amplify-builds/S3Triggerd94ee2d7-55654637314a68514d46-build.zip"
         }
       },
       "storage": {
