@@ -41,25 +41,23 @@ const Purpose = ({ navigation, route }) => {
       <BackButton onPress={() => navigation.navigate("Pronounce")} />
       <Text style={styles.heading2}>I am looking for ...</Text>
       <View style={nStyles.spaceSmall} />
-      {["making friends", "dating", "Don't know yet, just exploring"].map(
-        (option, index) => (
-          <TouchableOpacity
-            key={index}
-            style={[nStyles.button, selected[index] ? styles.selected : null]}
-            onPress={() => handlePress(index, option)}
+      {["making friends", "dating", "just exploring"].map((option, index) => (
+        <TouchableOpacity
+          key={index}
+          style={[nStyles.button, selected[index] ? styles.selected : null]}
+          onPress={() => handlePress(index, option)}
+        >
+          <Text
+            style={[
+              styles.optionText,
+              { textAlign: "center", paddingLeft: 10, paddingRight: 10 },
+              selected[index] ? styles.whiteText : null,
+            ]}
           >
-            <Text
-              style={[
-                styles.optionText,
-                { textAlign: "center", paddingLeft: 10, paddingRight: 10 },
-                selected[index] ? styles.whiteText : null,
-              ]}
-            >
-              {option}
-            </Text>
-          </TouchableOpacity>
-        )
-      )}
+            {option}
+          </Text>
+        </TouchableOpacity>
+      ))}
       <View style={nStyles.space} />
       <TouchableOpacity onPress={onNext} style={styles.continueButton}>
         {loading ? (

@@ -16,6 +16,87 @@ export const getUser = /* GraphQL */ `
       purpose
       interest
       foodPref
+      swipedVouchers {
+        id
+        title
+        priceBefore
+        priceAfter
+        description
+        avgRating
+        numRedeemed
+        forQuantity
+        imageURL
+        location
+        vendor {
+          id
+          name
+          phone
+          email
+          address
+          link
+          verified
+          type
+          imageURL
+          location
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        vendorVouchersId
+        __typename
+      }
+      matches {
+        id
+        username
+        email
+        phoneNum
+        gender
+        pronounce
+        location
+        bio
+        imageURL
+        purpose
+        interest
+        foodPref
+        swipedVouchers {
+          id
+          title
+          priceBefore
+          priceAfter
+          description
+          avgRating
+          numRedeemed
+          forQuantity
+          imageURL
+          location
+          createdAt
+          updatedAt
+          vendorVouchersId
+          __typename
+        }
+        matches {
+          id
+          username
+          email
+          phoneNum
+          gender
+          pronounce
+          location
+          bio
+          imageURL
+          purpose
+          interest
+          foodPref
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -42,6 +123,39 @@ export const listUsers = /* GraphQL */ `
         purpose
         interest
         foodPref
+        swipedVouchers {
+          id
+          title
+          priceBefore
+          priceAfter
+          description
+          avgRating
+          numRedeemed
+          forQuantity
+          imageURL
+          location
+          createdAt
+          updatedAt
+          vendorVouchersId
+          __typename
+        }
+        matches {
+          id
+          username
+          email
+          phoneNum
+          gender
+          pronounce
+          location
+          bio
+          imageURL
+          purpose
+          interest
+          foodPref
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         __typename

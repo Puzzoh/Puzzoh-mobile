@@ -16,6 +16,8 @@ type User @model {
   purpose: String
   interest: [InterestType]
   foodPref: [FoodPrefType]
+  swipedVouchers: [Voucher!]
+  matches: [User!]
 }
 
 type Vendor @model {

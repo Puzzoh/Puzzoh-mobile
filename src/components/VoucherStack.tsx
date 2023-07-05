@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, useWindowDimensions } from "react-native";
+import { Text, View, StyleSheet, useWindowDimensions } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -106,7 +106,7 @@ const VoucherStack = (props) => {
         </View>
       )}
 
-      {currentOne && (
+      {currentOne ? (
         <PanGestureHandler onGestureEvent={gestureHandler}>
           <Animated.View style={[nStyles.animatedCard, cardStyle]}>
             <Animated.Image
@@ -122,6 +122,10 @@ const VoucherStack = (props) => {
             {renderItem({ item: currentOne })}
           </Animated.View>
         </PanGestureHandler>
+      ) : (
+        <View>
+          <Text> No more vouchers to display... Reload to refetch.</Text>
+        </View>
       )}
     </View>
   );
