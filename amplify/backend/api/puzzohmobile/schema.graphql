@@ -17,8 +17,12 @@ type User @model {
   purpose: String
   interest: [InterestType]
   foodPref: [FoodPrefType]
+  preferredMinAge: Int
+  preferredMaxAge: Int
+  preferredGender: [GenderType]
+  preferredDistanceAway: Int
   swipedVouchers: [Voucher!]
-  matches: [User!]
+  matches: [Match!] @hasMany
 }
 
 type Vendor @model {
@@ -32,7 +36,7 @@ type Vendor @model {
   type: VendorType
   imageURL: String
   location: String
-  vouchers: [Voucher] @hasMany
+  vouchers: [Voucher!] @hasMany
 }
 
 type Voucher @model {
@@ -49,9 +53,24 @@ type Voucher @model {
   vendor: Vendor @belongsTo
 }
 
+type Match @model {
+  id: ID!
+  user1ID: ID!
+  user2ID: ID!
+  isMatch: Boolean!
+  user1: User! @belongsTo
+  user2: User! @belongsTo
+}
+
 enum VendorType {
   Restaurant
   NonRestaurant
+}
+
+enum GenderType {
+  Men
+  Women
+  Nonbinary
 }
 
 enum PurposeType {

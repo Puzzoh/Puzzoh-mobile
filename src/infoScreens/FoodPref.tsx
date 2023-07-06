@@ -13,38 +13,10 @@ import { gql, useMutation } from "@apollo/client";
 import { updateUser } from "../graphql/mutations";
 
 const FoodPref = ({ navigation, route }) => {
-  const UPDATE_USER = gql(updateUser);
-  const [updateUserMutation] = useMutation(UPDATE_USER);
-
-  const updateUserInfo = async () => {
-    try {
-      const currUser = await Auth.currentAuthenticatedUser();
-      const id = currUser.attributes.sub;
-
-      const { data } = await updateUserMutation({
-        variables: {
-          input: {
-            id,
-            gender: selectedGender,
-            pronounce: selectedPronounce,
-            purpose: selectedPurpose,
-            interest: selectedInterest,
-            foodPref: selectedFoodPref,
-          },
-        },
-      });
-
-      console.log("User updated:", data.updateUser);
-    } catch (error) {
-      console.log("Error updating user:", error);
-    }
-  };
-
-  // console.log(route?.params);
   const selectedGender = route?.params?.gender;
   const selectedPronounce = route?.params?.pronounce;
   const selectedPurpose = route?.params?.purpose;
-  const selectedInterest = route?.params?.interest;
+  const selectedInterests = route?.params?.interest;
 
   const foodPref = [
     "Vegan",
@@ -62,7 +34,7 @@ const FoodPref = ({ navigation, route }) => {
   ];
 
   const [selected, setSelected] = useState(Array(12).fill(false));
-  const [selectedFoodPref, setSelectedFoodPref] = useState([]);
+  const [selectedFoodPrefs, setSelectedFoodPrefs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [pressed, setPressed] = useState(false);
 
@@ -75,18 +47,23 @@ const FoodPref = ({ navigation, route }) => {
     }
 
     setSelected(newSelected);
-    if (selectedFoodPref.includes(foodPrefValue)) {
-      setSelectedFoodPref(
-        selectedFoodPref.filter((element) => element !== foodPrefValue)
+    if (selectedFoodPrefs.includes(foodPrefValue)) {
+      setSelectedFoodPrefs(
+        selectedFoodPrefs.filter((element) => element !== foodPrefValue)
       );
     } else {
-      setSelectedFoodPref([...selectedFoodPref, foodPrefValue]);
+      setSelectedFoodPrefs([...selectedFoodPrefs, foodPrefValue]);
     }
   };
 
-  const onDone = async () => {
-    await updateUserInfo();
-    navigation.navigate("Main");
+  const onNext = async () => {
+    navigation.navigate("AgeBioLocation", {
+      gender: selectedGender,
+      pronounce: selectedPronounce,
+      purpose: selectedPurpose,
+      interest: selectedInterests,
+      foodPref: selectedFoodPrefs,
+    });
   };
 
   return (
@@ -147,11 +124,11 @@ const FoodPref = ({ navigation, route }) => {
           </View>
         ))}
         <View style={nStyles.space} />
-        <TouchableOpacity onPress={onDone} style={styles.continueButton}>
+        <TouchableOpacity onPress={onNext} style={styles.continueButton}>
           {loading ? (
             <Text style={styles.chosenText}>Loading ...</Text>
           ) : (
-            <Text style={styles.chosenText}>Done</Text>
+            <Text style={styles.chosenText}>Continue</Text>
           )}
         </TouchableOpacity>
       </View>

@@ -11,6 +11,7 @@ export const createUser = /* GraphQL */ `
       username
       email
       phoneNum
+      age
       gender
       pronounce
       location
@@ -19,6 +20,10 @@ export const createUser = /* GraphQL */ `
       purpose
       interest
       foodPref
+      preferredMinAge
+      preferredMaxAge
+      preferredGender
+      preferredDistanceAway
       swipedVouchers {
         id
         title
@@ -51,53 +56,17 @@ export const createUser = /* GraphQL */ `
         __typename
       }
       matches {
-        id
-        username
-        email
-        phoneNum
-        gender
-        pronounce
-        location
-        bio
-        imageURL
-        purpose
-        interest
-        foodPref
-        swipedVouchers {
+        items {
           id
-          title
-          priceBefore
-          priceAfter
-          description
-          avgRating
-          numRedeemed
-          forQuantity
-          imageURL
-          location
+          user1ID
+          user2ID
+          isMatch
           createdAt
           updatedAt
-          vendorVouchersId
+          userMatchesId
           __typename
         }
-        matches {
-          id
-          username
-          email
-          phoneNum
-          gender
-          pronounce
-          location
-          bio
-          imageURL
-          purpose
-          interest
-          foodPref
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
+        nextToken
         __typename
       }
       createdAt
@@ -116,6 +85,7 @@ export const updateUser = /* GraphQL */ `
       username
       email
       phoneNum
+      age
       gender
       pronounce
       location
@@ -124,6 +94,10 @@ export const updateUser = /* GraphQL */ `
       purpose
       interest
       foodPref
+      preferredMinAge
+      preferredMaxAge
+      preferredGender
+      preferredDistanceAway
       swipedVouchers {
         id
         title
@@ -156,53 +130,17 @@ export const updateUser = /* GraphQL */ `
         __typename
       }
       matches {
-        id
-        username
-        email
-        phoneNum
-        gender
-        pronounce
-        location
-        bio
-        imageURL
-        purpose
-        interest
-        foodPref
-        swipedVouchers {
+        items {
           id
-          title
-          priceBefore
-          priceAfter
-          description
-          avgRating
-          numRedeemed
-          forQuantity
-          imageURL
-          location
+          user1ID
+          user2ID
+          isMatch
           createdAt
           updatedAt
-          vendorVouchersId
+          userMatchesId
           __typename
         }
-        matches {
-          id
-          username
-          email
-          phoneNum
-          gender
-          pronounce
-          location
-          bio
-          imageURL
-          purpose
-          interest
-          foodPref
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
+        nextToken
         __typename
       }
       createdAt
@@ -221,6 +159,7 @@ export const deleteUser = /* GraphQL */ `
       username
       email
       phoneNum
+      age
       gender
       pronounce
       location
@@ -229,6 +168,10 @@ export const deleteUser = /* GraphQL */ `
       purpose
       interest
       foodPref
+      preferredMinAge
+      preferredMaxAge
+      preferredGender
+      preferredDistanceAway
       swipedVouchers {
         id
         title
@@ -261,53 +204,17 @@ export const deleteUser = /* GraphQL */ `
         __typename
       }
       matches {
-        id
-        username
-        email
-        phoneNum
-        gender
-        pronounce
-        location
-        bio
-        imageURL
-        purpose
-        interest
-        foodPref
-        swipedVouchers {
+        items {
           id
-          title
-          priceBefore
-          priceAfter
-          description
-          avgRating
-          numRedeemed
-          forQuantity
-          imageURL
-          location
+          user1ID
+          user2ID
+          isMatch
           createdAt
           updatedAt
-          vendorVouchersId
+          userMatchesId
           __typename
         }
-        matches {
-          id
-          username
-          email
-          phoneNum
-          gender
-          pronounce
-          location
-          bio
-          imageURL
-          purpose
-          interest
-          foodPref
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
+        nextToken
         __typename
       }
       createdAt
@@ -564,6 +471,309 @@ export const deleteVoucher = /* GraphQL */ `
       createdAt
       updatedAt
       vendorVouchersId
+      __typename
+    }
+  }
+`;
+export const createMatch = /* GraphQL */ `
+  mutation CreateMatch(
+    $input: CreateMatchInput!
+    $condition: ModelMatchConditionInput
+  ) {
+    createMatch(input: $input, condition: $condition) {
+      id
+      user1ID
+      user2ID
+      isMatch
+      user1 {
+        id
+        username
+        email
+        phoneNum
+        age
+        gender
+        pronounce
+        location
+        bio
+        imageURL
+        purpose
+        interest
+        foodPref
+        preferredMinAge
+        preferredMaxAge
+        preferredGender
+        preferredDistanceAway
+        swipedVouchers {
+          id
+          title
+          priceBefore
+          priceAfter
+          description
+          avgRating
+          numRedeemed
+          forQuantity
+          imageURL
+          location
+          createdAt
+          updatedAt
+          vendorVouchersId
+          __typename
+        }
+        matches {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      user2 {
+        id
+        username
+        email
+        phoneNum
+        age
+        gender
+        pronounce
+        location
+        bio
+        imageURL
+        purpose
+        interest
+        foodPref
+        preferredMinAge
+        preferredMaxAge
+        preferredGender
+        preferredDistanceAway
+        swipedVouchers {
+          id
+          title
+          priceBefore
+          priceAfter
+          description
+          avgRating
+          numRedeemed
+          forQuantity
+          imageURL
+          location
+          createdAt
+          updatedAt
+          vendorVouchersId
+          __typename
+        }
+        matches {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      userMatchesId
+      __typename
+    }
+  }
+`;
+export const updateMatch = /* GraphQL */ `
+  mutation UpdateMatch(
+    $input: UpdateMatchInput!
+    $condition: ModelMatchConditionInput
+  ) {
+    updateMatch(input: $input, condition: $condition) {
+      id
+      user1ID
+      user2ID
+      isMatch
+      user1 {
+        id
+        username
+        email
+        phoneNum
+        age
+        gender
+        pronounce
+        location
+        bio
+        imageURL
+        purpose
+        interest
+        foodPref
+        preferredMinAge
+        preferredMaxAge
+        preferredGender
+        preferredDistanceAway
+        swipedVouchers {
+          id
+          title
+          priceBefore
+          priceAfter
+          description
+          avgRating
+          numRedeemed
+          forQuantity
+          imageURL
+          location
+          createdAt
+          updatedAt
+          vendorVouchersId
+          __typename
+        }
+        matches {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      user2 {
+        id
+        username
+        email
+        phoneNum
+        age
+        gender
+        pronounce
+        location
+        bio
+        imageURL
+        purpose
+        interest
+        foodPref
+        preferredMinAge
+        preferredMaxAge
+        preferredGender
+        preferredDistanceAway
+        swipedVouchers {
+          id
+          title
+          priceBefore
+          priceAfter
+          description
+          avgRating
+          numRedeemed
+          forQuantity
+          imageURL
+          location
+          createdAt
+          updatedAt
+          vendorVouchersId
+          __typename
+        }
+        matches {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      userMatchesId
+      __typename
+    }
+  }
+`;
+export const deleteMatch = /* GraphQL */ `
+  mutation DeleteMatch(
+    $input: DeleteMatchInput!
+    $condition: ModelMatchConditionInput
+  ) {
+    deleteMatch(input: $input, condition: $condition) {
+      id
+      user1ID
+      user2ID
+      isMatch
+      user1 {
+        id
+        username
+        email
+        phoneNum
+        age
+        gender
+        pronounce
+        location
+        bio
+        imageURL
+        purpose
+        interest
+        foodPref
+        preferredMinAge
+        preferredMaxAge
+        preferredGender
+        preferredDistanceAway
+        swipedVouchers {
+          id
+          title
+          priceBefore
+          priceAfter
+          description
+          avgRating
+          numRedeemed
+          forQuantity
+          imageURL
+          location
+          createdAt
+          updatedAt
+          vendorVouchersId
+          __typename
+        }
+        matches {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      user2 {
+        id
+        username
+        email
+        phoneNum
+        age
+        gender
+        pronounce
+        location
+        bio
+        imageURL
+        purpose
+        interest
+        foodPref
+        preferredMinAge
+        preferredMaxAge
+        preferredGender
+        preferredDistanceAway
+        swipedVouchers {
+          id
+          title
+          priceBefore
+          priceAfter
+          description
+          avgRating
+          numRedeemed
+          forQuantity
+          imageURL
+          location
+          createdAt
+          updatedAt
+          vendorVouchersId
+          __typename
+        }
+        matches {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      userMatchesId
       __typename
     }
   }

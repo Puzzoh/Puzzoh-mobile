@@ -2,7 +2,7 @@
   "providers": [
     "awscloudformation"
   ],
-  "projectName": "PuzzohMobile",
+  "projectName": "Puzzohmobile",
   "version": "3.1",
   "frontend": "javascript",
   "javascript": {

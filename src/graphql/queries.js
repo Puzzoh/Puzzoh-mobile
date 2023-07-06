@@ -8,6 +8,7 @@ export const getUser = /* GraphQL */ `
       username
       email
       phoneNum
+      age
       gender
       pronounce
       location
@@ -16,6 +17,10 @@ export const getUser = /* GraphQL */ `
       purpose
       interest
       foodPref
+      preferredMinAge
+      preferredMaxAge
+      preferredGender
+      preferredDistanceAway
       swipedVouchers {
         id
         title
@@ -48,53 +53,17 @@ export const getUser = /* GraphQL */ `
         __typename
       }
       matches {
-        id
-        username
-        email
-        phoneNum
-        gender
-        pronounce
-        location
-        bio
-        imageURL
-        purpose
-        interest
-        foodPref
-        swipedVouchers {
+        items {
           id
-          title
-          priceBefore
-          priceAfter
-          description
-          avgRating
-          numRedeemed
-          forQuantity
-          imageURL
-          location
+          user1ID
+          user2ID
+          isMatch
           createdAt
           updatedAt
-          vendorVouchersId
+          userMatchesId
           __typename
         }
-        matches {
-          id
-          username
-          email
-          phoneNum
-          gender
-          pronounce
-          location
-          bio
-          imageURL
-          purpose
-          interest
-          foodPref
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
+        nextToken
         __typename
       }
       createdAt
@@ -115,6 +84,7 @@ export const listUsers = /* GraphQL */ `
         username
         email
         phoneNum
+        age
         gender
         pronounce
         location
@@ -123,6 +93,10 @@ export const listUsers = /* GraphQL */ `
         purpose
         interest
         foodPref
+        preferredMinAge
+        preferredMaxAge
+        preferredGender
+        preferredDistanceAway
         swipedVouchers {
           id
           title
@@ -140,20 +114,7 @@ export const listUsers = /* GraphQL */ `
           __typename
         }
         matches {
-          id
-          username
-          email
-          phoneNum
-          gender
-          pronounce
-          location
-          bio
-          imageURL
-          purpose
-          interest
-          foodPref
-          createdAt
-          updatedAt
+          nextToken
           __typename
         }
         createdAt
@@ -310,6 +271,170 @@ export const listVouchers = /* GraphQL */ `
         createdAt
         updatedAt
         vendorVouchersId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getMatch = /* GraphQL */ `
+  query GetMatch($id: ID!) {
+    getMatch(id: $id) {
+      id
+      user1ID
+      user2ID
+      isMatch
+      user1 {
+        id
+        username
+        email
+        phoneNum
+        age
+        gender
+        pronounce
+        location
+        bio
+        imageURL
+        purpose
+        interest
+        foodPref
+        preferredMinAge
+        preferredMaxAge
+        preferredGender
+        preferredDistanceAway
+        swipedVouchers {
+          id
+          title
+          priceBefore
+          priceAfter
+          description
+          avgRating
+          numRedeemed
+          forQuantity
+          imageURL
+          location
+          createdAt
+          updatedAt
+          vendorVouchersId
+          __typename
+        }
+        matches {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      user2 {
+        id
+        username
+        email
+        phoneNum
+        age
+        gender
+        pronounce
+        location
+        bio
+        imageURL
+        purpose
+        interest
+        foodPref
+        preferredMinAge
+        preferredMaxAge
+        preferredGender
+        preferredDistanceAway
+        swipedVouchers {
+          id
+          title
+          priceBefore
+          priceAfter
+          description
+          avgRating
+          numRedeemed
+          forQuantity
+          imageURL
+          location
+          createdAt
+          updatedAt
+          vendorVouchersId
+          __typename
+        }
+        matches {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      userMatchesId
+      __typename
+    }
+  }
+`;
+export const listMatches = /* GraphQL */ `
+  query ListMatches(
+    $filter: ModelMatchFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMatches(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        user1ID
+        user2ID
+        isMatch
+        user1 {
+          id
+          username
+          email
+          phoneNum
+          age
+          gender
+          pronounce
+          location
+          bio
+          imageURL
+          purpose
+          interest
+          foodPref
+          preferredMinAge
+          preferredMaxAge
+          preferredGender
+          preferredDistanceAway
+          createdAt
+          updatedAt
+          __typename
+        }
+        user2 {
+          id
+          username
+          email
+          phoneNum
+          age
+          gender
+          pronounce
+          location
+          bio
+          imageURL
+          purpose
+          interest
+          foodPref
+          preferredMinAge
+          preferredMaxAge
+          preferredGender
+          preferredDistanceAway
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        userMatchesId
         __typename
       }
       nextToken
