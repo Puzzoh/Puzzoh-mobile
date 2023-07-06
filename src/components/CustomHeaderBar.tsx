@@ -23,7 +23,7 @@ export default function Header() {
     <View style={headerStyles.container}>
       <View style={headerStyles.wrapper}>
         <View style={headerStyles.discoverContainer}>
-          <Text style={styles.heading2}>Discover</Text>
+          <Text style={styles.heading3}>Discover</Text>
           <Text style={[styles.heading5, { color: "gray" }]}>New York, NY</Text>
         </View>
       </View>

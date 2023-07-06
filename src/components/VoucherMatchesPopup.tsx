@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet, Button, Image } from "react-native";
+import { View, Text, StyleSheet, Button, Image, TouchableOpacity } from "react-native";
 import Modal from "react-native-modal";
+import { colors } from "../styles/index";
 
 const VoucherMatchesPopup = ({ voucher, onClose }) => {
   return (
@@ -15,7 +16,9 @@ const VoucherMatchesPopup = ({ voucher, onClose }) => {
         <Text style={styles.price}>
           Price: ${voucher.priceAfter} (${voucher.priceBefore} Before)
         </Text>
-        <Button title="Close" onPress={onClose} />
+        <TouchableOpacity onPress={onClose} style={styles.button}>
+          <Text style={styles.buttonText}>Close</Text>
+        </TouchableOpacity>
       </View>
     </Modal>
   );
@@ -28,10 +31,21 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderColor: "rgba(0, 0, 0, 0.1)",
   },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
+  },
+  button: {
+    backgroundColor: colors.primary,
+    borderRadius: 8,
+    padding: 10,
+    alignItems: 'center',
   },
   image: {
     width: "100%",
