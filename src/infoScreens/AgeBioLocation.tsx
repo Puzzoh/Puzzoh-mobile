@@ -102,7 +102,15 @@ const AgeBioLocation = ({ navigation, route }) => {
           onChangeText={setBio}
         />
 
-        <Text style={[styles.heading2, { top: 20 }]}>Location</Text>
+        <Text style={[styles.heading2, { marginBottom: 20, top: 20 }]}>
+          Location
+        </Text>
+        <TextInput
+          style={[styles.bodyText2, nStyles.input]}
+          placeholder="Enter your location"
+          value={location}
+          onChangeText={setLocation}
+        />
         {/* <GooglePlacesAutocomplete
           placeholder="Enter your location"
           onPress={(data, details = null) => {

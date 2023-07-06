@@ -22,7 +22,7 @@ import Interest from "./src/infoScreens/Interest";
 import FoodPref from "./src/infoScreens/FoodPref";
 import AgeBioLocation from "./src/infoScreens/AgeBioLocation";
 import NavigationScreen from "./src/mainScreens/NavigationScreen";
-import OnboardingSlider from "./src/components/OnboardingSlider";
+// import OnboardingSlider from "./src/components/OnboardingSlider";
 import Settings from "./src/mainScreens/Settings";
 import EditInfo from "./src/mainScreens/EditInfo";
 import Initializer from "./src/mainScreens/Initializer";
@@ -33,8 +33,8 @@ const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
   const [user, setUser] = useState(undefined);
-  const [mainScreens, showMainScreens] = useState(false);
-  // const [fontLoaded, setFontLoaded] = useState(false);
+  // const [mainScreens, showMainScreens] = useState(false);
+  const [fontLoaded, setFontLoaded] = useState(false);
 
   const fetchFonts = () => {
     return Font.loadAsync({
@@ -49,18 +49,10 @@ const Navigation = () => {
   useEffect(() => {
     async function getFonts() {
       await fetchFonts();
-      // setFontLoaded(true);
+      setFontLoaded(true);
     }
     getFonts();
   }, []);
-
-  // if (!fontLoaded) {
-  //   return (
-  //     <View style={appStyles.loading}>
-  //       <ActivityIndicator />
-  //     </View>
-  //   );
-  // }
 
   const authenticateUser = async () => {
     try {
@@ -90,14 +82,18 @@ const Navigation = () => {
     };
   }, []);
 
-  if (!mainScreens) {
-    return <OnboardingSlider onDone={() => showMainScreens(true)} />;
-  }
-
   if (user === undefined) {
     return (
       <View style={appStyles.loading}>
         <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  if (!fontLoaded) {
+    return (
+      <View style={appStyles.loading}>
+        <ActivityIndicator />
       </View>
     );
   }

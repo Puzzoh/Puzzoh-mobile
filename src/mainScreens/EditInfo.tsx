@@ -153,8 +153,8 @@ const EditInfo = ({ navigation, route }) => {
         </View>
         <View style={nStyles.inputContainer}>
           <Text style={styles.heading5}>GENDER</Text>
-          <View style={nStyles.optionsContainer}>
-            {["Man", "Woman", "LGBTQ+"].map((option) => (
+          {["Man", "Woman", "LGBTQ+"].map((option) => (
+            <View style={nStyles.optionsContainer} key={option}>
               <TouchableOpacity
                 style={[
                   nStyles.option,
@@ -164,6 +164,7 @@ const EditInfo = ({ navigation, route }) => {
                   },
                 ]}
                 onPress={() => setGender(option)}
+                key={option}
               >
                 <Text
                   style={[
@@ -180,8 +181,8 @@ const EditInfo = ({ navigation, route }) => {
                   {option}
                 </Text>
               </TouchableOpacity>
-            ))}
-          </View>
+            </View>
+          ))}
         </View>
 
         <View style={nStyles.inputContainer}>
@@ -197,6 +198,7 @@ const EditInfo = ({ navigation, route }) => {
                   },
                 ]}
                 onPress={() => setPronounce(option)}
+                key={option}
               >
                 <Text
                   style={[
