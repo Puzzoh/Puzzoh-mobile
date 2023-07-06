@@ -70,7 +70,6 @@ const VoucherCard = (props) => {
 const nStyles = StyleSheet.create({
   card: {
     width: "100%",
-    height: "100%",
     borderRadius: 10,
     backgroundColor: "#fefefe",
 
@@ -84,6 +83,7 @@ const nStyles = StyleSheet.create({
     top: 40,
     borderWidth: 1,
     borderColor: colors.primary,
+    marginBottom: "40%"
   },
   image: {
     width: "100%",

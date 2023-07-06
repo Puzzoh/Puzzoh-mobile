@@ -5,11 +5,12 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { colors } from "../styles/index";
 
-export default function NotificationPopup({ onClose, navigation }) {
+export default function NotificationPopup({ onClose }) {
+
+
 
   const handleClose = () => {
     onClose();
-    navigation.goBack();
   };
 
   return (
