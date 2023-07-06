@@ -2,9 +2,9 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
-    "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "puzzohf0da4a80",
-    "userPoolName": "PuzzohMobile",
+    "allowUnauthenticatedIdentities": true,
+    "resourceNameTruncated": "puzzohc7c74eae",
+    "userPoolName": "Puzzohmobile",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -33,10 +33,10 @@
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "Puzzohf0da4a80_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "Puzzohc7c74eae_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "f0da4a80",
-    "resourceName": "PuzzohMobile",
+    "sharedId": "c7c74eae",
+    "resourceName": "Puzzohmobile",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",
     "useDefault": "manual",
@@ -46,6 +46,20 @@
     "thirdPartyAuth": false,
     "authProviders": [],
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true
+    "useEnabledMfas": true,
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "dependsOn": []
   }
 }

@@ -20,6 +20,7 @@ import Pronounce from "./src/infoScreens/Pronounce";
 import Purpose from "./src/infoScreens/Purpose";
 import Interest from "./src/infoScreens/Interest";
 import FoodPref from "./src/infoScreens/FoodPref";
+import AgeBioLocation from "./src/infoScreens/AgeBioLocation";
 import NavigationScreen from "./src/mainScreens/NavigationScreen";
 import OnboardingSlider from "./src/components/OnboardingSlider";
 import Settings from "./src/mainScreens/Settings";
@@ -115,6 +116,7 @@ const Navigation = () => {
           <Stack.Screen name="Purpose" component={Purpose} />
           <Stack.Screen name="Interest" component={Interest} />
           <Stack.Screen name="FoodPref" component={FoodPref} />
+          <Stack.Screen name="AgeBioLocation" component={AgeBioLocation} />
           <Stack.Screen name="Main" component={NavigationScreen} />
           <Stack.Screen name="Settings" component={Settings} />
           <Stack.Screen name="EditInfo" component={EditInfo} />

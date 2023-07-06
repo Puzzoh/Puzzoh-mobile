@@ -8,6 +8,7 @@ export const getUser = /* GraphQL */ `
       username
       email
       phoneNum
+      age
       gender
       pronounce
       location
@@ -47,56 +48,6 @@ export const getUser = /* GraphQL */ `
         vendorVouchersId
         __typename
       }
-      matches {
-        id
-        username
-        email
-        phoneNum
-        gender
-        pronounce
-        location
-        bio
-        imageURL
-        purpose
-        interest
-        foodPref
-        swipedVouchers {
-          id
-          title
-          priceBefore
-          priceAfter
-          description
-          avgRating
-          numRedeemed
-          forQuantity
-          imageURL
-          location
-          createdAt
-          updatedAt
-          vendorVouchersId
-          __typename
-        }
-        matches {
-          id
-          username
-          email
-          phoneNum
-          gender
-          pronounce
-          location
-          bio
-          imageURL
-          purpose
-          interest
-          foodPref
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -115,6 +66,7 @@ export const listUsers = /* GraphQL */ `
         username
         email
         phoneNum
+        age
         gender
         pronounce
         location
@@ -137,23 +89,6 @@ export const listUsers = /* GraphQL */ `
           createdAt
           updatedAt
           vendorVouchersId
-          __typename
-        }
-        matches {
-          id
-          username
-          email
-          phoneNum
-          gender
-          pronounce
-          location
-          bio
-          imageURL
-          purpose
-          interest
-          foodPref
-          createdAt
-          updatedAt
           __typename
         }
         createdAt

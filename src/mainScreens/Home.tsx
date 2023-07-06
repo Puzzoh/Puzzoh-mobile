@@ -15,15 +15,13 @@ import CustomHeaderBar from "../components/CustomHeaderBar";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { listVouchers } from "../graphql/queries";
 import VoucherDetailPopup from "../components/VoucherDetailPopup";
-import RNRestart from "react-native-restart";
 const GET_VOUCHERS = gql(listVouchers);
 
 const Home = () => {
-  const { loading, error, data } = useQuery(GET_VOUCHERS);
+  const { loading, error, data, refetch } = useQuery(GET_VOUCHERS);
   const vouchers = data?.listVouchers.items;
   const [selectedVoucher, setSelectedVoucher] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const startReload = () => RNRestart.Restart();
   const [isStarButtonActive, setIsStarButtonActive] = useState(false);
   const [isStrikeButtonActive, setIsStrikeButtonActive] = useState(false);
 
@@ -41,6 +39,10 @@ const Home = () => {
 
   const toggleStarButton = () => {
     setIsStarButtonActive(!isStarButtonActive);
+  };
+
+  const handleReload = () => {
+    refetch();
   };
 
   if (loading) {
@@ -116,7 +118,7 @@ const Home = () => {
               borderWidth: 0.25,
             },
           ]}
-          onPress={startReload}
+          onPress={handleReload}
         >
           <Icon name="refresh" size={20} color={colors.primary} />
         </TouchableOpacity>

@@ -31,7 +31,7 @@ const Interest = ({ navigation, route }) => {
   ];
 
   const [selected, setSelected] = useState(Array(12).fill(false));
-  const [selectedInterest, setSelectedInterest] = useState([]);
+  const [selectedInterests, setSelectedInterests] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const handlePress = (index, interestValue) => {
@@ -44,12 +44,12 @@ const Interest = ({ navigation, route }) => {
 
     setSelected(newSelected);
 
-    if (selectedInterest.includes(interestValue)) {
-      setSelectedInterest(
-        selectedInterest.filter((element) => element !== interestValue)
+    if (selectedInterests.includes(interestValue)) {
+      setSelectedInterests(
+        selectedInterests.filter((element) => element !== interestValue)
       );
     } else {
-      setSelectedInterest([...selectedInterest, interestValue]);
+      setSelectedInterests([...selectedInterests, interestValue]);
     }
   };
 
@@ -58,7 +58,7 @@ const Interest = ({ navigation, route }) => {
       gender: selectedGender,
       pronounce: selectedPronounce,
       purpose: selectedPurpose,
-      interest: selectedInterest,
+      interest: selectedInterests,
     });
   };
 

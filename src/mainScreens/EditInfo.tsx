@@ -460,7 +460,7 @@ const nStyles = StyleSheet.create({
     borderColor: colors.primary,
   },
   button: {
-    width: Dimensions.get("window").width / 4.5,
+    width: screenWidth / 4.5,
     height: 50,
     flexDirection: "row",
     justifyContent: "center",

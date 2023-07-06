@@ -11,6 +11,7 @@ export const createUser = /* GraphQL */ `
       username
       email
       phoneNum
+      age
       gender
       pronounce
       location
@@ -48,56 +49,6 @@ export const createUser = /* GraphQL */ `
         createdAt
         updatedAt
         vendorVouchersId
-        __typename
-      }
-      matches {
-        id
-        username
-        email
-        phoneNum
-        gender
-        pronounce
-        location
-        bio
-        imageURL
-        purpose
-        interest
-        foodPref
-        swipedVouchers {
-          id
-          title
-          priceBefore
-          priceAfter
-          description
-          avgRating
-          numRedeemed
-          forQuantity
-          imageURL
-          location
-          createdAt
-          updatedAt
-          vendorVouchersId
-          __typename
-        }
-        matches {
-          id
-          username
-          email
-          phoneNum
-          gender
-          pronounce
-          location
-          bio
-          imageURL
-          purpose
-          interest
-          foodPref
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
         __typename
       }
       createdAt
@@ -116,6 +67,7 @@ export const updateUser = /* GraphQL */ `
       username
       email
       phoneNum
+      age
       gender
       pronounce
       location
@@ -153,56 +105,6 @@ export const updateUser = /* GraphQL */ `
         createdAt
         updatedAt
         vendorVouchersId
-        __typename
-      }
-      matches {
-        id
-        username
-        email
-        phoneNum
-        gender
-        pronounce
-        location
-        bio
-        imageURL
-        purpose
-        interest
-        foodPref
-        swipedVouchers {
-          id
-          title
-          priceBefore
-          priceAfter
-          description
-          avgRating
-          numRedeemed
-          forQuantity
-          imageURL
-          location
-          createdAt
-          updatedAt
-          vendorVouchersId
-          __typename
-        }
-        matches {
-          id
-          username
-          email
-          phoneNum
-          gender
-          pronounce
-          location
-          bio
-          imageURL
-          purpose
-          interest
-          foodPref
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
         __typename
       }
       createdAt
@@ -221,6 +123,7 @@ export const deleteUser = /* GraphQL */ `
       username
       email
       phoneNum
+      age
       gender
       pronounce
       location
@@ -258,56 +161,6 @@ export const deleteUser = /* GraphQL */ `
         createdAt
         updatedAt
         vendorVouchersId
-        __typename
-      }
-      matches {
-        id
-        username
-        email
-        phoneNum
-        gender
-        pronounce
-        location
-        bio
-        imageURL
-        purpose
-        interest
-        foodPref
-        swipedVouchers {
-          id
-          title
-          priceBefore
-          priceAfter
-          description
-          avgRating
-          numRedeemed
-          forQuantity
-          imageURL
-          location
-          createdAt
-          updatedAt
-          vendorVouchersId
-          __typename
-        }
-        matches {
-          id
-          username
-          email
-          phoneNum
-          gender
-          pronounce
-          location
-          bio
-          imageURL
-          purpose
-          interest
-          foodPref
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
         __typename
       }
       createdAt
