@@ -38,10 +38,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Poppins",
   },
-  italicText: {
-    fontSize: 16,
-    fontFamily: "Poppins_Italic",
-  },
   bodyText1: {
     fontSize: 16,
     fontFamily: "Poppins",
@@ -55,25 +51,16 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
   },
 
-  skipText: {
-    color: colors.primary,
-    fontSize: 20,
-    fontWeight: "bold",
+  italicText1: {
+    fontSize: 16,
+    fontFamily: "Poppins_Italic",
   },
-  skipButton: {
-    position: "absolute",
-    top: 10,
-    right: 5,
-    borderRadius: 10,
-    padding: 5,
-    backgroundColor: "transparent",
-    borderColor: "transparent",
-    borderWidth: 1,
+  optionText: {
+    fontSize: 12,
+    fontFamily: "Poppins_SemiBold",
   },
-  skipWrapper: {
-    position: "absolute",
-    right: 0,
-    zIndex: 1,
+  selected: {
+    backgroundColor: colors.primary,
   },
   highlightText: {
     fontSize: 16,
@@ -87,11 +74,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingLeft: 10,
     paddingRight: 10,
-  },
-  optionText: {
-    color: "black",
-    fontFamily: "Poppins_SemiBold",
-    fontSize: 12,
   },
 
   users: {
@@ -123,10 +105,6 @@ const styles = StyleSheet.create({
     borderColor: "lightgray",
     borderWidth: 0.2,
     padding: 10,
-  },
-
-  inner: {
-    flex: 1,
   },
 
   input: {
@@ -163,21 +141,6 @@ const styles = StyleSheet.create({
     shadowColor: colors.btnShadow, // Android, iOS & Web
     shadowOpacity: 0.25, // iOS & Web
     shadowRadius: 5,
-  },
-
-  selected: {
-    backgroundColor: colors.primary,
-  },
-
-  whiteText: {
-    color: "white",
-  },
-
-  img: {
-    position: "absolute",
-    width: 500,
-    height: 480,
-    top: -100,
   },
 });
 

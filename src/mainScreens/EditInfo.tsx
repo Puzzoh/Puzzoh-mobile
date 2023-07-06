@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -33,8 +33,8 @@ const EditInfo = ({ navigation, route }) => {
             pronounce: pronounce,
             bio: bio,
             purpose: purpose,
-            // interest: interest,
-            // foodPref: foodPref,
+            interest: selectedInterest,
+            foodPref: selectedFoodPref,
           },
         },
       });
@@ -50,38 +50,62 @@ const EditInfo = ({ navigation, route }) => {
   const [bio, setBio] = useState(user.bio);
   const [purpose, setPurpose] = useState(user.purpose);
   const [gender, setGender] = useState(user.gender);
+  const [interestOptions, setInterestOptions] = useState(Array(12).fill(false));
+  const [foodPrefOptions, setFoodPrefOptions] = useState(Array(12).fill(false));
+  const [selectedInterest, setSelectedInterest] = useState([]);
+  const [selectedFoodPref, setSelectedFoodPref] = useState([]);
   const [location, setLocation] = useState("");
-  const [loading, setLoading] = useState(false);
+
+  const handlePressInterest = (index, interestValue) => {
+    let newSelected = [...interestOptions];
+    let count = newSelected.reduce((n, x) => n + (x === true), 0);
+
+    if (count < 3 || newSelected[index] === true) {
+      newSelected[index] = !newSelected[index];
+    }
+
+    setInterestOptions(newSelected);
+
+    if (selectedInterest.includes(interestValue)) {
+      setSelectedInterest(
+        selectedInterest.filter((element) => element !== interestValue)
+      );
+    } else {
+      setSelectedInterest([...selectedInterest, interestValue]);
+    }
+  };
+
+  const handlePressFoodPref = (index, foodPrefValue) => {
+    let newSelected = [...foodPrefOptions];
+    let count = newSelected.reduce((n, x) => n + (x === true), 0);
+
+    if (count < 3 || newSelected[index] === true) {
+      newSelected[index] = !newSelected[index];
+    }
+
+    setFoodPrefOptions(newSelected);
+
+    if (selectedFoodPref.includes(foodPrefValue)) {
+      setSelectedFoodPref(
+        selectedFoodPref.filter((element) => element !== foodPrefValue)
+      );
+    } else {
+      setSelectedFoodPref([...selectedFoodPref, foodPrefValue]);
+    }
+  };
+
+  // useEffect(() => {
+  //   for (let i = 0; i < user.foodPref.length; i++) {
+  //     handlePressFoodPref(
+  //       Object.keys(foodPref).find((key) => foodPref[key] === user.foodPref[i]),
+  //       user.foodPref[i]
+  //     );
+  //   }
+  // }, []);
 
   const handleSave = async () => {
     await updateUserInfo();
     navigation.goBack();
-  };
-  const [selectedInterests, setSelectedInterests] = useState([]);
-  const [selectedFoodPreferences, setSelectedFoodPreferences] = useState([]);
-
-  const handleInterestChange = (interest) => {
-    setSelectedInterests((prevState) => {
-      if (prevState.includes(interest)) {
-        return prevState.filter((i) => i !== interest);
-      } else if (prevState.length < 3) {
-        return [...prevState, interest];
-      } else {
-        return prevState;
-      }
-    });
-  };
-
-  const handleFoodPreferenceChange = (preference) => {
-    setSelectedFoodPreferences((prevState) => {
-      if (prevState.includes(preference)) {
-        return prevState.filter((p) => p !== preference);
-      } else if (prevState.length < 3) {
-        return [...prevState, preference];
-      } else {
-        return prevState;
-      }
-    });
   };
 
   const fetchCurrentLocation = async () => {
@@ -109,7 +133,7 @@ const EditInfo = ({ navigation, route }) => {
       </TouchableOpacity>
       <ScrollView>
         <View style={[nStyles.inputContainer, { marginTop: 50 }]}>
-          <Text style={styles.heading5}>Username</Text>
+          <Text style={styles.heading5}>USERNAME</Text>
           <TextInput
             style={[styles.bodyText1, nStyles.input]}
             value={username}
@@ -128,7 +152,7 @@ const EditInfo = ({ navigation, route }) => {
           </TouchableOpacity>
         </View>
         <View style={nStyles.inputContainer}>
-          <Text style={styles.heading5}>Gender</Text>
+          <Text style={styles.heading5}>GENDER</Text>
           <View style={nStyles.optionsContainer}>
             {["Man", "Woman", "LGBTQ+"].map((option) => (
               <TouchableOpacity
@@ -143,7 +167,7 @@ const EditInfo = ({ navigation, route }) => {
               >
                 <Text
                   style={[
-                    styles.bodyText2,
+                    styles.optionText,
                     gender === option
                       ? { color: "white" }
                       : {
@@ -161,7 +185,7 @@ const EditInfo = ({ navigation, route }) => {
         </View>
 
         <View style={nStyles.inputContainer}>
-          <Text style={styles.heading5}>Pronounce</Text>
+          <Text style={styles.heading5}>PRONOUNCE</Text>
           {["He/him", "She/her", "They/them"].map((option) => (
             <View style={nStyles.optionsContainer} key={option}>
               <TouchableOpacity
@@ -176,7 +200,7 @@ const EditInfo = ({ navigation, route }) => {
               >
                 <Text
                   style={[
-                    styles.bodyText2,
+                    styles.optionText,
                     pronounce === option
                       ? { color: "white" }
                       : {
@@ -194,7 +218,7 @@ const EditInfo = ({ navigation, route }) => {
         </View>
 
         <View style={nStyles.inputContainer}>
-          <Text style={styles.heading5}>Bio</Text>
+          <Text style={styles.heading5}>BIO</Text>
           <TextInput
             style={[styles.bodyText2, nStyles.input]}
             placeholder="Bio"
@@ -205,7 +229,7 @@ const EditInfo = ({ navigation, route }) => {
         </View>
 
         <View style={nStyles.inputContainer}>
-          <Text style={styles.heading5}>Purpose</Text>
+          <Text style={styles.heading5}>PURPOSE</Text>
           {["making friends", "dating", "just exploring"].map((option) => (
             <View style={nStyles.optionsContainer} key={option}>
               <TouchableOpacity
@@ -220,7 +244,7 @@ const EditInfo = ({ navigation, route }) => {
               >
                 <Text
                   style={[
-                    styles.bodyText2,
+                    styles.optionText,
                     purpose === option
                       ? { color: "white" }
                       : {
@@ -238,51 +262,111 @@ const EditInfo = ({ navigation, route }) => {
         </View>
 
         <View style={nStyles.inputContainer}>
-          <Text style={styles.heading5}>Interest</Text>
-          {interests.map((interest) => (
-            <View
-              key={interest}
-              style={{ flexDirection: "row", alignItems: "center" }}
-            >
-              <Checkbox
-                value={selectedInterests.includes(interest)}
-                onValueChange={() => handleInterestChange(interest)}
-                color={
-                  selectedInterests.includes(interest)
-                    ? colors.primary
-                    : undefined
-                }
-              />
-              <Text style={[styles.bodyText2, nStyles.checkboxLabel]}>
-                {interest}
-              </Text>
+          <Text style={styles.heading5}>INTERESTS</Text>
+          {Array.from(
+            { length: Math.ceil(interests.length / 2) },
+            (_, i) => i * 2
+          ).map((rowStartIndex) => (
+            <View style={nStyles.row} key={rowStartIndex}>
+              {interests
+                .slice(rowStartIndex, rowStartIndex + 2)
+                .map((interest, idx) => {
+                  const interestIndex = rowStartIndex + idx;
+                  return (
+                    <TouchableOpacity
+                      key={interestIndex}
+                      style={[
+                        nStyles.button,
+                        interestOptions[interestIndex] ? styles.selected : null,
+                        nStyles.interest,
+                      ]}
+                      onPress={() =>
+                        handlePressInterest(interestIndex, interest.name)
+                      }
+                      disabled={
+                        interestOptions.filter(Boolean).length === 3 &&
+                        !interestOptions[interestIndex]
+                      }
+                    >
+                      <Ionicons
+                        name={interest.icon}
+                        size={24}
+                        color={
+                          interestOptions[interestIndex] ? "white" : "black"
+                        }
+                        style={{ marginRight: 5 }}
+                      />
+                      <Text
+                        style={[
+                          styles.optionText,
+                          {
+                            textAlign: "center",
+                            paddingLeft: 10,
+                            paddingRight: 10,
+                          },
+                          interestOptions[interestIndex]
+                            ? { color: "white" }
+                            : null,
+                        ]}
+                      >
+                        {interest.name}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                })}
             </View>
           ))}
         </View>
         <View style={nStyles.inputContainer}>
-          <Text style={styles.heading5}>Food Preference</Text>
-          {foodPreferences.map((preference) => (
-            <View
-              key={preference}
-              style={{ flexDirection: "row", alignItems: "center" }}
-            >
-              <Checkbox
-                value={selectedFoodPreferences.includes(preference)}
-                onValueChange={() => handleFoodPreferenceChange(preference)}
-                color={
-                  selectedFoodPreferences.includes(preference)
-                    ? colors.primary
-                    : undefined
-                }
-              />
-              <Text style={[styles.bodyText2, nStyles.checkboxLabel]}>
-                {preference}
-              </Text>
+          <Text style={styles.heading5}>FOOD PREFERENCES</Text>
+          {Array.from(
+            { length: Math.ceil(foodPref.length / 2) },
+            (_, i) => i * 2
+          ).map((rowStartIndex) => (
+            <View style={nStyles.row} key={rowStartIndex}>
+              {foodPref
+                .slice(rowStartIndex, rowStartIndex + 2)
+                .map((foodPref, idx) => {
+                  const foodPrefIndex = rowStartIndex + idx;
+                  return (
+                    <TouchableOpacity
+                      key={foodPrefIndex}
+                      style={[
+                        nStyles.button,
+                        foodPrefOptions[foodPrefIndex] ? styles.selected : null,
+                        nStyles.interest,
+                      ]}
+                      onPress={() =>
+                        handlePressFoodPref(foodPrefIndex, foodPref)
+                      }
+                      disabled={
+                        foodPrefOptions.filter(Boolean).length === 3 &&
+                        !foodPrefOptions[foodPrefIndex]
+                      }
+                    >
+                      <Text
+                        style={[
+                          styles.optionText,
+                          {
+                            textAlign: "center",
+                            paddingLeft: 10,
+                            paddingRight: 10,
+                          },
+                          foodPrefOptions[foodPrefIndex]
+                            ? { color: "white" }
+                            : null,
+                        ]}
+                      >
+                        {foodPref}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                })}
             </View>
           ))}
         </View>
         <View style={nStyles.inputContainer}>
-          <Text style={styles.heading5}>Location</Text>
+          <Text style={styles.heading5}>LOCATION</Text>
           <GooglePlacesAutocomplete
             placeholder="Enter your location"
             onPress={(data, details = null) => {
@@ -300,7 +384,7 @@ const EditInfo = ({ navigation, route }) => {
             currentLocation={false}
           />
         </View>
-        <TouchableOpacity style={nStyles.button} onPress={handleSave}>
+        <TouchableOpacity style={nStyles.saveButton} onPress={handleSave}>
           <Text style={[styles.heading5, { color: "white" }]}>Save</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -317,11 +401,31 @@ const nStyles = StyleSheet.create({
     paddingVertical: 24,
     backgroundColor: "#fff",
   },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+  },
+  interest: {
+    flex: 1,
+    margin: 5,
+    borderColor: "gray",
+    borderWidth: 0.25,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+  },
   backButton: {
     position: "absolute",
     top: 40,
     left: 16,
     zIndex: 10,
+  },
+  saveButton: {
+    backgroundColor: colors.primary,
+    height: 44,
+    borderRadius: 4,
+    justifyContent: "center",
+    alignItems: "center",
   },
   inputContainer: {
     marginBottom: 24,
@@ -356,11 +460,13 @@ const nStyles = StyleSheet.create({
     borderColor: colors.primary,
   },
   button: {
-    backgroundColor: colors.primary,
-    height: 44,
-    borderRadius: 4,
+    width: Dimensions.get("window").width / 4.5,
+    height: 50,
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 10,
+    marginVertical: 5,
   },
   checkboxContainer: {
     flexDirection: "row",
@@ -402,21 +508,21 @@ const googlePlacesStyles = StyleSheet.create({
 });
 
 const interests = [
-  "Traveling",
-  "Photo",
-  "Reading",
-  "Cooking",
-  "Sports",
-  "Gaming",
-  "Music",
-  "Movies",
-  "Gardening",
-  "Yoga",
-  "Painting",
-  "Writing",
+  { name: "Traveling", icon: "airplane-outline" },
+  { name: "Photo", icon: "camera-outline" },
+  { name: "Reading", icon: "book-outline" },
+  { name: "Cooking", icon: "restaurant-outline" },
+  { name: "Sports", icon: "basketball-outline" },
+  { name: "Gaming", icon: "game-controller-outline" },
+  { name: "Music", icon: "musical-notes-outline" },
+  { name: "Movies", icon: "film-outline" },
+  { name: "Gardening", icon: "leaf-outline" },
+  { name: "Yoga", icon: "fitness-outline" },
+  { name: "Painting", icon: "brush-outline" },
+  { name: "Writing", icon: "create-outline" },
 ];
 
-const foodPreferences = [
+const foodPref = [
   "Vegan",
   "Mediterranean",
   "Italian",

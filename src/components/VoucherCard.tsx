@@ -57,7 +57,7 @@ const VoucherCard = (props) => {
         <View style={{ marginTop: 10 }}>
           <Text style={styles.heading5}>
             Popular Review:{" "}
-            <Text style={[styles.italicText, { color: "gray" }]}>
+            <Text style={[styles.italicText1, { color: "gray" }]}>
               &apos;Good food with nice service.&apos; - Abcxyz
             </Text>
           </Text>
@@ -83,7 +83,7 @@ const nStyles = StyleSheet.create({
     top: 40,
     borderWidth: 1,
     borderColor: colors.primary,
-    marginBottom: "40%"
+    marginBottom: "40%",
   },
   image: {
     width: "100%",

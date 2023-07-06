@@ -15,7 +15,7 @@ import CustomHeaderBar from "../components/CustomHeaderBar";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { listVouchers } from "../graphql/queries";
 import VoucherDetailPopup from "../components/VoucherDetailPopup";
-import RNRestart from 'react-native-restart';
+import RNRestart from "react-native-restart";
 const GET_VOUCHERS = gql(listVouchers);
 
 const Home = () => {
@@ -26,7 +26,6 @@ const Home = () => {
   const startReload = () => RNRestart.Restart();
   const [isStarButtonActive, setIsStarButtonActive] = useState(false);
   const [isStrikeButtonActive, setIsStrikeButtonActive] = useState(false);
-
 
   const handleVoucherPress = (voucher) => {
     setSelectedVoucher(voucher);
@@ -39,8 +38,6 @@ const Home = () => {
   const toggleStrikeButton = () => {
     setIsStrikeButtonActive(!isStrikeButtonActive);
   };
-
-
 
   const toggleStarButton = () => {
     setIsStarButtonActive(!isStarButtonActive);
@@ -114,8 +111,8 @@ const Home = () => {
           style={[
             nStyles.button,
             {
-              backgroundColor: 'white',
-              borderColor: 'gray',
+              backgroundColor: "white",
+              borderColor: "gray",
               borderWidth: 0.25,
             },
           ]}

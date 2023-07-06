@@ -33,7 +33,7 @@ const EditFilter = ({ navigation, route }) => {
       </TouchableOpacity>
       <ScrollView>
         <View style={nStyles.inputContainer}>
-          <Text style={styles.heading5}>Age Range</Text>
+          <Text style={styles.heading5}>AGE RANGE</Text>
           <View style={nStyles.sliderContainer}>
             <Text style={styles.heading5}>{values[0]}</Text>
             <Text style={styles.heading5}>{values[1]} </Text>

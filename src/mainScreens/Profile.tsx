@@ -14,7 +14,6 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 import { getUser } from "../graphql/queries";
 import { updateUser } from "../graphql/mutations";
 import styles from "../styles/index";
-import { colors } from "../styles/index";
 
 const Profile = ({ navigation }) => {
   const [userID, setUserID] = useState(null);
@@ -133,10 +132,10 @@ const Profile = ({ navigation }) => {
           style={nStyles.iconContainer}
           onPress={handleSettings}
         >
-          <Ionicons name="settings-outline" size={24} color={colors.primary} />
+          <Ionicons name="settings-outline" size={24} color="#333" />
         </TouchableOpacity>
         <TouchableOpacity style={nStyles.iconContainer} onPress={signOut}>
-          <Ionicons name="log-out-outline" size={24} color={colors.primary} />
+          <Ionicons name="log-out-outline" size={24} color="#333" />
         </TouchableOpacity>
       </View>
       <View style={nStyles.profileContainer}>
@@ -147,16 +146,18 @@ const Profile = ({ navigation }) => {
               style={nStyles.avatarImage}
             />
           ) : (
-            <Ionicons name="person-circle-outline" size={120} color={colors.primary} />
+            <Ionicons name="person-circle-outline" size={120} color="black" />
           )}
           <TouchableOpacity
             style={nStyles.editIconContainer}
             onPress={handleEditPicture}
           >
-            <Ionicons name="pencil-outline" size={24} color={colors.primary} />
+            <Ionicons name="pencil-outline" size={24} color="#333" />
           </TouchableOpacity>
         </TouchableOpacity>
-        <Text style={styles.heading3}>{user?.username}</Text>
+        <Text style={styles.heading3}>
+          {user?.username} ({user?.age})
+        </Text>
         <Text style={[styles.heading5, { color: "gray", marginBottom: 16 }]}>
           {user?.email}
         </Text>
@@ -216,7 +217,7 @@ const nStyles = StyleSheet.create({
     padding: 4,
   },
   button: {
-    backgroundColor: colors.primary,
+    backgroundColor: "#333",
     borderRadius: 8,
     paddingVertical: 12,
     paddingHorizontal: 24,

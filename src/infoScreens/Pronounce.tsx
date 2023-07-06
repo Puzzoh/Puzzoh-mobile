@@ -55,7 +55,7 @@ const Pronounce = ({ navigation, route }) => {
               style={[
                 styles.optionText,
                 { textAlign: "center", paddingLeft: 10, paddingRight: 10 },
-                selected[index] ? styles.whiteText : null,
+                selected[index] ? { color: "white" } : null,
               ]}
             >
               {option.label}

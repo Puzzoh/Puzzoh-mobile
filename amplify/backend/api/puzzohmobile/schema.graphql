@@ -8,6 +8,7 @@ type User @model {
   username: String!
   email: String!
   phoneNum: String
+  age: Int
   gender: String
   pronounce: String
   location: String

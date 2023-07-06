@@ -30,7 +30,7 @@ const Interest = ({ navigation, route }) => {
     { name: "Writing", icon: "create-outline" },
   ];
 
-  const [selected, setSelected] = useState(Array(12).fill(false)); // An array of 12 booleans for the 12 options
+  const [selected, setSelected] = useState(Array(12).fill(false));
   const [selectedInterest, setSelectedInterest] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -92,7 +92,7 @@ const Interest = ({ navigation, route }) => {
                     style={[
                       nStyles.button,
                       selected[interestIndex] ? styles.selected : null,
-                      nStyles.interest, // new style for interests
+                      nStyles.interest,
                     ]}
                     onPress={() => handlePress(interestIndex, interest.name)}
                     disabled={
@@ -114,7 +114,7 @@ const Interest = ({ navigation, route }) => {
                           paddingLeft: 10,
                           paddingRight: 10,
                         },
-                        selected[interestIndex] ? styles.whiteText : null,
+                        selected[interestIndex] ? { color: "white" } : null,
                       ]}
                     >
                       {interest.name}

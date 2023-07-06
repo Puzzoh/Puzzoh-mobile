@@ -61,7 +61,7 @@ const FoodPref = ({ navigation, route }) => {
     "Dessert",
   ];
 
-  const [selected, setSelected] = useState(Array(12).fill(false)); // An array of 12 booleans for the 12 options
+  const [selected, setSelected] = useState(Array(12).fill(false));
   const [selectedFoodPref, setSelectedFoodPref] = useState([]);
   const [loading, setLoading] = useState(false);
   const [pressed, setPressed] = useState(false);
@@ -71,7 +71,7 @@ const FoodPref = ({ navigation, route }) => {
     let count = newSelected.reduce((n, x) => n + (x === true), 0);
 
     if (count < 3 || newSelected[index] === true) {
-      newSelected[index] = !newSelected[index]; // Toggle selected state on pressed button
+      newSelected[index] = !newSelected[index];
     }
 
     setSelected(newSelected);
@@ -120,7 +120,7 @@ const FoodPref = ({ navigation, route }) => {
                     style={[
                       nStyles.button,
                       selected[foodPrefIndex] ? nStyles.selected : null,
-                      nStyles.interest, // new style for interests
+                      nStyles.interest,
                     ]}
                     onPress={() => handlePress(foodPrefIndex, foodPref)}
                     disabled={
@@ -136,7 +136,7 @@ const FoodPref = ({ navigation, route }) => {
                           paddingLeft: 10,
                           paddingRight: 10,
                         },
-                        selected[foodPrefIndex] ? styles.whiteText : null,
+                        selected[foodPrefIndex] ? { color: "white" } : null,
                       ]}
                     >
                       {foodPref}

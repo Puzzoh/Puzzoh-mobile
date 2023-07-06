@@ -6,9 +6,6 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { colors } from "../styles/index";
 
 export default function NotificationPopup({ onClose }) {
-
-
-
   const handleClose = () => {
     onClose();
   };
@@ -50,7 +47,7 @@ const styles = StyleSheet.create({
     width: "80%",
     alignSelf: "center",
     marginTop: "10%",
-    marginBottom: "20%"
+    marginBottom: "20%",
   },
   header: {
     flexDirection: "row",
