@@ -41,7 +41,7 @@ const PeopleMatches = () => {
               <View style={nStyles.user}>
                 <View style={nStyles.textContainer}>
                   <Text style={[styles.bodyText3, { color: colors.primary }]}>
-                    Looking for: {item.purpose}
+                    Purpose: {item.purpose}
                   </Text>
                   <Text style={styles.heading4}>{item.username}</Text>
                   <Text

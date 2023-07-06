@@ -14,6 +14,7 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 import { getUser } from "../graphql/queries";
 import { updateUser } from "../graphql/mutations";
 import styles from "../styles/index";
+import { colors } from "../styles/index";
 
 const Profile = ({ navigation }) => {
   const [userID, setUserID] = useState(null);
@@ -132,10 +133,10 @@ const Profile = ({ navigation }) => {
           style={nStyles.iconContainer}
           onPress={handleSettings}
         >
-          <Ionicons name="settings-outline" size={24} color="#333" />
+          <Ionicons name="settings-outline" size={24} color={colors.primary} />
         </TouchableOpacity>
         <TouchableOpacity style={nStyles.iconContainer} onPress={signOut}>
-          <Ionicons name="log-out-outline" size={24} color="#333" />
+          <Ionicons name="log-out-outline" size={24} color={colors.primary} />
         </TouchableOpacity>
       </View>
       <View style={nStyles.profileContainer}>
@@ -146,13 +147,13 @@ const Profile = ({ navigation }) => {
               style={nStyles.avatarImage}
             />
           ) : (
-            <Ionicons name="person-circle-outline" size={120} color="black" />
+            <Ionicons name="person-circle-outline" size={120} color={colors.primary} />
           )}
           <TouchableOpacity
             style={nStyles.editIconContainer}
             onPress={handleEditPicture}
           >
-            <Ionicons name="pencil-outline" size={24} color="#333" />
+            <Ionicons name="pencil-outline" size={24} color={colors.primary} />
           </TouchableOpacity>
         </TouchableOpacity>
         <Text style={styles.heading3}>{user?.username}</Text>
@@ -215,7 +216,7 @@ const nStyles = StyleSheet.create({
     padding: 4,
   },
   button: {
-    backgroundColor: "#333",
+    backgroundColor: colors.primary,
     borderRadius: 8,
     paddingVertical: 12,
     paddingHorizontal: 24,

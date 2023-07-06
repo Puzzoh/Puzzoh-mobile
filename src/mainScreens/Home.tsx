@@ -9,12 +9,13 @@ import {
 import VoucherStack from "../components/VoucherStack";
 import VoucherCard from "../components/VoucherCard";
 import Icon from "react-native-vector-icons/FontAwesome";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import styles, { colors } from "../styles/index";
 import CustomHeaderBar from "../components/CustomHeaderBar";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { listVouchers } from "../graphql/queries";
 import VoucherDetailPopup from "../components/VoucherDetailPopup";
-
+import RNRestart from 'react-native-restart';
 const GET_VOUCHERS = gql(listVouchers);
 
 const Home = () => {
@@ -22,6 +23,10 @@ const Home = () => {
   const vouchers = data?.listVouchers.items;
   const [selectedVoucher, setSelectedVoucher] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const startReload = () => RNRestart.Restart();
+  const [isStarButtonActive, setIsStarButtonActive] = useState(false);
+  const [isStrikeButtonActive, setIsStrikeButtonActive] = useState(false);
+
 
   const handleVoucherPress = (voucher) => {
     setSelectedVoucher(voucher);
@@ -31,7 +36,11 @@ const Home = () => {
     setSelectedVoucher(null);
   };
 
-  const [isStarButtonActive, setIsStarButtonActive] = useState(false);
+  const toggleStrikeButton = () => {
+    setIsStrikeButtonActive(!isStrikeButtonActive);
+  };
+
+
 
   const toggleStarButton = () => {
     setIsStarButtonActive(!isStarButtonActive);
@@ -105,13 +114,32 @@ const Home = () => {
           style={[
             nStyles.button,
             {
-              backgroundColor: "white",
+              backgroundColor: 'white',
+              borderColor: 'gray',
+              borderWidth: 0.25,
+            },
+          ]}
+          onPress={startReload}
+        >
+          <Icon name="refresh" size={20} color={colors.primary} />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            nStyles.button,
+            {
+              backgroundColor: isStrikeButtonActive ? colors.primary : "white",
               borderColor: "gray",
               borderWidth: 0.25,
             },
           ]}
+          onPress={toggleStrikeButton}
         >
-          <Icon name="download" size={20} color={colors.primary} />
+          <MaterialCommunityIcons
+            name="lightning-bolt-outline"
+            size={20}
+            color={isStrikeButtonActive ? "white" : colors.primary}
+          />
         </TouchableOpacity>
         <TouchableOpacity
           style={[nStyles.button, { backgroundColor: colors.primary }]}
@@ -141,7 +169,7 @@ const nStyles = StyleSheet.create({
   },
   buttonRow: {
     flexDirection: "row",
-    gap: 50,
+    gap: 20,
     marginTop: 0,
     marginBottom: 10,
     zIndex: 1,

@@ -1,47 +1,56 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Modal } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { colors } from "../styles/index";
 
-const NotificationPopup = ({ onClose, navigation }) => {
-  const { colors } = useTheme();
+export default function NotificationPopup({ onClose }) {
+
+
 
   const handleClose = () => {
     onClose();
-    // navigation.goBack();
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Notifications</Text>
-        <TouchableOpacity onPress={handleClose} style={styles.closeButton}>
-          <MaterialCommunityIcons
-            name="close"
-            size={24}
-            color={colors.primary}
-          />
-        </TouchableOpacity>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={true}
+      onRequestClose={handleClose}
+    >
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Notifications</Text>
+          <TouchableOpacity onPress={handleClose} style={styles.closeButton}>
+            <MaterialCommunityIcons
+              name="close"
+              size={24}
+              color={colors.primary}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.content}>
+          <Text>No new notifications</Text>
+        </View>
       </View>
-      <View style={styles.content}>
-        <Text>No new notifications</Text>
-      </View>
-    </View>
+    </Modal>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 999,
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    paddingTop: "10%",
+    paddingHorizontal: "10%",
+    width: "80%",
+    alignSelf: "center",
+    marginTop: "10%",
+    marginBottom: "20%"
   },
   header: {
     flexDirection: "row",
@@ -60,5 +69,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-export default NotificationPopup;

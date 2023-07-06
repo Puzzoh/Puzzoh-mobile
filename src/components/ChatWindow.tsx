@@ -27,10 +27,10 @@ export default function ChatWindow({ user, closeChat }) {
   return (
     <Modal isVisible={true} onBackdropPress={closeChat}>
       <View style={chatStyle.container}>
-        <Text style={chatStyle.header}>Chat with User #{user.id}</Text>
+        <Text style={chatStyle.header}>Chat with {user.username}</Text>
         <View style={chatStyle.messageContainer}>
-          <Text style={chatStyle.messageText}>{message}</Text>
-          {isTyping && <Text style={chatStyle.typingIndicator}>...</Text>}
+          {/* <Text style={chatStyle.messageText}>{message}</Text>
+{isTyping && <Text style={chatStyle.typingIndicator}>...</Text>} */}
         </View>
         <TextInput
           style={chatStyle.input}
