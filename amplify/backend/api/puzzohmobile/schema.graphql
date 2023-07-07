@@ -19,7 +19,7 @@ type User @model {
   foodPref: [FoodPrefType]
   preferredMinAge: Int
   preferredMaxAge: Int
-  preferredGender: [GenderType]
+  preferredGender: String
   preferredDistanceAway: Int
   swipedVouchers: [Voucher!]
   matches: [Match!] @hasMany
@@ -28,7 +28,7 @@ type User @model {
 type Vendor @model {
   id: ID!
   name: String!
-  phone: String!
+  phoneNum: String!
   email: String!
   address: String!
   link: String
@@ -47,6 +47,7 @@ type Voucher @model {
   description: String
   avgRating: Int
   numRedeemed: Int
+  maxRedeemed: Int
   forQuantity: Int
   imageURL: String
   location: String
@@ -71,6 +72,7 @@ enum GenderType {
   Men
   Women
   Nonbinary
+  All
 }
 
 enum PurposeType {

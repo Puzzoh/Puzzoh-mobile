@@ -38,7 +38,7 @@ export const createUser = /* GraphQL */ `
         vendor {
           id
           name
-          phone
+          phoneNum
           email
           address
           link
@@ -112,7 +112,7 @@ export const updateUser = /* GraphQL */ `
         vendor {
           id
           name
-          phone
+          phoneNum
           email
           address
           link
@@ -186,7 +186,7 @@ export const deleteUser = /* GraphQL */ `
         vendor {
           id
           name
-          phone
+          phoneNum
           email
           address
           link
@@ -231,7 +231,7 @@ export const createVendor = /* GraphQL */ `
     createVendor(input: $input, condition: $condition) {
       id
       name
-      phone
+      phoneNum
       email
       address
       link
@@ -273,7 +273,7 @@ export const updateVendor = /* GraphQL */ `
     updateVendor(input: $input, condition: $condition) {
       id
       name
-      phone
+      phoneNum
       email
       address
       link
@@ -315,7 +315,7 @@ export const deleteVendor = /* GraphQL */ `
     deleteVendor(input: $input, condition: $condition) {
       id
       name
-      phone
+      phoneNum
       email
       address
       link
@@ -368,7 +368,7 @@ export const createVoucher = /* GraphQL */ `
       vendor {
         id
         name
-        phone
+        phoneNum
         email
         address
         link
@@ -410,7 +410,7 @@ export const updateVoucher = /* GraphQL */ `
       vendor {
         id
         name
-        phone
+        phoneNum
         email
         address
         link
@@ -452,7 +452,7 @@ export const deleteVoucher = /* GraphQL */ `
       vendor {
         id
         name
-        phone
+        phoneNum
         email
         address
         link

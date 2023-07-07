@@ -35,7 +35,7 @@ export const getUser = /* GraphQL */ `
         vendor {
           id
           name
-          phone
+          phoneNum
           email
           address
           link
@@ -131,7 +131,7 @@ export const getVendor = /* GraphQL */ `
     getVendor(id: $id) {
       id
       name
-      phone
+      phoneNum
       email
       address
       link
@@ -175,7 +175,7 @@ export const listVendors = /* GraphQL */ `
       items {
         id
         name
-        phone
+        phoneNum
         email
         address
         link
@@ -212,7 +212,7 @@ export const getVoucher = /* GraphQL */ `
       vendor {
         id
         name
-        phone
+        phoneNum
         email
         address
         link
@@ -256,7 +256,7 @@ export const listVouchers = /* GraphQL */ `
         vendor {
           id
           name
-          phone
+          phoneNum
           email
           address
           link

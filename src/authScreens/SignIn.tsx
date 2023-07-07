@@ -13,14 +13,9 @@ import styles, { colors } from "../styles/index";
 import FontAwesome from "@expo/vector-icons/Ionicons";
 import { Auth } from "aws-amplify";
 import OnboardingSlider from "../components/OnboardingSlider";
-// import { validateEmail, validatePassword } from "../utils/validation";
 
 const SignIn = ({ navigation }) => {
   const [introScreens, showIntroScreens] = useState(true);
-
-  // if (!mainScreens) {
-  //   return ;
-  // }
 
   const [state, setState] = useState({
     username: "",

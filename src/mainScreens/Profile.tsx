@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import {
   View,
   Text,
@@ -10,45 +10,20 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { Auth, Storage } from "aws-amplify";
 import * as ImagePicker from "expo-image-picker";
-import { gql, useQuery, useMutation } from "@apollo/client";
-import { getUser } from "../graphql/queries";
 import { updateUser } from "../graphql/mutations";
 import styles from "../styles/index";
+import UserContext from "../context/UserContext";
+import { gql, useMutation } from "@apollo/client";
 
 const Profile = ({ navigation }) => {
-  const [userID, setUserID] = useState(null);
-
-  const GET_USER_INFO = gql(getUser);
-  const { data, refetch } = useQuery(GET_USER_INFO, {
-    variables: {
-      id: userID,
-      skip: !userID,
-    },
-  });
-
-  const user = data?.getUser;
-
-  console.log(user);
+  const user = useContext(UserContext);
 
   const UPDATE_USER = gql(updateUser);
   const [updateUserMutation] = useMutation(UPDATE_USER, {
     onCompleted: () => {
-      refetch();
+      // refetchGetUser();
     },
   });
-
-  useEffect(() => {
-    const getUserID = async () => {
-      try {
-        const currUser = await Auth.currentAuthenticatedUser();
-        setUserID(currUser.attributes.sub);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    getUserID();
-  }, []);
 
   const signOut = () => {
     Auth.signOut();
@@ -60,10 +35,6 @@ const Profile = ({ navigation }) => {
 
   const handleEditInfo = () => {
     navigation.navigate("EditInfo", { user });
-  };
-
-  const handleEditFilter = () => {
-    navigation.navigate("EditFilter", { user });
   };
 
   const fetchImageUri = async (uri) => {
@@ -93,7 +64,7 @@ const Profile = ({ navigation }) => {
 
       const img = await fetchImageUri(uri);
 
-      const fileName = `user_${userID}_${Date.now()}.jpg`;
+      const fileName = `user_${user.id}_${Date.now()}.jpg`;
 
       try {
         await Storage.put(fileName, img, {
@@ -112,7 +83,7 @@ const Profile = ({ navigation }) => {
         const { data } = await updateUserMutation({
           variables: {
             input: {
-              id: userID,
+              id: user.id,
               imageURL: s3ImageURL,
             },
           },
@@ -164,12 +135,6 @@ const Profile = ({ navigation }) => {
         <TouchableOpacity style={nStyles.button} onPress={handleEditInfo}>
           <Text style={[styles.heading4, { color: "white" }]}>
             Edit Profile Info
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={nStyles.button} onPress={handleEditFilter}>
-          <Text style={[styles.heading4, { color: "white" }]}>
-            Edit Matching Filter
           </Text>
         </TouchableOpacity>
       </View>
