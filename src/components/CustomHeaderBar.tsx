@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useTheme } from "@react-navigation/native";
+import { useTheme, useNavigation } from "@react-navigation/native";
 import NotificationPopup from "./NotificationPopup";
 import styles, { colors } from "../styles/index";
 
-export default function Header() {
-  const [isFilterActive, setFilterActive] = useState(false);
-  const [isBellActive, setBellActive] = useState(false);
+export default function Header({ }) {
+  const navigation = useNavigation();
+
   const [isNotiOpen, setNotiOpen] = useState(false);
 
-  const toggleFilter = () => {
-    setFilterActive(!isFilterActive);
+
+  const handleFilter = () => {
+    navigation.navigate("Filter");
   };
 
-  const toggleBell = () => {
-    setBellActive(!isBellActive);
-    setNotiOpen(!isNotiOpen);
+  const handleNotification = () => {
+    navigation.navigate("Notification");
   };
 
   return (
@@ -31,50 +31,39 @@ export default function Header() {
         <TouchableOpacity
           style={[
             styles.blankButton,
-            isFilterActive && { backgroundColor: colors.primary },
           ]}
-          onPress={toggleFilter}
+          onPress={handleFilter}
         >
           <MaterialCommunityIcons
             name="filter-variant"
             size={32}
-            color={isFilterActive ? "white" : colors.primary}
+            color={colors.primary}
             style={{ textAlign: "center" }}
           />
         </TouchableOpacity>
         <TouchableOpacity
           style={[
             styles.blankButton,
-            isBellActive && { backgroundColor: colors.primary },
           ]}
-          onPress={toggleBell}
+          onPress={handleNotification}
         >
           <View style={headerStyles.badgeContainer}>
-            {!isBellActive && (
+            {(
               <MaterialCommunityIcons
                 name="bell"
                 size={32}
-                color={isBellActive ? "white" : colors.primary}
+                color={colors.primary}
                 style={{ textAlign: "center" }}
               />
+
             )}
-            {isBellActive && (
-              <MaterialCommunityIcons
-                name="bell-outline"
-                size={32}
-                color={isBellActive ? "white" : colors.primary}
-                style={{ textAlign: "center" }}
-              />
-            )}
-            {isBellActive && <View style={headerStyles.badge} />}
+            {<View style={headerStyles.badge} />}
           </View>
         </TouchableOpacity>
       </View>
-      {isNotiOpen && <NotificationPopup onClose={() => setNotiOpen(false)} />}
     </View>
   );
 }
-
 const headerStyles = StyleSheet.create({
   container: {
     position: "absolute",

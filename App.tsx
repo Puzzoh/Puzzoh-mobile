@@ -27,6 +27,9 @@ import Settings from "./src/mainScreens/Settings";
 import EditInfo from "./src/mainScreens/EditInfo";
 import Initializer from "./src/mainScreens/Initializer";
 import EditFilter from "./src/mainScreens/EditFilter";
+import Notification from "./src/mainScreens/Notification";
+import FilterScreen from "./src/mainScreens/Filter";
+import Header from "./src/components/CustomHeaderBar";
 
 Amplify.configure(awsconfig);
 const Stack = createNativeStackNavigator();
@@ -117,6 +120,10 @@ const Navigation = () => {
           <Stack.Screen name="Settings" component={Settings} />
           <Stack.Screen name="EditInfo" component={EditInfo} />
           <Stack.Screen name="EditFilter" component={EditFilter} />
+          <Stack.Screen name="Notification" component={Notification} />
+          <Stack.Screen name="Header" component={Header} />
+          <Stack.Screen name="Filter" component={FilterScreen} />
+
         </>
       ) : (
         <>
