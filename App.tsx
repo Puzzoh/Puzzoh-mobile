@@ -30,12 +30,15 @@ import EditFilter from "./src/mainScreens/EditFilter";
 import Notification from "./src/mainScreens/Notification";
 import FilterScreen from "./src/mainScreens/Filter";
 import Header from "./src/components/CustomHeaderBar";
+import { UserProvider } from "./src/context/UserContext";
 
 Amplify.configure(awsconfig);
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
   const [user, setUser] = useState(undefined);
+  const [userID, setUserID] = useState(undefined);
+
   // const [mainScreens, showMainScreens] = useState(false);
   const [fontLoaded, setFontLoaded] = useState(false);
 
@@ -63,6 +66,7 @@ const Navigation = () => {
         bypassCache: true,
       });
       setUser(user);
+      setUserID(user.attributes.sub);
     } catch (err) {
       setUser(null);
       console.log("Error fetching tokens:", err);
@@ -102,39 +106,40 @@ const Navigation = () => {
   }
 
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      {user ? (
-        <>
-          <Stack.Screen name="Initializer" component={Initializer} />
-          <Stack.Screen name="Gender" component={Gender} />
-          <Stack.Screen name="Pronounce" component={Pronounce} />
-          <Stack.Screen name="Purpose" component={Purpose} />
-          <Stack.Screen name="Interest" component={Interest} />
-          <Stack.Screen name="FoodPref" component={FoodPref} />
-          <Stack.Screen name="AgeBioLocation" component={AgeBioLocation} />
-          <Stack.Screen name="Main" component={NavigationScreen} />
-          <Stack.Screen name="Settings" component={Settings} />
-          <Stack.Screen name="EditInfo" component={EditInfo} />
-          <Stack.Screen name="EditFilter" component={EditFilter} />
-          <Stack.Screen name="Notification" component={Notification} />
-          <Stack.Screen name="Header" component={Header} />
-          <Stack.Screen name="Filter" component={FilterScreen} />
-
-        </>
-      ) : (
-        <>
-          <Stack.Screen name="SignIn" component={SignIn} />
-          <Stack.Screen name="SignUp" component={SignUp} />
-          <Stack.Screen name="ConfirmSignUp" component={ConfirmSignUp} />
-          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-          <Stack.Screen name="ChangePassword" component={ChangePassword} />
-        </>
-      )}
-    </Stack.Navigator>
+    <UserProvider userID={userID}>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        {user ? (
+          <>
+            <Stack.Screen name="Initializer" component={Initializer} />
+            <Stack.Screen name="Gender" component={Gender} />
+            <Stack.Screen name="Pronounce" component={Pronounce} />
+            <Stack.Screen name="Purpose" component={Purpose} />
+            <Stack.Screen name="Interest" component={Interest} />
+            <Stack.Screen name="FoodPref" component={FoodPref} />
+            <Stack.Screen name="AgeBioLocation" component={AgeBioLocation} />
+            <Stack.Screen name="Main" component={NavigationScreen} />
+            <Stack.Screen name="Settings" component={Settings} />
+            <Stack.Screen name="EditInfo" component={EditInfo} />
+            <Stack.Screen name="EditFilter" component={EditFilter} />
+            <Stack.Screen name="Notification" component={Notification} />
+            <Stack.Screen name="Header" component={Header} />
+            <Stack.Screen name="Filter" component={FilterScreen} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="SignIn" component={SignIn} />
+            <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="ConfirmSignUp" component={ConfirmSignUp} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+            <Stack.Screen name="ChangePassword" component={ChangePassword} />
+          </>
+        )}
+      </Stack.Navigator>
+    </UserProvider>
   );
 };
 

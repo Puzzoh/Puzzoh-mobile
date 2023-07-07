@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   View,
   Text,
@@ -15,6 +15,8 @@ import CustomHeaderBar from "../components/CustomHeaderBar";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { listVouchers } from "../graphql/queries";
 import VoucherDetailPopup from "../components/VoucherDetailPopup";
+import UserContext from "../context/UserContext";
+
 const GET_VOUCHERS = gql(listVouchers);
 
 const Home = () => {

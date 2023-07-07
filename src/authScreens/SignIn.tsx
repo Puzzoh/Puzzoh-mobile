@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Text,
   View,
@@ -14,8 +14,12 @@ import FontAwesome from "@expo/vector-icons/Ionicons";
 import { Auth } from "aws-amplify";
 import OnboardingSlider from "../components/OnboardingSlider";
 // import { validateEmail, validatePassword } from "../utils/validation";
+import UserContext from "../context/UserContext";
 
 const SignIn = ({ navigation }) => {
+  const user = useContext(UserContext);
+  console.log(user);
+
   const [introScreens, showIntroScreens] = useState(true);
 
   // if (!mainScreens) {
