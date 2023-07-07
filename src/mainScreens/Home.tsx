@@ -20,6 +20,8 @@ import UserContext from "../context/UserContext";
 const GET_VOUCHERS = gql(listVouchers);
 
 const Home = () => {
+  const user = useContext(UserContext);
+
   const { loading, error, data, refetch } = useQuery(GET_VOUCHERS);
   const vouchers = data?.listVouchers.items;
   const [selectedVoucher, setSelectedVoucher] = useState(null);

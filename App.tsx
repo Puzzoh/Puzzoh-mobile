@@ -69,6 +69,7 @@ const Navigation = () => {
       setUserID(user.attributes.sub);
     } catch (err) {
       setUser(null);
+      setUserID(null);
       console.log("Error fetching tokens:", err);
     }
   };

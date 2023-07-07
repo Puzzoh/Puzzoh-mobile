@@ -14,7 +14,7 @@ import styles, { colors } from "../styles/index";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import CheckBox from "react-native-check-box";
 
-const EditFilter = ({ navigation, route }) => {
+const EditFilter = ({ navigation }) => {
   const [ageRange, setAgeRange] = useState([18, 65]);
   const [distanceRange, setDistanceRange] = useState([0, 100]);
   const [AgeswitchValue, setAgeSwitchValue] = useState(false);
