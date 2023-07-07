@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -13,10 +13,44 @@ import { Ionicons } from "@expo/vector-icons";
 import styles, { colors } from "../styles/index";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import CheckBox from "react-native-check-box";
+import UserContext from "../context/UserContext";
+import { gql, useMutation } from "@apollo/client";
+import { updateUser } from "../graphql/mutations";
 
 const EditFilter = ({ navigation }) => {
-  const [ageRange, setAgeRange] = useState([18, 65]);
-  const [distanceRange, setDistanceRange] = useState([0, 100]);
+  const user = useContext(UserContext);
+
+  const UPDATE_USER = gql(updateUser);
+  const [updateUserMutation] = useMutation(UPDATE_USER);
+
+  const updateUserPrefs = async () => {
+    try {
+      const { data } = await updateUserMutation({
+        variables: {
+          input: {
+            id: user.id,
+            preferredGender: "Woman",
+            preferredMinAge: ageRange[0],
+            preferredMaxAge: ageRange[1],
+            preferredDistanceAway: distanceRange[1],
+          },
+        },
+      });
+
+      console.log("User preferences updated:", data.updateUser);
+    } catch (error) {
+      console.log("Error updating user preferences:", error);
+    }
+  };
+
+  const [ageRange, setAgeRange] = useState([
+    user.preferredMinAge,
+    user.preferredMaxAge,
+  ]);
+  const [distanceRange, setDistanceRange] = useState([
+    0,
+    user.preferredDistanceAway,
+  ]);
   const [AgeswitchValue, setAgeSwitchValue] = useState(false);
   const [PrefswitchValue, setPrefSwitchValue] = useState(false);
   const [DistanceswitchValue, setDistanceSwitchValue] = useState(false);
@@ -33,7 +67,12 @@ const EditFilter = ({ navigation }) => {
   };
 
   const handleSave = async () => {
+    await updateUserPrefs();
     navigation.navigate("Main");
+  };
+
+  const handlePrefSwitchChange = () => {
+    setPrefSwitchValue(!PrefswitchValue);
   };
 
   const handleAgeSwitchChange = () => {
@@ -42,10 +81,6 @@ const EditFilter = ({ navigation }) => {
 
   const handleDistanceSwitchChange = () => {
     setDistanceSwitchValue(!DistanceswitchValue);
-  };
-
-  const handlePrefSwitchChange = () => {
-    setPrefSwitchValue(!PrefswitchValue);
   };
 
   const handleCheckbox1Change = () => {
@@ -141,6 +176,7 @@ const EditFilter = ({ navigation }) => {
                 step={1}
                 allowOverlap={false}
                 snapped
+                enabledOne={false}
               />
             </View>
             <View style={nStyles.switchContainer}>
