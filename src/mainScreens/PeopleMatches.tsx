@@ -10,9 +10,10 @@ import {
   Dimensions,
 } from "react-native";
 import styles, { colors } from "../styles/index";
-import ChatWindow from "../components/ChatWindow";
+import Chat from "../components/Chat"
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { listUsers } from "../graphql/queries";
+
 
 const GET_PEOPLE_MATCHES = gql(listUsers);
 
@@ -29,6 +30,7 @@ const PeopleMatches = () => {
   const handleClosePopup = () => {
     setSelectedUser(null);
   };
+
 
   return (
     <SafeAreaView style={nStyles.root}>
@@ -60,7 +62,7 @@ const PeopleMatches = () => {
         />
       </View>
       {selectedUser && (
-        <ChatWindow user={selectedUser} closeChat={handleClosePopup} />
+        <Chat user={selectedUser} closeChat={handleClosePopup} />
       )}
     </SafeAreaView>
   );

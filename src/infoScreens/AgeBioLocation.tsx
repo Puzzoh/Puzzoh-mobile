@@ -16,6 +16,8 @@ import { Auth } from "aws-amplify";
 import { gql, useMutation } from "@apollo/client";
 import { updateUser } from "../graphql/mutations";
 
+const screenWidth = Dimensions.get("window").width;
+
 const AgeBioLocation = ({ navigation, route }) => {
   //   console.log(route.params);
   const selectedGender = route?.params?.gender;
@@ -79,55 +81,74 @@ const AgeBioLocation = ({ navigation, route }) => {
     navigation.navigate("Main");
   };
 
+  const nStyles = StyleSheet.create({
+    container: {
+      flex: 1,
+      padding: 16,
+      backgroundColor: "#fff",
+
+    },
+    heading: {
+      marginBottom: 20,
+      top: 20,
+    },
+    input: {
+      borderWidth: 1,
+      borderColor: "#ccc",
+      borderRadius: 4,
+      paddingHorizontal: 8,
+      marginBottom: 16,
+      height: 80,
+      textAlignVertical: "top",
+    },
+    bioinput: {
+      borderWidth: 1,
+      borderColor: "#ccc",
+      borderRadius: 4,
+      paddingHorizontal: 8,
+      marginBottom: 16,
+      height: 180,
+      textAlignVertical: "top",
+    },
+    button: {
+      alignItems: "center",
+    },
+    inputContainer: {
+      marginBottom: 24,
+    },
+  });
+
   return (
     <View style={nStyles.container}>
       <BackButton onPress={() => navigation.navigate("Interest")} />
+      <View style={[{ marginBottom: 40 }]}>
+        <Text style={[styles.heading2, nStyles.heading]}>Personal Info</Text></View>
       <View style={nStyles.container}>
-        <Text style={[styles.heading2, { marginBottom: 20, top: 20 }]}>
-          Age
-        </Text>
-        <TextInput
-          style={[styles.bodyText2, nStyles.input]}
-          placeholder="18"
-          value={age}
-          onChangeText={setAge}
-        />
-        <Text style={[styles.heading2, { marginBottom: 20, top: 20 }]}>
-          Bio
-        </Text>
-        <TextInput
-          style={[styles.bodyText2, nStyles.input]}
-          placeholder="Bio"
-          value={bio}
-          onChangeText={setBio}
-        />
+        <View style={[{ marginBottom: 20 }]}>
+          <TextInput
+            style={[styles.bodyText2, nStyles.input]}
+            placeholder="Enter your Age"
+            value={age}
+            onChangeText={setAge}
+          /></View>
 
-        <Text style={[styles.heading2, { marginBottom: 20, top: 20 }]}>
-          Location
-        </Text>
-        <TextInput
-          style={[styles.bodyText2, nStyles.input]}
-          placeholder="Enter your location"
-          value={location}
-          onChangeText={setLocation}
-        />
-        {/* <GooglePlacesAutocomplete
-          placeholder="Enter your location"
-          onPress={(data, details = null) => {
-            setLocation(data.description);
-          }}
-          fetchDetails={true}
-          enablePoweredByContainer={false}
-          styles={googlePlacesStyles}
-          query={{
-            key: process.env.GOOGLE_PLACES_API_KEY,
-            language: "en",
-            types: "geocode",
-          }}
-          debounce={300}
-          currentLocation={false}
-        /> */}
-        <TouchableOpacity onPress={onDone} style={styles.continueButton}>
+        <View style={[{ marginBottom: 20 }]}>
+          <TextInput
+            style={[styles.bodyText2, nStyles.bioinput]}
+            placeholder="Enter your Bio"
+            value={bio}
+            onChangeText={setBio}
+          /></View>
+
+        <View style={[{ marginBottom: 20 }]}>
+          <TextInput
+            style={[styles.bodyText2, nStyles.input]}
+            placeholder="Enter your location"
+            value={location}
+            onChangeText={setLocation}
+          /></View>
+
+        <TouchableOpacity onPress={onDone} style={[styles.continueButton, nStyles.button]}>
           {loading ? (
             <Text style={styles.chosenText}>Loading ...</Text>
           ) : (
@@ -138,60 +159,5 @@ const AgeBioLocation = ({ navigation, route }) => {
     </View>
   );
 };
-
-const screenWidth = Dimensions.get("window").width;
-
-const nStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-  },
-  input: {
-    height: 100,
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: "#ddd",
-    paddingHorizontal: 100,
-  },
-  button: {
-    width: screenWidth / 4.5,
-    height: 50,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-    marginVertical: 5,
-  },
-});
-
-const googlePlacesStyles = StyleSheet.create({
-  container: {
-    width: screenWidth - 30,
-    backgroundColor: "#fff",
-    borderWidth: 1,
-    borderRadius: 4,
-    borderColor: "#ddd",
-  },
-  radioButton: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  listView: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    backgroundColor: "#fff",
-    marginHorizontal: 10,
-    elevation: 5,
-    zIndex: 100,
-  },
-  row: {
-    padding: 13,
-    height: 44,
-  },
-  separator: {
-    height: 0.5,
-    backgroundColor: "#919191",
-  },
-});
 
 export default AgeBioLocation;

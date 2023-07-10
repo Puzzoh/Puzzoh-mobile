@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useTheme, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import NotificationPopup from "./NotificationPopup";
 import styles, { colors } from "../styles/index";
 

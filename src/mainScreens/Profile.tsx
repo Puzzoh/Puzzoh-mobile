@@ -14,6 +14,7 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 import { getUser } from "../graphql/queries";
 import { updateUser } from "../graphql/mutations";
 import styles from "../styles/index";
+import AgeBioLocation from "../infoScreens/AgeBioLocation";
 
 const Profile = ({ navigation }) => {
   const [userID, setUserID] = useState(null);
@@ -63,7 +64,7 @@ const Profile = ({ navigation }) => {
   };
 
   const handleEditFilter = () => {
-    navigation.navigate("EditFilter", { user });
+    navigation.navigate(AgeBioLocation);
   };
 
   const fetchImageUri = async (uri) => {

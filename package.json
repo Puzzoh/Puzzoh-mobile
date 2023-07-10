@@ -45,6 +45,7 @@
     "react-native-check-box": "^2.1.7",
     "react-native-datepicker": "^1.7.2",
     "react-native-gesture-handler": "~2.9.0",
+    "react-native-gifted-chat": "^2.4.0",
     "react-native-google-places-autocomplete": "^2.5.1",
     "react-native-modal": "^13.0.1",
     "react-native-pager-view": "6.1.2",

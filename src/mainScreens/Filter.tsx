@@ -62,12 +62,6 @@ const EditFilter = ({ navigation, route }) => {
 
     return (
         <View style={nStyles.container}>
-            <TouchableOpacity
-                style={nStyles.backButton}
-                onPress={() => navigation.goBack()}
-            >
-                <Ionicons name="arrow-back-outline" size={24} color={colors.primary} />
-            </TouchableOpacity>
             <View style={nStyles.contentContainer}>
                 <ScrollView>
                     <View style={nStyles.inputContainer}>
@@ -196,12 +190,7 @@ const nStyles = StyleSheet.create({
     sliderWrapper: {
         alignItems: "center",
     },
-    backButton: {
-        position: "absolute",
-        top: 40,
-        left: 16,
-        zIndex: 10,
-    },
+
     inputContainer: {
         marginBottom: 24,
     },

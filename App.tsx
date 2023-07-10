@@ -30,6 +30,7 @@ import EditFilter from "./src/mainScreens/EditFilter";
 import Notification from "./src/mainScreens/Notification";
 import FilterScreen from "./src/mainScreens/Filter";
 import Header from "./src/components/CustomHeaderBar";
+import Chat from "./src/components/Chat";
 
 Amplify.configure(awsconfig);
 const Stack = createNativeStackNavigator();
@@ -123,6 +124,8 @@ const Navigation = () => {
           <Stack.Screen name="Notification" component={Notification} />
           <Stack.Screen name="Header" component={Header} />
           <Stack.Screen name="Filter" component={FilterScreen} />
+          <Stack.Screen name="Chat" component={Chat} />
+
 
         </>
       ) : (
