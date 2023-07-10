@@ -1,18 +1,84 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { useTheme } from "@react-navigation/native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import styles, { colors } from "../styles/index";
 
 export default function NotificationScreen({ navigation }) {
+  const [notifications, setNotifications] = useState([
+    {
+      id: "1",
+      message: "Notification 1",
+    },
+    {
+      id: "2",
+      message: "Notification 2",
+    },
+    {
+      id: "3",
+      message: "Notification 3",
+    },
+    {
+      id: "4",
+      message: "Notification 4",
+    },
+  ]);
+
+  const renderNotification = ({ item }) => (
+    <TouchableOpacity style={NotiStyles.notificationItem}>
+      <TouchableOpacity
+        style={NotiStyles.deleteButton}
+        onPress={() => deleteNotification(item.id)}
+      >
+        <MaterialCommunityIcons
+          name="trash-can"
+          size={24}
+          color={colors.primary}
+        />
+      </TouchableOpacity>
+      <Text style={NotiStyles.notificationText}>{item.message}</Text>
+    </TouchableOpacity>
+  );
+
+  const deleteNotification = (id) => {
+    setNotifications((prevNotifications) =>
+      prevNotifications.filter((notification) => notification.id !== id)
+    );
+  };
+
+  const handleSave = async () => {
+    navigation.navigate("Main");
+  };
+
   return (
     <View style={NotiStyles.container}>
-      <View style={NotiStyles.header}>
-        <Text style={styles.heading3}>Notifications</Text>
-      </View>
-      <View style={NotiStyles.content}>
-        <Text style={styles.heading5}>No new notifications</Text>
+      <TouchableOpacity
+        style={NotiStyles.backButton}
+        onPress={() => navigation.goBack()}
+      >
+        <Ionicons name="arrow-back-outline" size={24} />
+      </TouchableOpacity>
+      <View style={{ top: 40 }}>
+        <View style={NotiStyles.header}>
+          <Text style={styles.heading3}>Notifications</Text>
+        </View>
+        {notifications.length > 0 ? (
+          <FlatList
+            data={notifications}
+            renderItem={renderNotification}
+            keyExtractor={(item) => item.id}
+            contentContainerStyle={NotiStyles.notificationList}
+          />
+        ) : (
+          <View style={NotiStyles.content}>
+            <Text style={styles.heading5}>No new notifications</Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -20,29 +86,40 @@ export default function NotificationScreen({ navigation }) {
 
 const NotiStyles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
     flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    paddingTop: "10%",
-    paddingHorizontal: "10%",
-    alignSelf: "center",
-    marginBottom: "20%",
+    paddingHorizontal: 16,
+    paddingVertical: 24,
+    backgroundColor: "#fff",
+  },
+  backButton: {
+    position: "absolute",
+    top: 40,
+    left: 16,
+    zIndex: 10,
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 8,
   },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    flex: 1,
-  },
-  closeButton: {
-    padding: 8,
-  },
   content: {
     alignItems: "center",
+  },
+  notificationList: {
+    flexGrow: 1,
+    paddingBottom: 20,
+  },
+  notificationItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+  },
+  notificationText: {
+    marginLeft: 10,
+    fontSize: 16,
+  },
+  deleteButton: {
+    marginRight: 10,
   },
 });

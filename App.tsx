@@ -23,6 +23,7 @@ import FoodPref from "./src/infoScreens/FoodPref";
 import AgeBioLocation from "./src/infoScreens/AgeBioLocation";
 import NavigationScreen from "./src/mainScreens/NavigationScreen";
 import Settings from "./src/mainScreens/Settings";
+import Chat from "./src/mainScreens/Chat";
 import EditInfo from "./src/mainScreens/EditInfo";
 import Initializer from "./src/mainScreens/Initializer";
 import Notification from "./src/mainScreens/Notification";
@@ -126,6 +127,7 @@ const Navigation = () => {
             <Stack.Screen name="Notification" component={Notification} />
             <Stack.Screen name="Header" component={Header} />
             <Stack.Screen name="Filter" component={Filter} />
+            <Stack.Screen name="Chat" component={Chat} />
           </>
         ) : (
           <>
