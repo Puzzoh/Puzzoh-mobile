@@ -30,7 +30,7 @@ const PeopleMatches = () => {
     setSelectedUser(null);
   };
 
-  const chat = [
+  const chats = [
     {
       id: "1",
       user: {
@@ -107,7 +107,7 @@ const PeopleMatches = () => {
     <SafeAreaView style={nStyles.root}>
       <View style={nStyles.container}>
         <FlatList
-          data={chat}
+          data={chats}
           // keyExtractor={(item) => item.id.toString()}
           renderItem={({ item, index }) => (
             <ChatListItem chat={item} key={index} />
