@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import { useMutation, gql } from "@apollo/client";
 import { createUser } from "../graphql/mutations";
-import { useNavigation } from "@react-navigation/native";
 import styles from "../styles/index";
 
 const Initializer = ({ navigation }) => {

@@ -7,6 +7,13 @@ export enum VendorType {
   NON_RESTAURANT = "NonRestaurant"
 }
 
+export enum GenderType {
+  MEN = "Men",
+  WOMEN = "Women",
+  NONBINARY = "Nonbinary",
+  ALL = "All"
+}
+
 export enum PurposeType {
   FRIEND = "Friend",
   DATE = "Date",
@@ -44,6 +51,72 @@ export enum FoodPrefType {
 
 
 
+type EagerChatRoom = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<ChatRoom, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly Messages?: (Message | null)[] | null;
+  readonly users?: (UserChatRoom | null)[] | null;
+  readonly LastMessage?: Message | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly chatRoomLastMessageId?: string | null;
+}
+
+type LazyChatRoom = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<ChatRoom, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly Messages: AsyncCollection<Message>;
+  readonly users: AsyncCollection<UserChatRoom>;
+  readonly LastMessage: AsyncItem<Message | undefined>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly chatRoomLastMessageId?: string | null;
+}
+
+export declare type ChatRoom = LazyLoading extends LazyLoadingDisabled ? EagerChatRoom : LazyChatRoom
+
+export declare const ChatRoom: (new (init: ModelInit<ChatRoom>) => ChatRoom) & {
+  copyOf(source: ChatRoom, mutator: (draft: MutableModel<ChatRoom>) => MutableModel<ChatRoom> | void): ChatRoom;
+}
+
+type EagerMessage = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Message, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly Text: string;
+  readonly chatroomID: string;
+  readonly userID: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyMessage = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Message, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly Text: string;
+  readonly chatroomID: string;
+  readonly userID: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Message = LazyLoading extends LazyLoadingDisabled ? EagerMessage : LazyMessage
+
+export declare const Message: (new (init: ModelInit<Message>) => Message) & {
+  copyOf(source: Message, mutator: (draft: MutableModel<Message>) => MutableModel<Message> | void): Message;
+}
+
 type EagerUser = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<User, 'id'>;
@@ -52,15 +125,23 @@ type EagerUser = {
   readonly id: string;
   readonly username: string;
   readonly email: string;
-  readonly phoneNum: string;
+  readonly phoneNum?: string | null;
+  readonly age?: number | null;
   readonly gender?: string | null;
   readonly pronounce?: string | null;
   readonly location?: string | null;
   readonly bio?: string | null;
   readonly imageURL?: string | null;
-  readonly purpose?: (PurposeType | null)[] | keyof typeof PurposeType | null;
+  readonly purpose?: string | null;
   readonly interest?: (InterestType | null)[] | keyof typeof InterestType | null;
   readonly foodPref?: (FoodPrefType | null)[] | keyof typeof FoodPrefType | null;
+  readonly preferredMinAge?: number | null;
+  readonly preferredMaxAge?: number | null;
+  readonly preferredGender?: string | null;
+  readonly preferredDistanceAway?: number | null;
+  readonly matches?: Match[] | null;
+  readonly Messages?: (Message | null)[] | null;
+  readonly ChatRooms?: (UserChatRoom | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -73,15 +154,23 @@ type LazyUser = {
   readonly id: string;
   readonly username: string;
   readonly email: string;
-  readonly phoneNum: string;
+  readonly phoneNum?: string | null;
+  readonly age?: number | null;
   readonly gender?: string | null;
   readonly pronounce?: string | null;
   readonly location?: string | null;
   readonly bio?: string | null;
   readonly imageURL?: string | null;
-  readonly purpose?: (PurposeType | null)[] | keyof typeof PurposeType | null;
+  readonly purpose?: string | null;
   readonly interest?: (InterestType | null)[] | keyof typeof InterestType | null;
   readonly foodPref?: (FoodPrefType | null)[] | keyof typeof FoodPrefType | null;
+  readonly preferredMinAge?: number | null;
+  readonly preferredMaxAge?: number | null;
+  readonly preferredGender?: string | null;
+  readonly preferredDistanceAway?: number | null;
+  readonly matches: AsyncCollection<Match>;
+  readonly Messages: AsyncCollection<Message>;
+  readonly ChatRooms: AsyncCollection<UserChatRoom>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -99,7 +188,7 @@ type EagerVendor = {
   };
   readonly id: string;
   readonly name: string;
-  readonly phone: string;
+  readonly phoneNum: string;
   readonly email: string;
   readonly address: string;
   readonly link?: string | null;
@@ -107,7 +196,7 @@ type EagerVendor = {
   readonly type?: VendorType | keyof typeof VendorType | null;
   readonly imageURL?: string | null;
   readonly location?: string | null;
-  readonly vouchers?: (Voucher | null)[] | null;
+  readonly vouchers?: Voucher[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -119,7 +208,7 @@ type LazyVendor = {
   };
   readonly id: string;
   readonly name: string;
-  readonly phone: string;
+  readonly phoneNum: string;
   readonly email: string;
   readonly address: string;
   readonly link?: string | null;
@@ -150,6 +239,7 @@ type EagerVoucher = {
   readonly description?: string | null;
   readonly avgRating?: number | null;
   readonly numRedeemed?: number | null;
+  readonly maxRedeemed?: number | null;
   readonly forQuantity?: number | null;
   readonly imageURL?: string | null;
   readonly location?: string | null;
@@ -171,6 +261,7 @@ type LazyVoucher = {
   readonly description?: string | null;
   readonly avgRating?: number | null;
   readonly numRedeemed?: number | null;
+  readonly maxRedeemed?: number | null;
   readonly forQuantity?: number | null;
   readonly imageURL?: string | null;
   readonly location?: string | null;
@@ -184,4 +275,76 @@ export declare type Voucher = LazyLoading extends LazyLoadingDisabled ? EagerVou
 
 export declare const Voucher: (new (init: ModelInit<Voucher>) => Voucher) & {
   copyOf(source: Voucher, mutator: (draft: MutableModel<Voucher>) => MutableModel<Voucher> | void): Voucher;
+}
+
+type EagerMatch = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Match, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly user1ID: string;
+  readonly user2ID: string;
+  readonly isMatch: boolean;
+  readonly user1: User;
+  readonly user2: User;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly userMatchesId?: string | null;
+}
+
+type LazyMatch = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Match, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly user1ID: string;
+  readonly user2ID: string;
+  readonly isMatch: boolean;
+  readonly user1: AsyncItem<User>;
+  readonly user2: AsyncItem<User>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  readonly userMatchesId?: string | null;
+}
+
+export declare type Match = LazyLoading extends LazyLoadingDisabled ? EagerMatch : LazyMatch
+
+export declare const Match: (new (init: ModelInit<Match>) => Match) & {
+  copyOf(source: Match, mutator: (draft: MutableModel<Match>) => MutableModel<Match> | void): Match;
+}
+
+type EagerUserChatRoom = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<UserChatRoom, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly chatRoomId?: string | null;
+  readonly userId?: string | null;
+  readonly chatRoom: ChatRoom;
+  readonly user: User;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyUserChatRoom = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<UserChatRoom, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly chatRoomId?: string | null;
+  readonly userId?: string | null;
+  readonly chatRoom: AsyncItem<ChatRoom>;
+  readonly user: AsyncItem<User>;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type UserChatRoom = LazyLoading extends LazyLoadingDisabled ? EagerUserChatRoom : LazyUserChatRoom
+
+export declare const UserChatRoom: (new (init: ModelInit<UserChatRoom>) => UserChatRoom) & {
+  copyOf(source: UserChatRoom, mutator: (draft: MutableModel<UserChatRoom>) => MutableModel<UserChatRoom> | void): UserChatRoom;
 }

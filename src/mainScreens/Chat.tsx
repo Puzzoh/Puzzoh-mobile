@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import styles, { colors } from "../styles/index";
 import { GiftedChat } from "react-native-gifted-chat";
 
-export default function Chat({ navigation, route, closeChat }) {
+export default function Chat({ navigation, route }) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {

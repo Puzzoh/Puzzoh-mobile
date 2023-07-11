@@ -1,18 +1,18 @@
-type ChatRoom @model @auth(rules: [{allow: public}]) {
+type ChatRoom @model @auth(rules: [{ allow: public }]) {
   id: ID!
   Messages: [Message] @hasMany(indexName: "byChatRoom", fields: ["id"])
   users: [User] @manyToMany(relationName: "UserChatRoom")
   LastMessage: Message @hasOne
 }
 
-type Message @model @auth(rules: [{allow: public}]) {
+type Message @model @auth(rules: [{ allow: public }]) {
   id: ID!
   Text: String!
   chatroomID: ID! @index(name: "byChatRoom")
   userID: ID! @index(name: "byUser")
 }
 
-type User @model @auth(rules: [{allow: public}]) {
+type User @model @auth(rules: [{ allow: public }]) {
   id: ID!
   username: String!
   email: String!
@@ -36,7 +36,7 @@ type User @model @auth(rules: [{allow: public}]) {
   ChatRooms: [ChatRoom] @manyToMany(relationName: "UserChatRoom")
 }
 
-type Vendor @model @auth(rules: [{allow: public}]) {
+type Vendor @model @auth(rules: [{ allow: public }]) {
   id: ID!
   name: String!
   phoneNum: String!
@@ -50,7 +50,7 @@ type Vendor @model @auth(rules: [{allow: public}]) {
   vouchers: [Voucher!] @hasMany
 }
 
-type Voucher @model @auth(rules: [{allow: public}]) {
+type Voucher @model @auth(rules: [{ allow: public }]) {
   id: ID!
   title: String!
   priceBefore: Int!
@@ -65,7 +65,7 @@ type Voucher @model @auth(rules: [{allow: public}]) {
   vendor: Vendor @belongsTo
 }
 
-type Match @model @auth(rules: [{allow: public}]) {
+type Match @model @auth(rules: [{ allow: public }]) {
   id: ID!
   user1ID: ID!
   user2ID: ID!
@@ -120,4 +120,3 @@ enum FoodPrefType {
   Vietnamese
   Dessert
 }
- 

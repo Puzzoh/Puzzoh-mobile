@@ -7,6 +7,13 @@ const VendorType = {
   "NON_RESTAURANT": "NonRestaurant"
 };
 
+const GenderType = {
+  "MEN": "Men",
+  "WOMEN": "Women",
+  "NONBINARY": "Nonbinary",
+  "ALL": "All"
+};
+
 const PurposeType = {
   "FRIEND": "Friend",
   "DATE": "Date",
@@ -42,13 +49,18 @@ const FoodPrefType = {
   "DESSERT": "Dessert"
 };
 
-const { User, Vendor, Voucher } = initSchema(schema);
+const { ChatRoom, Message, User, Vendor, Voucher, Match, UserChatRoom } = initSchema(schema);
 
 export {
+  ChatRoom,
+  Message,
   User,
   Vendor,
   Voucher,
+  Match,
+  UserChatRoom,
   VendorType,
+  GenderType,
   PurposeType,
   InterestType,
   FoodPrefType
