@@ -1,6 +1,180 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateChatRoom = /* GraphQL */ `
+  subscription OnCreateChatRoom($filter: ModelSubscriptionChatRoomFilterInput) {
+    onCreateChatRoom(filter: $filter) {
+      id
+      Messages {
+        items {
+          id
+          Text
+          chatroomID
+          userID
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      users {
+        items {
+          id
+          chatRoomId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      LastMessage {
+        id
+        Text
+        chatroomID
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      chatRoomLastMessageId
+      __typename
+    }
+  }
+`;
+export const onUpdateChatRoom = /* GraphQL */ `
+  subscription OnUpdateChatRoom($filter: ModelSubscriptionChatRoomFilterInput) {
+    onUpdateChatRoom(filter: $filter) {
+      id
+      Messages {
+        items {
+          id
+          Text
+          chatroomID
+          userID
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      users {
+        items {
+          id
+          chatRoomId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      LastMessage {
+        id
+        Text
+        chatroomID
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      chatRoomLastMessageId
+      __typename
+    }
+  }
+`;
+export const onDeleteChatRoom = /* GraphQL */ `
+  subscription OnDeleteChatRoom($filter: ModelSubscriptionChatRoomFilterInput) {
+    onDeleteChatRoom(filter: $filter) {
+      id
+      Messages {
+        items {
+          id
+          Text
+          chatroomID
+          userID
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      users {
+        items {
+          id
+          chatRoomId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      LastMessage {
+        id
+        Text
+        chatroomID
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      chatRoomLastMessageId
+      __typename
+    }
+  }
+`;
+export const onCreateMessage = /* GraphQL */ `
+  subscription OnCreateMessage($filter: ModelSubscriptionMessageFilterInput) {
+    onCreateMessage(filter: $filter) {
+      id
+      Text
+      chatroomID
+      userID
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateMessage = /* GraphQL */ `
+  subscription OnUpdateMessage($filter: ModelSubscriptionMessageFilterInput) {
+    onUpdateMessage(filter: $filter) {
+      id
+      Text
+      chatroomID
+      userID
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteMessage = /* GraphQL */ `
+  subscription OnDeleteMessage($filter: ModelSubscriptionMessageFilterInput) {
+    onDeleteMessage(filter: $filter) {
+      id
+      Text
+      chatroomID
+      userID
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
     onCreateUser(filter: $filter) {
@@ -29,13 +203,14 @@ export const onCreateUser = /* GraphQL */ `
         description
         avgRating
         numRedeemed
+        maxRedeemed
         forQuantity
         imageURL
         location
         vendor {
           id
           name
-          phone
+          phoneNum
           email
           address
           link
@@ -61,6 +236,31 @@ export const onCreateUser = /* GraphQL */ `
           createdAt
           updatedAt
           userMatchesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Messages {
+        items {
+          id
+          Text
+          chatroomID
+          userID
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      ChatRooms {
+        items {
+          id
+          chatRoomId
+          userId
+          createdAt
+          updatedAt
           __typename
         }
         nextToken
@@ -100,13 +300,14 @@ export const onUpdateUser = /* GraphQL */ `
         description
         avgRating
         numRedeemed
+        maxRedeemed
         forQuantity
         imageURL
         location
         vendor {
           id
           name
-          phone
+          phoneNum
           email
           address
           link
@@ -132,6 +333,31 @@ export const onUpdateUser = /* GraphQL */ `
           createdAt
           updatedAt
           userMatchesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Messages {
+        items {
+          id
+          Text
+          chatroomID
+          userID
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      ChatRooms {
+        items {
+          id
+          chatRoomId
+          userId
+          createdAt
+          updatedAt
           __typename
         }
         nextToken
@@ -171,13 +397,14 @@ export const onDeleteUser = /* GraphQL */ `
         description
         avgRating
         numRedeemed
+        maxRedeemed
         forQuantity
         imageURL
         location
         vendor {
           id
           name
-          phone
+          phoneNum
           email
           address
           link
@@ -208,6 +435,31 @@ export const onDeleteUser = /* GraphQL */ `
         nextToken
         __typename
       }
+      Messages {
+        items {
+          id
+          Text
+          chatroomID
+          userID
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      ChatRooms {
+        items {
+          id
+          chatRoomId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -219,7 +471,7 @@ export const onCreateVendor = /* GraphQL */ `
     onCreateVendor(filter: $filter) {
       id
       name
-      phone
+      phoneNum
       email
       address
       link
@@ -236,6 +488,7 @@ export const onCreateVendor = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -258,7 +511,7 @@ export const onUpdateVendor = /* GraphQL */ `
     onUpdateVendor(filter: $filter) {
       id
       name
-      phone
+      phoneNum
       email
       address
       link
@@ -275,6 +528,7 @@ export const onUpdateVendor = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -297,7 +551,7 @@ export const onDeleteVendor = /* GraphQL */ `
     onDeleteVendor(filter: $filter) {
       id
       name
-      phone
+      phoneNum
       email
       address
       link
@@ -314,6 +568,7 @@ export const onDeleteVendor = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -341,13 +596,14 @@ export const onCreateVoucher = /* GraphQL */ `
       description
       avgRating
       numRedeemed
+      maxRedeemed
       forQuantity
       imageURL
       location
       vendor {
         id
         name
-        phone
+        phoneNum
         email
         address
         link
@@ -380,13 +636,14 @@ export const onUpdateVoucher = /* GraphQL */ `
       description
       avgRating
       numRedeemed
+      maxRedeemed
       forQuantity
       imageURL
       location
       vendor {
         id
         name
-        phone
+        phoneNum
         email
         address
         link
@@ -419,13 +676,14 @@ export const onDeleteVoucher = /* GraphQL */ `
       description
       avgRating
       numRedeemed
+      maxRedeemed
       forQuantity
       imageURL
       location
       vendor {
         id
         name
-        phone
+        phoneNum
         email
         address
         link
@@ -481,6 +739,7 @@ export const onCreateMatch = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -490,6 +749,14 @@ export const onCreateMatch = /* GraphQL */ `
           __typename
         }
         matches {
+          nextToken
+          __typename
+        }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
           nextToken
           __typename
         }
@@ -523,6 +790,7 @@ export const onCreateMatch = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -532,6 +800,14 @@ export const onCreateMatch = /* GraphQL */ `
           __typename
         }
         matches {
+          nextToken
+          __typename
+        }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
           nextToken
           __typename
         }
@@ -579,6 +855,7 @@ export const onUpdateMatch = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -588,6 +865,14 @@ export const onUpdateMatch = /* GraphQL */ `
           __typename
         }
         matches {
+          nextToken
+          __typename
+        }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
           nextToken
           __typename
         }
@@ -621,6 +906,7 @@ export const onUpdateMatch = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -630,6 +916,14 @@ export const onUpdateMatch = /* GraphQL */ `
           __typename
         }
         matches {
+          nextToken
+          __typename
+        }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
           nextToken
           __typename
         }
@@ -677,6 +971,7 @@ export const onDeleteMatch = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -686,6 +981,14 @@ export const onDeleteMatch = /* GraphQL */ `
           __typename
         }
         matches {
+          nextToken
+          __typename
+        }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
           nextToken
           __typename
         }
@@ -719,6 +1022,7 @@ export const onDeleteMatch = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -731,6 +1035,14 @@ export const onDeleteMatch = /* GraphQL */ `
           nextToken
           __typename
         }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -738,6 +1050,273 @@ export const onDeleteMatch = /* GraphQL */ `
       createdAt
       updatedAt
       userMatchesId
+      __typename
+    }
+  }
+`;
+export const onCreateUserChatRoom = /* GraphQL */ `
+  subscription OnCreateUserChatRoom(
+    $filter: ModelSubscriptionUserChatRoomFilterInput
+  ) {
+    onCreateUserChatRoom(filter: $filter) {
+      id
+      chatRoomId
+      userId
+      chatRoom {
+        id
+        Messages {
+          nextToken
+          __typename
+        }
+        users {
+          nextToken
+          __typename
+        }
+        LastMessage {
+          id
+          Text
+          chatroomID
+          userID
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        chatRoomLastMessageId
+        __typename
+      }
+      user {
+        id
+        username
+        email
+        phoneNum
+        age
+        gender
+        pronounce
+        location
+        bio
+        imageURL
+        purpose
+        interest
+        foodPref
+        preferredMinAge
+        preferredMaxAge
+        preferredGender
+        preferredDistanceAway
+        swipedVouchers {
+          id
+          title
+          priceBefore
+          priceAfter
+          description
+          avgRating
+          numRedeemed
+          maxRedeemed
+          forQuantity
+          imageURL
+          location
+          createdAt
+          updatedAt
+          vendorVouchersId
+          __typename
+        }
+        matches {
+          nextToken
+          __typename
+        }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateUserChatRoom = /* GraphQL */ `
+  subscription OnUpdateUserChatRoom(
+    $filter: ModelSubscriptionUserChatRoomFilterInput
+  ) {
+    onUpdateUserChatRoom(filter: $filter) {
+      id
+      chatRoomId
+      userId
+      chatRoom {
+        id
+        Messages {
+          nextToken
+          __typename
+        }
+        users {
+          nextToken
+          __typename
+        }
+        LastMessage {
+          id
+          Text
+          chatroomID
+          userID
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        chatRoomLastMessageId
+        __typename
+      }
+      user {
+        id
+        username
+        email
+        phoneNum
+        age
+        gender
+        pronounce
+        location
+        bio
+        imageURL
+        purpose
+        interest
+        foodPref
+        preferredMinAge
+        preferredMaxAge
+        preferredGender
+        preferredDistanceAway
+        swipedVouchers {
+          id
+          title
+          priceBefore
+          priceAfter
+          description
+          avgRating
+          numRedeemed
+          maxRedeemed
+          forQuantity
+          imageURL
+          location
+          createdAt
+          updatedAt
+          vendorVouchersId
+          __typename
+        }
+        matches {
+          nextToken
+          __typename
+        }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteUserChatRoom = /* GraphQL */ `
+  subscription OnDeleteUserChatRoom(
+    $filter: ModelSubscriptionUserChatRoomFilterInput
+  ) {
+    onDeleteUserChatRoom(filter: $filter) {
+      id
+      chatRoomId
+      userId
+      chatRoom {
+        id
+        Messages {
+          nextToken
+          __typename
+        }
+        users {
+          nextToken
+          __typename
+        }
+        LastMessage {
+          id
+          Text
+          chatroomID
+          userID
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        chatRoomLastMessageId
+        __typename
+      }
+      user {
+        id
+        username
+        email
+        phoneNum
+        age
+        gender
+        pronounce
+        location
+        bio
+        imageURL
+        purpose
+        interest
+        foodPref
+        preferredMinAge
+        preferredMaxAge
+        preferredGender
+        preferredDistanceAway
+        swipedVouchers {
+          id
+          title
+          priceBefore
+          priceAfter
+          description
+          avgRating
+          numRedeemed
+          maxRedeemed
+          forQuantity
+          imageURL
+          location
+          createdAt
+          updatedAt
+          vendorVouchersId
+          __typename
+        }
+        matches {
+          nextToken
+          __typename
+        }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
       __typename
     }
   }
