@@ -68,7 +68,7 @@ const EditFilter = ({ navigation }) => {
 
   const handleSave = async () => {
     await updateUserPrefs();
-    navigation.navigate("Main");
+    navigation.navigate("Home");
   };
 
   const handlePrefSwitchChange = () => {
@@ -97,12 +97,6 @@ const EditFilter = ({ navigation }) => {
 
   return (
     <View style={nStyles.container}>
-      <TouchableOpacity
-        style={nStyles.backButton}
-        onPress={() => navigation.goBack()}
-      >
-        <Ionicons name="arrow-back-outline" size={24} />
-      </TouchableOpacity>
       <View style={nStyles.contentContainer}>
         <ScrollView>
           <View style={nStyles.inputContainer}>
@@ -216,7 +210,6 @@ const nStyles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    top: 40,
   },
   sliderWrapper: {
     alignItems: "center",

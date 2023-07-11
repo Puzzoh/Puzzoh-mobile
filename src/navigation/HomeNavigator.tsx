@@ -1,16 +1,15 @@
-import React from "react";
-import { Animated, Dimensions, StyleSheet, View } from "react-native";
+import React, { useRef } from "react";
+import { Animated, Dimensions, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { colors } from "../styles/index";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
-import { useRef } from "react";
-import Voucher from "./Home";
-import Matches from "./Matches";
-import Profile from "./Profile";
+import Discover from "../mainScreens/Discover";
+import Matches from "../mainScreens/Matches";
+import Profile from "../mainScreens/Profile";
 
 const Tab = createBottomTabNavigator();
 
-const NavigationScreen = () => {
+const HomeNavigator = () => {
   const tabOffsetValue = useRef(new Animated.Value(0)).current;
 
   return (
@@ -25,7 +24,7 @@ const NavigationScreen = () => {
       >
         <Tab.Screen
           name={"Discover"}
-          component={Voucher}
+          component={Discover}
           options={{
             headerShown: false,
             tabBarIcon: ({ focused }) => (
@@ -122,9 +121,9 @@ const NavigationScreen = () => {
   );
 };
 
+export default HomeNavigator;
+
 function getWidth() {
   let width = Dimensions.get("window").width;
   return width / 3;
 }
-
-export default NavigationScreen;

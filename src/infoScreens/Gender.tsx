@@ -21,7 +21,7 @@ const Gender = ({ navigation, route }) => {
   }, []);
 
   const handleLater = async () => {
-    navigation.navigate("Main");
+    navigation.navigate("Home");
   };
 
   const handleContinue = () => {
