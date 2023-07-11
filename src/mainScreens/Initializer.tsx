@@ -6,9 +6,7 @@ import { createUser } from "../graphql/mutations";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../styles/index";
 
-const Initializer = () => {
-  const navigation = useNavigation();
-
+const Initializer = ({ navigation }) => {
   const checkFirstLogin = async () => {
     try {
       const user = await Auth.currentAuthenticatedUser();
@@ -61,7 +59,7 @@ const Initializer = () => {
     initializeUser();
 
     const unsubscribe = navigation.addListener("focus", () => {
-      navigation.navigate("Main");
+      navigation.navigate("Home");
     });
 
     return () => {

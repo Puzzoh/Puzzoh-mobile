@@ -76,7 +76,7 @@ const AgeBioLocation = ({ navigation, route }) => {
 
   const onDone = async () => {
     await updateUserInfo();
-    navigation.navigate("Main");
+    navigation.navigate("Home");
   };
 
   return (

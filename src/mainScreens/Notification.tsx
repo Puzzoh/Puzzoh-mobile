@@ -52,21 +52,12 @@ export default function NotificationScreen({ navigation }) {
   };
 
   const handleSave = async () => {
-    navigation.navigate("Main");
+    navigation.navigate("Home");
   };
 
   return (
     <View style={NotiStyles.container}>
-      <TouchableOpacity
-        style={NotiStyles.backButton}
-        onPress={() => navigation.goBack()}
-      >
-        <Ionicons name="arrow-back-outline" size={24} />
-      </TouchableOpacity>
-      <View style={{ top: 40 }}>
-        <View style={NotiStyles.header}>
-          <Text style={styles.heading3}>Notifications</Text>
-        </View>
+      <View>
         {notifications.length > 0 ? (
           <FlatList
             data={notifications}

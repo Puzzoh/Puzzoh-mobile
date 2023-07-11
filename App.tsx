@@ -21,7 +21,7 @@ import Purpose from "./src/infoScreens/Purpose";
 import Interest from "./src/infoScreens/Interest";
 import FoodPref from "./src/infoScreens/FoodPref";
 import AgeBioLocation from "./src/infoScreens/AgeBioLocation";
-import NavigationScreen from "./src/mainScreens/NavigationScreen";
+import MainNavigation from "./src/navigation/MainNavigation";
 import Settings from "./src/mainScreens/Settings";
 import Chat from "./src/mainScreens/Chat";
 import EditInfo from "./src/mainScreens/EditInfo";
@@ -30,6 +30,7 @@ import Notification from "./src/mainScreens/Notification";
 import Filter from "./src/mainScreens/Filter";
 import Header from "./src/components/CustomHeaderBar";
 import { UserProvider } from "./src/context/UserContext";
+import { Entypo, Ionicons } from "@expo/vector-icons";
 
 Amplify.configure(awsconfig);
 const Stack = createNativeStackNavigator();
@@ -108,26 +109,107 @@ const Navigation = () => {
   return (
     <UserProvider userID={userID}>
       <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
+      // screenOptions={{
+      //   headerShown: false,
+      // }}
       >
         {user ? (
           <>
-            <Stack.Screen name="Initializer" component={Initializer} />
-            <Stack.Screen name="Gender" component={Gender} />
-            <Stack.Screen name="Pronounce" component={Pronounce} />
-            <Stack.Screen name="Purpose" component={Purpose} />
-            <Stack.Screen name="Interest" component={Interest} />
-            <Stack.Screen name="FoodPref" component={FoodPref} />
-            <Stack.Screen name="AgeBioLocation" component={AgeBioLocation} />
-            <Stack.Screen name="Main" component={NavigationScreen} />
-            <Stack.Screen name="Settings" component={Settings} />
-            <Stack.Screen name="EditInfo" component={EditInfo} />
+            <Stack.Screen
+              name="Initializer"
+              component={Initializer}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Gender"
+              component={Gender}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Pronounce"
+              component={Pronounce}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Purpose"
+              component={Purpose}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Interest"
+              component={Interest}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="FoodPref"
+              component={FoodPref}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="AgeBioLocation"
+              component={AgeBioLocation}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Home"
+              component={MainNavigation}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Settings"
+              component={Settings}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="EditInfo"
+              component={EditInfo}
+              options={{
+                headerShown: false,
+              }}
+            />
             <Stack.Screen name="Notification" component={Notification} />
             <Stack.Screen name="Header" component={Header} />
             <Stack.Screen name="Filter" component={Filter} />
-            <Stack.Screen name="Chat" component={Chat} />
+            <Stack.Screen
+              name="Chat"
+              component={Chat}
+              options={({ navigation }) => ({
+                tabBarIcon: ({ color, size }) => (
+                  <Ionicons
+                    name="ios-chatbubbles-sharp"
+                    size={size}
+                    color={color}
+                  />
+                ),
+                headerRight: () => (
+                  <Entypo
+                    onPress={() => navigation.navigate("Contacts")}
+                    name="new-message"
+                    size={18}
+                    color={"royalblue"}
+                    style={{ marginRight: 15 }}
+                  />
+                ),
+              })}
+            />
           </>
         ) : (
           <>

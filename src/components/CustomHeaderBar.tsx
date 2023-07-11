@@ -1,15 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useTheme, useNavigation } from "@react-navigation/native";
-import NotificationPopup from "./NotificationPopup";
+import { useNavigation } from "@react-navigation/native";
 import styles, { colors } from "../styles/index";
 
-export default function Header({ }) {
+export default function Header() {
   const navigation = useNavigation();
-
-  const [isNotiOpen, setNotiOpen] = useState(false);
-
 
   const handleFilter = () => {
     navigation.navigate("Filter");
@@ -28,12 +24,7 @@ export default function Header({ }) {
         </View>
       </View>
       <View style={headerStyles.buttonContainer}>
-        <TouchableOpacity
-          style={[
-            styles.blankButton,
-          ]}
-          onPress={handleFilter}
-        >
+        <TouchableOpacity style={[styles.blankButton]} onPress={handleFilter}>
           <MaterialCommunityIcons
             name="filter-variant"
             size={32}
@@ -42,21 +33,18 @@ export default function Header({ }) {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={[
-            styles.blankButton,
-          ]}
+          style={[styles.blankButton]}
           onPress={handleNotification}
         >
           <View style={headerStyles.badgeContainer}>
-            {(
+            {
               <MaterialCommunityIcons
                 name="bell"
                 size={32}
                 color={colors.primary}
                 style={{ textAlign: "center" }}
               />
-
-            )}
+            }
             {<View style={headerStyles.badge} />}
           </View>
         </TouchableOpacity>
