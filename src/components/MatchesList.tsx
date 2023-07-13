@@ -10,7 +10,7 @@ const MatchesList = () => {
   const { data } = useQuery(GET_PEOPLE_MATCHES);
   const people = data?.listUsers?.items;
 
-  console.log(people);
+  // console.log(people);
 
   return (
     <FlatList

@@ -82,12 +82,13 @@ const AgeBioLocation = ({ navigation, route }) => {
   return (
     <View style={nStyles.container}>
       <BackButton onPress={() => navigation.navigate("Interest")} />
-      <View style={[{ marginBottom: 40 }]}>
+      <View style={[{ marginBottom: 20 }]}>
         <Text style={[styles.heading2, nStyles.heading]}>
           Other Personal Info
         </Text>
       </View>
       <View style={nStyles.container}>
+        <Text style={[styles.heading4, { marginBottom: 20 }]}>Age</Text>
         <View style={[{ marginBottom: 20 }]}>
           <TextInput
             style={[styles.bodyText2, nStyles.input]}
@@ -98,6 +99,7 @@ const AgeBioLocation = ({ navigation, route }) => {
         </View>
 
         <View style={[{ marginBottom: 20 }]}>
+          <Text style={[styles.heading4, { marginBottom: 20 }]}>Bio</Text>
           <TextInput
             style={[styles.bodyText2, nStyles.bioinput]}
             placeholder="Enter your Bio"
@@ -107,6 +109,7 @@ const AgeBioLocation = ({ navigation, route }) => {
         </View>
 
         <View style={[{ marginBottom: 20 }]}>
+          <Text style={[styles.heading4, { marginBottom: 20 }]}>Location</Text>
           <TextInput
             style={[styles.bodyText2, nStyles.input]}
             placeholder="Enter your location"
@@ -148,7 +151,7 @@ const nStyles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 8,
     marginBottom: 16,
-    height: 80,
+    height: 40,
     textAlignVertical: "top",
   },
   bioinput: {
@@ -157,7 +160,7 @@ const nStyles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 8,
     marginBottom: 16,
-    height: 180,
+    height: 90,
     textAlignVertical: "top",
   },
   button: {

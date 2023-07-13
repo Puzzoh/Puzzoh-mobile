@@ -22,41 +22,42 @@ const MatchesListItem = ({ user }) => {
 
   const onPress = async () => {
     const existingChatRoom = await getCommonChatRoomWithUser(user.id);
+
     if (existingChatRoom) {
       navigation.navigate("Chat", { id: existingChatRoom.id });
       return;
     }
-    //
-    // const newChatRoomData = await createChatRoomMutation({
-    //   variables: {
-    //     input: {},
-    //   },
-    // });
-    // if (!newChatRoomData.data?.createChatRoom) {
-    //   console.log("Room already exists");
-    // }
-    // const newChatRoom = newChatRoomData.data?.createChatRoom;
-    // // console.log(newChatRoom);
-    // // console.log(user.id);
-    // // console.log(currUser.id);
-    // await createUserChatRoomMutation({
-    //   variables: {
-    //     input: {
-    //       chatRoomId: newChatRoom.id,
-    //       userId: user.id,
-    //     },
-    //   },
-    // });
-    // const userChat = await createUserChatRoomMutation({
-    //   variables: {
-    //     input: {
-    //       chatRoomId: newChatRoom.id,
-    //       userId: currUser.id,
-    //     },
-    //   },
-    // });
-    // console.log(userChat);
-    // navigation.navigate("Chat", { id: newChatRoom.id });
+
+    const newChatRoomData = await createChatRoomMutation({
+      variables: {
+        input: {},
+      },
+    });
+    if (!newChatRoomData.data?.createChatRoom) {
+      console.log("Room already exists");
+    }
+    const newChatRoom = newChatRoomData.data?.createChatRoom;
+    // console.log(newChatRoom);
+    // console.log(user.id);
+    // console.log(currUser.id);
+    await createUserChatRoomMutation({
+      variables: {
+        input: {
+          chatRoomId: newChatRoom.id,
+          userId: user.id,
+        },
+      },
+    });
+    const userChat = await createUserChatRoomMutation({
+      variables: {
+        input: {
+          chatRoomId: newChatRoom.id,
+          userId: currUser.id,
+        },
+      },
+    });
+    console.log(userChat);
+    navigation.navigate("Chat", { id: newChatRoom.id });
   };
 
   return (
