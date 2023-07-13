@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginHorizontal: 10,
     marginVertical: 5,
-    height: 70,
+    height: 80,
   },
   image: {
     width: 60,
