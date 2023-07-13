@@ -20,7 +20,7 @@ const PeopleMatches = () => {
   const LIST_CHAT_ROOMS = gql(listChatRooms);
   const { data } = useQuery(LIST_CHAT_ROOMS, {
     variables: {
-      id: currUser.id,
+      id: currUser?.id,
     },
   });
 

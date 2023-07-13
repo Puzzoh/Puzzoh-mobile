@@ -474,9 +474,9 @@ export const listUsers = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        _version
+        # _version
         _deleted
-        _lastChangedAt
+        # _lastChangedAt
         __typename
       }
       nextToken
