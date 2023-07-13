@@ -8,14 +8,18 @@ export const onCreateChatRoom = /* GraphQL */ `
       Messages {
         items {
           id
-          Text
+          text
           chatroomID
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       users {
@@ -25,22 +29,32 @@ export const onCreateChatRoom = /* GraphQL */ `
           userId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       LastMessage {
         id
-        Text
+        text
         chatroomID
         userID
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       chatRoomLastMessageId
       __typename
     }
@@ -53,14 +67,18 @@ export const onUpdateChatRoom = /* GraphQL */ `
       Messages {
         items {
           id
-          Text
+          text
           chatroomID
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       users {
@@ -70,22 +88,32 @@ export const onUpdateChatRoom = /* GraphQL */ `
           userId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       LastMessage {
         id
-        Text
+        text
         chatroomID
         userID
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       chatRoomLastMessageId
       __typename
     }
@@ -98,14 +126,18 @@ export const onDeleteChatRoom = /* GraphQL */ `
       Messages {
         items {
           id
-          Text
+          text
           chatroomID
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       users {
@@ -115,22 +147,32 @@ export const onDeleteChatRoom = /* GraphQL */ `
           userId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       LastMessage {
         id
-        Text
+        text
         chatroomID
         userID
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       chatRoomLastMessageId
       __typename
     }
@@ -140,11 +182,14 @@ export const onCreateMessage = /* GraphQL */ `
   subscription OnCreateMessage($filter: ModelSubscriptionMessageFilterInput) {
     onCreateMessage(filter: $filter) {
       id
-      Text
+      text
       chatroomID
       userID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
@@ -153,11 +198,14 @@ export const onUpdateMessage = /* GraphQL */ `
   subscription OnUpdateMessage($filter: ModelSubscriptionMessageFilterInput) {
     onUpdateMessage(filter: $filter) {
       id
-      Text
+      text
       chatroomID
       userID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
@@ -166,11 +214,14 @@ export const onDeleteMessage = /* GraphQL */ `
   subscription OnDeleteMessage($filter: ModelSubscriptionMessageFilterInput) {
     onDeleteMessage(filter: $filter) {
       id
-      Text
+      text
       chatroomID
       userID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
@@ -220,10 +271,16 @@ export const onCreateUser = /* GraphQL */ `
           location
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         vendorVouchersId
         __typename
       }
@@ -235,23 +292,31 @@ export const onCreateUser = /* GraphQL */ `
           isMatch
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           userMatchesId
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       Messages {
         items {
           id
-          Text
+          text
           chatroomID
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       ChatRooms {
@@ -261,13 +326,20 @@ export const onCreateUser = /* GraphQL */ `
           userId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
@@ -317,10 +389,16 @@ export const onUpdateUser = /* GraphQL */ `
           location
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         vendorVouchersId
         __typename
       }
@@ -332,23 +410,31 @@ export const onUpdateUser = /* GraphQL */ `
           isMatch
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           userMatchesId
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       Messages {
         items {
           id
-          Text
+          text
           chatroomID
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       ChatRooms {
@@ -358,13 +444,20 @@ export const onUpdateUser = /* GraphQL */ `
           userId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
@@ -414,10 +507,16 @@ export const onDeleteUser = /* GraphQL */ `
           location
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         vendorVouchersId
         __typename
       }
@@ -429,23 +528,31 @@ export const onDeleteUser = /* GraphQL */ `
           isMatch
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           userMatchesId
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       Messages {
         items {
           id
-          Text
+          text
           chatroomID
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       ChatRooms {
@@ -455,13 +562,20 @@ export const onDeleteUser = /* GraphQL */ `
           userId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
@@ -494,14 +608,21 @@ export const onCreateVendor = /* GraphQL */ `
           location
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           vendorVouchersId
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
@@ -534,14 +655,21 @@ export const onUpdateVendor = /* GraphQL */ `
           location
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           vendorVouchersId
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
@@ -574,14 +702,21 @@ export const onDeleteVendor = /* GraphQL */ `
           location
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           vendorVouchersId
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
@@ -613,14 +748,21 @@ export const onCreateVoucher = /* GraphQL */ `
         location
         vouchers {
           nextToken
+          startedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       vendorVouchersId
       __typename
     }
@@ -653,14 +795,21 @@ export const onUpdateVoucher = /* GraphQL */ `
         location
         vouchers {
           nextToken
+          startedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       vendorVouchersId
       __typename
     }
@@ -693,14 +842,21 @@ export const onDeleteVoucher = /* GraphQL */ `
         location
         vouchers {
           nextToken
+          startedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       vendorVouchersId
       __typename
     }
@@ -745,23 +901,32 @@ export const onCreateMatch = /* GraphQL */ `
           location
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           vendorVouchersId
           __typename
         }
         matches {
           nextToken
+          startedAt
           __typename
         }
         Messages {
           nextToken
+          startedAt
           __typename
         }
         ChatRooms {
           nextToken
+          startedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       user2 {
@@ -796,27 +961,39 @@ export const onCreateMatch = /* GraphQL */ `
           location
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           vendorVouchersId
           __typename
         }
         matches {
           nextToken
+          startedAt
           __typename
         }
         Messages {
           nextToken
+          startedAt
           __typename
         }
         ChatRooms {
           nextToken
+          startedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       userMatchesId
       __typename
     }
@@ -861,23 +1038,32 @@ export const onUpdateMatch = /* GraphQL */ `
           location
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           vendorVouchersId
           __typename
         }
         matches {
           nextToken
+          startedAt
           __typename
         }
         Messages {
           nextToken
+          startedAt
           __typename
         }
         ChatRooms {
           nextToken
+          startedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       user2 {
@@ -912,27 +1098,39 @@ export const onUpdateMatch = /* GraphQL */ `
           location
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           vendorVouchersId
           __typename
         }
         matches {
           nextToken
+          startedAt
           __typename
         }
         Messages {
           nextToken
+          startedAt
           __typename
         }
         ChatRooms {
           nextToken
+          startedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       userMatchesId
       __typename
     }
@@ -977,23 +1175,32 @@ export const onDeleteMatch = /* GraphQL */ `
           location
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           vendorVouchersId
           __typename
         }
         matches {
           nextToken
+          startedAt
           __typename
         }
         Messages {
           nextToken
+          startedAt
           __typename
         }
         ChatRooms {
           nextToken
+          startedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       user2 {
@@ -1028,27 +1235,39 @@ export const onDeleteMatch = /* GraphQL */ `
           location
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           vendorVouchersId
           __typename
         }
         matches {
           nextToken
+          startedAt
           __typename
         }
         Messages {
           nextToken
+          startedAt
           __typename
         }
         ChatRooms {
           nextToken
+          startedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       userMatchesId
       __typename
     }
@@ -1066,23 +1285,31 @@ export const onCreateUserChatRoom = /* GraphQL */ `
         id
         Messages {
           nextToken
+          startedAt
           __typename
         }
         users {
           nextToken
+          startedAt
           __typename
         }
         LastMessage {
           id
-          Text
+          text
           chatroomID
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         chatRoomLastMessageId
         __typename
       }
@@ -1118,27 +1345,39 @@ export const onCreateUserChatRoom = /* GraphQL */ `
           location
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           vendorVouchersId
           __typename
         }
         matches {
           nextToken
+          startedAt
           __typename
         }
         Messages {
           nextToken
+          startedAt
           __typename
         }
         ChatRooms {
           nextToken
+          startedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
@@ -1155,23 +1394,31 @@ export const onUpdateUserChatRoom = /* GraphQL */ `
         id
         Messages {
           nextToken
+          startedAt
           __typename
         }
         users {
           nextToken
+          startedAt
           __typename
         }
         LastMessage {
           id
-          Text
+          text
           chatroomID
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         chatRoomLastMessageId
         __typename
       }
@@ -1207,27 +1454,39 @@ export const onUpdateUserChatRoom = /* GraphQL */ `
           location
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           vendorVouchersId
           __typename
         }
         matches {
           nextToken
+          startedAt
           __typename
         }
         Messages {
           nextToken
+          startedAt
           __typename
         }
         ChatRooms {
           nextToken
+          startedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }
@@ -1244,23 +1503,31 @@ export const onDeleteUserChatRoom = /* GraphQL */ `
         id
         Messages {
           nextToken
+          startedAt
           __typename
         }
         users {
           nextToken
+          startedAt
           __typename
         }
         LastMessage {
           id
-          Text
+          text
           chatroomID
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         chatRoomLastMessageId
         __typename
       }
@@ -1296,27 +1563,39 @@ export const onDeleteUserChatRoom = /* GraphQL */ `
           location
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           vendorVouchersId
           __typename
         }
         matches {
           nextToken
+          startedAt
           __typename
         }
         Messages {
           nextToken
+          startedAt
           __typename
         }
         ChatRooms {
           nextToken
+          startedAt
           __typename
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         __typename
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       __typename
     }
   }

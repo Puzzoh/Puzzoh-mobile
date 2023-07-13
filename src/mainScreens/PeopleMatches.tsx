@@ -14,35 +14,6 @@ import MatchesList from "../components/MatchesList";
 import ChatListItem from "../components/ChatListItem";
 import UserContext from "../context/UserContext";
 
-const listChatRooms = /* GraphQL */ `
-  query GetUser($id: ID!) {
-    getUser(id: $id) {
-      id
-      ChatRooms {
-        items {
-          chatRoom {
-            id
-            users {
-              items {
-                user {
-                  id
-                  username
-                  imageURL
-                }
-              }
-            }
-            LastMessage {
-              id
-              createdAt
-              Text
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
 const PeopleMatches = () => {
   const currUser = useContext(UserContext);
 
@@ -62,7 +33,6 @@ const PeopleMatches = () => {
         <Text style={[styles.heading3]}>Your Chat Rooms</Text>
         <FlatList
           data={chatRooms}
-          // keyExtractor={(item) => item.id.toString()}
           renderItem={({ item, index }) => (
             <ChatListItem chat={item} key={index} />
           )}
@@ -71,6 +41,35 @@ const PeopleMatches = () => {
     </SafeAreaView>
   );
 };
+
+export const listChatRooms = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      ChatRooms {
+        items {
+          chatRoom {
+            id
+            users {
+              items {
+                user {
+                  id
+                  username
+                  imageURL
+                }
+              }
+            }
+            LastMessage {
+              id
+              createdAt
+              text
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
 const { height } = Dimensions.get("window");
 

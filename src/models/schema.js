@@ -119,8 +119,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "Text": {
-                    "name": "Text",
+                "text": {
+                    "name": "text",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -965,5 +965,5 @@ export const schema = {
     },
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "e5a18959ac781fe6094fc176dd1771e3"
+    "version": "af56a5becff2574cb37bce756b0dde63"
 };
