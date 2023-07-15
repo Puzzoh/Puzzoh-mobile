@@ -1,27 +1,46 @@
 import { Text, View, Image, StyleSheet, Pressable } from "react-native";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { Auth } from "aws-amplify";
 
 dayjs.extend(relativeTime);
 
 const ChatListItem = ({ chat }) => {
   const navigation = useNavigation();
 
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchOtherUser = async () => {
+      const currUser = await Auth.currentAuthenticatedUser();
+
+      const userItem = chat.chatRoom.users.items.find(
+        (item) => item.user.id != currUser.attributes.sub
+      );
+      setUser(userItem?.user);
+    };
+
+    fetchOtherUser();
+  }, []);
+
   return (
     <Pressable
       onPress={() =>
-        navigation.navigate("Chat", { id: chat.id, name: chat.user?.username })
+        navigation.navigate("Chat", {
+          chatroomID: chat.chatRoom.id,
+          name: user?.username,
+        })
       }
       style={styles.container}
     >
-      <Image source={{ uri: chat.user?.image }} style={styles.image} />
+      <Image source={{ uri: user?.imageURL }} style={styles.image} />
 
       <View style={styles.content}>
         <View style={styles.row}>
           <Text style={styles.name} numberOfLines={1}>
-            {chat.user?.name}
+            {user?.username}
           </Text>
           <Text style={styles.subTitle}>
             {dayjs(chat.lastMessage?.createdAt).fromNow(true)}

@@ -24,7 +24,7 @@ const MatchesListItem = ({ user }) => {
     const existingChatRoom = await getCommonChatRoomWithUser(user.id);
 
     if (existingChatRoom) {
-      navigation.navigate("Chat", { id: existingChatRoom.id });
+      navigation.navigate("Chat", { chatroomID: existingChatRoom.id });
       return;
     }
 
@@ -57,7 +57,7 @@ const MatchesListItem = ({ user }) => {
       },
     });
     console.log(userChat);
-    navigation.navigate("Chat", { id: newChatRoom.id });
+    navigation.navigate("Chat", { chatroomID: newChatRoom.id });
   };
 
   return (
