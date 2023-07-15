@@ -1,75 +1,72 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import styles, { colors } from "../styles/index";
 import { GiftedChat } from "react-native-gifted-chat";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { getChatRoom } from "../graphql/queries";
 import { createMessage, updateChatRoom } from "../graphql/mutations";
-import { Auth } from "aws-amplify";
+import UserContext from "../context/UserContext";
 
 export default function Chat({ navigation, route }) {
   const chatroomID = route?.params?.chatroomID;
 
+  const currUser = useContext(UserContext);
+
+  const [messages, setMessages] = useState([]);
+  const [chatroom, setChatroom] = useState(null);
+  const [text, setText] = useState("");
+
   const GET_CHATROOM_INFO = gql(getChatRoom);
-  const { data } = useQuery(GET_CHATROOM_INFO, {
+  const { loading, error, data } = useQuery(GET_CHATROOM_INFO, {
     variables: {
       id: chatroomID,
     },
   });
 
-  const [chatroom, setChatroom] = useState(null);
+  useEffect(() => {
+    if (loading) {
+      navigation.setOptions({ title: "Loading..." });
+    } else if (data && data.getChatRoom) {
+      navigation.setOptions({ title: route.params.name });
+    }
+  }, [data, loading, route.params.name]);
+
+  useEffect(() => {
+    if (data) {
+      let giftedChatMessages = data.getChatRoom?.Messages?.items?.map(
+        (chatMessage) => {
+          let gcm = {
+            _id: chatMessage.id,
+            text: chatMessage.text,
+            createdAt: chatMessage.createdAt,
+            user: {
+              _id: chatMessage.userID,
+            },
+          };
+          return gcm;
+        }
+      );
+      setMessages(giftedChatMessages);
+    }
+  }, [data]);
+
+  // console.log(data?.getChatRoom.users);
+
   const UPDATE_CHATROOM = gql(updateChatRoom);
   const [updateChatroomMutation] = useMutation(UPDATE_CHATROOM);
 
-  const [text, setText] = useState("");
-
   const CREATE_MESSAGE = gql(createMessage);
   const [createMessageMutation] = useMutation(CREATE_MESSAGE);
-
-  const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-    loadChatMessages();
-    setChatroom(data?.getChatRoom);
-  }, []);
 
   useEffect(() => {
     navigation.setOptions({ title: route.params.name });
   }, [route.params.name]);
 
-  const loadChatMessages = () => {
-    const chatMessages = [
-      {
-        _id: 1,
-        text: "Hello!",
-        createdAt: new Date(),
-        user: {
-          _id: 1,
-          name: "John Doe",
-        },
-      },
-      {
-        _id: 2,
-        text: "Hi there!",
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: route.params.name,
-        },
-      },
-    ];
-
-    // const chatMessages = data?.getChatRoom.Messages.items;
-    setMessages(chatMessages);
-  };
-
   const onSend = async (message) => {
-    const currUser = await Auth.currentAuthenticatedUser();
-
     const newMessage = {
       text,
       chatroomID,
-      userID: currUser.attributes.sub,
+      userID: currUser.id,
     };
 
     const newMessageData = await createMessageMutation({
@@ -100,7 +97,7 @@ export default function Chat({ navigation, route }) {
           messages={messages}
           onSend={onSend}
           user={{
-            _id: 1,
+            _id: currUser.id,
           }}
           onInputTextChanged={setText}
         />

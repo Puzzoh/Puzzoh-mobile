@@ -24,7 +24,10 @@ const MatchesListItem = ({ user }) => {
     const existingChatRoom = await getCommonChatRoomWithUser(user.id);
 
     if (existingChatRoom) {
-      navigation.navigate("Chat", { chatroomID: existingChatRoom.id });
+      navigation.navigate("Chat", {
+        chatroomID: existingChatRoom.id,
+        name: user?.username,
+      });
       return;
     }
 
@@ -37,9 +40,7 @@ const MatchesListItem = ({ user }) => {
       console.log("Room already exists");
     }
     const newChatRoom = newChatRoomData.data?.createChatRoom;
-    // console.log(newChatRoom);
-    // console.log(user.id);
-    // console.log(currUser.id);
+
     await createUserChatRoomMutation({
       variables: {
         input: {
@@ -48,6 +49,7 @@ const MatchesListItem = ({ user }) => {
         },
       },
     });
+
     const userChat = await createUserChatRoomMutation({
       variables: {
         input: {
@@ -56,8 +58,11 @@ const MatchesListItem = ({ user }) => {
         },
       },
     });
-    console.log(userChat);
-    navigation.navigate("Chat", { chatroomID: newChatRoom.id });
+
+    navigation.navigate("Chat", {
+      chatroomID: newChatRoom.id,
+      name: user?.username,
+    });
   };
 
   return (
