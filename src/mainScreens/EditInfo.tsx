@@ -45,11 +45,11 @@ const EditInfo = ({ navigation, route }) => {
     }
   };
 
-  const [username, setUsername] = useState(user.username);
-  const [pronounce, setPronounce] = useState(user.pronounce);
-  const [bio, setBio] = useState(user.bio);
-  const [purpose, setPurpose] = useState(user.purpose);
-  const [gender, setGender] = useState(user.gender);
+  const [username, setUsername] = useState(user?.username);
+  const [pronounce, setPronounce] = useState(user?.pronounce);
+  const [bio, setBio] = useState(user?.bio);
+  const [purpose, setPurpose] = useState(user?.purpose);
+  const [gender, setGender] = useState(user?.gender);
   const [interestOptions, setInterestOptions] = useState(Array(12).fill(false));
   const [foodPrefOptions, setFoodPrefOptions] = useState(Array(12).fill(false));
   const [selectedInterest, setSelectedInterest] = useState([]);

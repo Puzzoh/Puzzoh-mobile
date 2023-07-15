@@ -7,10 +7,8 @@ import { gql, useQuery } from "@apollo/client";
 const MatchesList = () => {
   const GET_PEOPLE_MATCHES = gql(listUsers);
 
-  const { data } = useQuery(GET_PEOPLE_MATCHES);
+  const { error, data } = useQuery(GET_PEOPLE_MATCHES);
   const people = data?.listUsers?.items;
-
-  // console.log(people);
 
   return (
     <FlatList
