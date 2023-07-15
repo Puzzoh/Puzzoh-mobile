@@ -4,7 +4,7 @@ import styles, { colors } from "../styles/index";
 import { GiftedChat } from "react-native-gifted-chat";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { getChatRoom } from "../graphql/queries";
-import { createMessage } from "../graphql/mutations";
+import { createMessage, updateChatRoom } from "../graphql/mutations";
 import { Auth } from "aws-amplify";
 
 export default function Chat({ navigation, route }) {
@@ -17,7 +17,9 @@ export default function Chat({ navigation, route }) {
     },
   });
 
-  const [chatRoom, setChatRoom] = useState(null);
+  const [chatroom, setChatroom] = useState(null);
+  const UPDATE_CHATROOM = gql(updateChatRoom);
+  const [updateChatroomMutation] = useMutation(UPDATE_CHATROOM);
 
   const [text, setText] = useState("");
 
@@ -28,6 +30,7 @@ export default function Chat({ navigation, route }) {
 
   useEffect(() => {
     loadChatMessages();
+    setChatroom(data?.getChatRoom);
   }, []);
 
   useEffect(() => {
@@ -35,28 +38,28 @@ export default function Chat({ navigation, route }) {
   }, [route.params.name]);
 
   const loadChatMessages = () => {
-    // const chatMessages = [
-    //   {
-    //     _id: 1,
-    //     text: "Hello!",
-    //     createdAt: new Date(),
-    //     user: {
-    //       _id: 1,
-    //       name: "John Doe",
-    //     },
-    //   },
-    //   {
-    //     _id: 2,
-    //     text: "Hi there!",
-    //     createdAt: new Date(),
-    //     user: {
-    //       _id: 2,
-    //       name: route.params.name,
-    //     },
-    //   },
-    // ];
+    const chatMessages = [
+      {
+        _id: 1,
+        text: "Hello!",
+        createdAt: new Date(),
+        user: {
+          _id: 1,
+          name: "John Doe",
+        },
+      },
+      {
+        _id: 2,
+        text: "Hi there!",
+        createdAt: new Date(),
+        user: {
+          _id: 2,
+          name: route.params.name,
+        },
+      },
+    ];
 
-    const chatMessages = data?.getChatRoom.Messages.items;
+    // const chatMessages = data?.getChatRoom.Messages.items;
     setMessages(chatMessages);
   };
 
@@ -69,13 +72,23 @@ export default function Chat({ navigation, route }) {
       userID: currUser.attributes.sub,
     };
 
-    await createMessageMutation({
+    const newMessageData = await createMessageMutation({
       variables: {
         input: newMessage,
       },
     });
 
-    setText("");
+    await updateChatroomMutation({
+      variables: {
+        input: {
+          _version: chatroom._version,
+          chatRoomLastMessageId: newMessageData.data.createMessage.id,
+          id: chatroomID,
+        },
+      },
+    });
+
+    await setText("");
 
     setMessages((prevMessages) => GiftedChat.append(prevMessages, message));
   };
