@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image, Animated } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import dayjs from "dayjs";
+import Swipeable from 'react-native-swipeable';
 import relativeTime from "dayjs/plugin/relativeTime";
 import styles, { colors } from "../styles/index";
 dayjs.extend(relativeTime);
@@ -33,39 +34,56 @@ export default function NotificationScreen({ navigation }) {
     },
   ]);
 
-  const renderNotification = ({ item }) => (
-    <TouchableOpacity style={NotiStyles.notificationItem}>
+  const renderNotification = ({ item }) => {
+    const deleteNotification = (id) => {
+      setNotifications((prevNotifications) =>
+        prevNotifications.filter((notification) => notification.id !== id)
+      );
+    };
+
+    const renderRightActions = (_, dragX) => {
+      const scale = dragX.interpolate({
+        inputRange: [-100, 0],
+        outputRange: [1, 0],
+        extrapolate: "clamp",
+      });
+
+      return (
+        <TouchableOpacity
+          style={[NotiStyles.rightAction, { backgroundColor: colors.primary }]}
+          onPress={() => deleteNotification(item.id)}
+        >
+          <Animated.Text style={[styles.bodyText2, { transform: [{ scale }] }]}>
+            Delete
+          </Animated.Text>
+        </TouchableOpacity>
+      );
+    };
+
+
+    const rightButtons = [
       <TouchableOpacity
-        style={NotiStyles.deleteButton}
+        style={[NotiStyles.deleteButton, { backgroundColor: colors.primary }]}
         onPress={() => deleteNotification(item.id)}
       >
-        <MaterialCommunityIcons
-          name="trash-can"
-          size={24}
-          color={colors.primary}
-        />
-      </TouchableOpacity>
-      <Image source={{ uri: item.image }} style={NotiStyles.notificationImage} />
-      <View>
+      </TouchableOpacity>,
+    ];
+
+    return (
+      <Swipeable rightButtons={rightButtons} onRightButtonsOpenRelease={() => deleteNotification(item.id)}>
+        <TouchableOpacity style={NotiStyles.notificationItem}>
+        </TouchableOpacity>
+        <Image source={{ uri: item.image }} style={NotiStyles.notificationImage} />
         <View style={NotiStyles.row}>
           <Text style={NotiStyles.notificationTitle}>{`Noti ${item.id}`}</Text>
           <Text style={NotiStyles.subTitle}>
             {dayjs(item.time).fromNow(true)}
           </Text></View>
         <Text style={NotiStyles.subTitle} numberOfLines={2}>{item.message}</Text>
-      </View>
-    </TouchableOpacity>
-  );
-
-  const deleteNotification = (id) => {
-    setNotifications((prevNotifications) =>
-      prevNotifications.filter((notification) => notification.id !== id)
+      </Swipeable>
     );
   };
 
-  const handleSave = async () => {
-    navigation.navigate("Home");
-  };
 
   return (
     <View style={NotiStyles.container}>
@@ -91,33 +109,21 @@ const NotiStyles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingVertical: 24,
+    paddingVertical: 20,
     backgroundColor: "#fff",
-  },
-  backButton: {
-    position: "absolute",
-    top: 40,
-    left: 16,
-    zIndex: 10,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 8,
   },
   content: {
     alignItems: "center",
   },
   notificationList: {
     flexGrow: 1,
-    paddingBottom: 20,
   },
   notificationItem: {
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 8,
     paddingHorizontal: 10,
-    height: 80,
+    height: 40,
   },
   notificationImage: {
     width: 50,
@@ -142,6 +148,11 @@ const NotiStyles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    marginBottom: 4,
-  }
+  },
+  rightAction: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "flex-end",
+    paddingHorizontal: 20,
+  },
 });
