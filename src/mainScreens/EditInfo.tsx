@@ -16,6 +16,9 @@ import Checkbox from "expo-checkbox";
 import { gql, useMutation } from "@apollo/client";
 import { updateUser } from "../graphql/mutations";
 
+const selectedFood = ["Vegan", "Chinese", "Mexican"];
+const Interestselect = ["Sports", "Photo", "Cooking"];
+
 const EditInfo = ({ navigation, route }) => {
   const UPDATE_USER = gql(updateUser);
   const [updateUserMutation] = useMutation(UPDATE_USER);
@@ -45,11 +48,11 @@ const EditInfo = ({ navigation, route }) => {
     }
   };
 
-  const [username, setUsername] = useState(user?.username);
-  const [pronounce, setPronounce] = useState(user?.pronounce);
-  const [bio, setBio] = useState(user?.bio);
-  const [purpose, setPurpose] = useState(user?.purpose);
-  const [gender, setGender] = useState(user?.gender);
+  const [username, setUsername] = useState(user.username);
+  const [pronounce, setPronounce] = useState(user.pronounce);
+  const [bio, setBio] = useState(user.bio);
+  const [purpose, setPurpose] = useState(user.purpose);
+  const [gender, setGender] = useState(user.gender);
   const [interestOptions, setInterestOptions] = useState(Array(12).fill(false));
   const [foodPrefOptions, setFoodPrefOptions] = useState(Array(12).fill(false));
   const [selectedInterest, setSelectedInterest] = useState([]);
@@ -66,12 +69,12 @@ const EditInfo = ({ navigation, route }) => {
 
     setInterestOptions(newSelected);
 
-    if (selectedInterest.includes(interestValue)) {
+    if (selectedInterest.some((interest) => interest.name === interestValue)) {
       setSelectedInterest(
-        selectedInterest.filter((element) => element !== interestValue)
+        selectedInterest.filter((element) => element.name !== interestValue)
       );
     } else {
-      setSelectedInterest([...selectedInterest, interestValue]);
+      setSelectedInterest([...selectedInterest, { name: interestValue }]);
     }
   };
 
@@ -274,12 +277,17 @@ const EditInfo = ({ navigation, route }) => {
                 .slice(rowStartIndex, rowStartIndex + 2)
                 .map((interest, idx) => {
                   const interestIndex = rowStartIndex + idx;
+                  const isDummyInterestSelected = Interestselect.includes(
+                    interest.name
+                  );
                   return (
                     <TouchableOpacity
                       key={interestIndex}
                       style={[
                         nStyles.button,
-                        interestOptions[interestIndex] ? styles.selected : null,
+                        isDummyInterestSelected
+                          ? { backgroundColor: colors.primary }
+                          : null,
                         nStyles.interest,
                       ]}
                       onPress={() =>
@@ -290,14 +298,6 @@ const EditInfo = ({ navigation, route }) => {
                         !interestOptions[interestIndex]
                       }
                     >
-                      <Ionicons
-                        name={interest.icon}
-                        size={24}
-                        color={
-                          interestOptions[interestIndex] ? "white" : "black"
-                        }
-                        style={{ marginRight: 5 }}
-                      />
                       <Text
                         style={[
                           styles.optionText,
@@ -306,9 +306,7 @@ const EditInfo = ({ navigation, route }) => {
                             paddingLeft: 10,
                             paddingRight: 10,
                           },
-                          interestOptions[interestIndex]
-                            ? { color: "white" }
-                            : null,
+                          isDummyInterestSelected ? { color: "white" } : null,
                         ]}
                       >
                         {interest.name}
@@ -328,22 +326,26 @@ const EditInfo = ({ navigation, route }) => {
             <View style={nStyles.row} key={rowStartIndex}>
               {foodPref
                 .slice(rowStartIndex, rowStartIndex + 2)
-                .map((foodPref, idx) => {
+                .map((foodPrefOption, idx) => {
                   const foodPrefIndex = rowStartIndex + idx;
+                  const isFoodSelected = selectedFood.includes(foodPrefOption);
+
                   return (
                     <TouchableOpacity
                       key={foodPrefIndex}
                       style={[
                         nStyles.button,
-                        foodPrefOptions[foodPrefIndex] ? styles.selected : null,
+                        isFoodSelected
+                          ? { backgroundColor: colors.primary }
+                          : null,
                         nStyles.interest,
                       ]}
                       onPress={() =>
-                        handlePressFoodPref(foodPrefIndex, foodPref)
+                        handlePressFoodPref(foodPrefIndex, foodPrefOption)
                       }
                       disabled={
                         foodPrefOptions.filter(Boolean).length === 3 &&
-                        !foodPrefOptions[foodPrefIndex]
+                        !isFoodSelected
                       }
                     >
                       <Text
@@ -354,12 +356,10 @@ const EditInfo = ({ navigation, route }) => {
                             paddingLeft: 10,
                             paddingRight: 10,
                           },
-                          foodPrefOptions[foodPrefIndex]
-                            ? { color: "white" }
-                            : null,
+                          isFoodSelected ? { color: "white" } : null,
                         ]}
                       >
-                        {foodPref}
+                        {foodPrefOption}
                       </Text>
                     </TouchableOpacity>
                   );
@@ -367,6 +367,7 @@ const EditInfo = ({ navigation, route }) => {
             </View>
           ))}
         </View>
+
         <View style={nStyles.inputContainer}>
           <Text style={styles.heading5}>LOCATION</Text>
           <GooglePlacesAutocomplete
