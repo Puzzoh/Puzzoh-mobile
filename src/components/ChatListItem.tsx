@@ -23,6 +23,8 @@ const ChatListItem = ({ chat }) => {
     };
 
     fetchOtherUser();
+
+    console.log(chat.chatRoom);
   }, []);
 
   return (
@@ -48,7 +50,7 @@ const ChatListItem = ({ chat }) => {
         </View>
 
         <Text numberOfLines={2} style={styles.subTitle}>
-          You: {chat.chatRoom.LastMessage?.text}
+          Last message: {chat.chatRoom.LastMessage?.text}
         </Text>
       </View>
     </Pressable>

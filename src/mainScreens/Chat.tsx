@@ -8,9 +8,10 @@ import {
 } from "react-native";
 import styles, { colors } from "../styles/index";
 import { GiftedChat } from "react-native-gifted-chat";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery, useSubscription } from "@apollo/client";
 import { getChatRoom, listMessagesByChatRoom } from "../graphql/queries";
 import { createMessage, updateChatRoom } from "../graphql/mutations";
+import { onCreateMessage } from "../graphql/subscriptions";
 import UserContext from "../context/UserContext";
 
 export default function Chat({ navigation, route }) {
@@ -23,17 +24,21 @@ export default function Chat({ navigation, route }) {
   const [text, setText] = useState("");
 
   const GET_CHATROOM_INFO = gql(getChatRoom);
-  const { loading, error, data } = useQuery(GET_CHATROOM_INFO, {
-    variables: {
-      id: chatroomID,
-    },
-  });
+  const { loading: chatroomLoading, data: chatroomData } = useQuery(
+    GET_CHATROOM_INFO,
+    {
+      variables: {
+        id: chatroomID,
+      },
+    }
+  );
 
   const LIST_MESSAGES = gql(listMessagesByChatRoom);
   const {
     loading: messageLoading,
     error: messageError,
     data: messageData,
+    refetch: refetchMessages,
   } = useQuery(LIST_MESSAGES, {
     variables: {
       chatroomID,
@@ -41,28 +46,22 @@ export default function Chat({ navigation, route }) {
     },
   });
 
-  const UPDATE_CHATROOM = gql(updateChatRoom);
-  const [updateChatroomMutation] = useMutation(UPDATE_CHATROOM);
-
-  const CREATE_MESSAGE = gql(createMessage);
-  const [createMessageMutation] = useMutation(CREATE_MESSAGE);
+  const [updateChatroomMutation] = useMutation(gql(updateChatRoom));
+  const [createMessageMutation] = useMutation(gql(createMessage));
+  const { data: newMessageData } = useSubscription(gql(onCreateMessage));
 
   useEffect(() => {
-    if (loading) {
-      navigation.setOptions({ title: "Loading..." });
-    } else if (data && data.getChatRoom) {
-      setChatroom(data.getChatRoom);
+    if (chatroomData) {
+      setChatroom(chatroomData.getChatRoom);
     }
-  }, [data]);
+  }, [chatroomData]);
 
   useEffect(() => {
     navigation.setOptions({ title: route.params.name });
   }, [route.params.name]);
 
   useEffect(() => {
-    if (messageLoading) {
-      navigation.setOptions({ title: "Loading..." });
-    } else if (messageData) {
+    if (messageData) {
       let giftedChatMessages = messageData.listMessagesByChatRoom?.items.map(
         (chatMessage) => {
           let gcm = {
@@ -78,7 +77,24 @@ export default function Chat({ navigation, route }) {
       );
       setMessages(giftedChatMessages);
     }
-  }, [chatroomID]);
+  }, [messageData]);
+
+  useEffect(() => {
+    if (newMessageData) {
+      const newMessage = newMessageData.onCreateMessage;
+      const giftedChatMessage = {
+        _id: newMessage.id,
+        text: newMessage.text,
+        createdAt: newMessage.createdAt,
+        user: {
+          _id: newMessage.userID,
+        },
+      };
+      setMessages((prevMessages) =>
+        GiftedChat.append(prevMessages, [giftedChatMessage])
+      );
+    }
+  }, [newMessageData]);
 
   const onSend = async () => {
     const newMessage = {
@@ -104,7 +120,29 @@ export default function Chat({ navigation, route }) {
     });
 
     setText("");
+
+    // const giftedChatMessage = {
+    //   _id: newMessageData.data.createMessage.id,
+    //   text: newMessage.text,
+    //   createdAt: newMessageData.data.createMessage.createdAt,
+    //   user: {
+    //     _id: newMessage.userID,
+    //   },
+    // };
+
+    // setMessages((prevMessages) =>
+    //   GiftedChat.append(prevMessages, [giftedChatMessage])
+    // );
+    refetchMessages();
   };
+
+  if (chatroomLoading || messageLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
     <View style={chatStyle.container}>

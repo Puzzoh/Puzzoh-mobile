@@ -25,7 +25,7 @@ const MatchesListItem = ({ user }) => {
 
     if (existingChatRoom) {
       navigation.navigate("Chat", {
-        chatroomID: existingChatRoom.id,
+        chatroomID: existingChatRoom.chatRoom.id,
         name: user?.username,
       });
       return;
@@ -50,7 +50,7 @@ const MatchesListItem = ({ user }) => {
       },
     });
 
-    const userChat = await createUserChatRoomMutation({
+    await createUserChatRoomMutation({
       variables: {
         input: {
           chatRoomId: newChatRoom.id,

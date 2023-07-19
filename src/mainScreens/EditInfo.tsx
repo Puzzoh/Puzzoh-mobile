@@ -16,9 +16,6 @@ import Checkbox from "expo-checkbox";
 import { gql, useMutation } from "@apollo/client";
 import { updateUser } from "../graphql/mutations";
 
-const selectedFood = ["Vegan", "Chinese", "Mexican"];
-const Interestselect = ["Sports", "Photo", "Cooking"];
-
 const EditInfo = ({ navigation, route }) => {
   const UPDATE_USER = gql(updateUser);
   const [updateUserMutation] = useMutation(UPDATE_USER);
@@ -48,15 +45,15 @@ const EditInfo = ({ navigation, route }) => {
     }
   };
 
-  const [username, setUsername] = useState(user.username);
-  const [pronounce, setPronounce] = useState(user.pronounce);
-  const [bio, setBio] = useState(user.bio);
-  const [purpose, setPurpose] = useState(user.purpose);
-  const [gender, setGender] = useState(user.gender);
+  const [username, setUsername] = useState(user?.username);
+  const [pronounce, setPronounce] = useState(user?.pronounce);
+  const [bio, setBio] = useState(user?.bio);
+  const [purpose, setPurpose] = useState(user?.purpose);
+  const [gender, setGender] = useState(user?.gender);
   const [interestOptions, setInterestOptions] = useState(Array(12).fill(false));
   const [foodPrefOptions, setFoodPrefOptions] = useState(Array(12).fill(false));
-  const [selectedInterest, setSelectedInterest] = useState([]);
-  const [selectedFoodPref, setSelectedFoodPref] = useState([]);
+  const [selectedInterest, setSelectedInterest] = useState(user?.interest);
+  const [selectedFoodPref, setSelectedFoodPref] = useState(user?.foodPref);
   const [location, setLocation] = useState("");
 
   const handlePressInterest = (index, interestValue) => {
@@ -277,7 +274,7 @@ const EditInfo = ({ navigation, route }) => {
                 .slice(rowStartIndex, rowStartIndex + 2)
                 .map((interest, idx) => {
                   const interestIndex = rowStartIndex + idx;
-                  const isDummyInterestSelected = Interestselect.includes(
+                  const isDummyInterestSelected = selectedInterest.includes(
                     interest.name
                   );
                   return (
@@ -328,7 +325,8 @@ const EditInfo = ({ navigation, route }) => {
                 .slice(rowStartIndex, rowStartIndex + 2)
                 .map((foodPrefOption, idx) => {
                   const foodPrefIndex = rowStartIndex + idx;
-                  const isFoodSelected = selectedFood.includes(foodPrefOption);
+                  const isFoodSelected =
+                    selectedFoodPref.includes(foodPrefOption);
 
                   return (
                     <TouchableOpacity
