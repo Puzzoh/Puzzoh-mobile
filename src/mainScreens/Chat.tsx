@@ -1,46 +1,148 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState, useEffect, useContext } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import styles, { colors } from "../styles/index";
 import { GiftedChat } from "react-native-gifted-chat";
+import { gql, useMutation, useQuery, useSubscription } from "@apollo/client";
+import { getChatRoom, listMessagesByChatRoom } from "../graphql/queries";
+import { createMessage, updateChatRoom } from "../graphql/mutations";
+import { onCreateMessage } from "../graphql/subscriptions";
+import UserContext from "../context/UserContext";
 
-export default function Chat({ navigation, route, closeChat }) {
+export default function Chat({ navigation, route }) {
+  const chatroomID = route?.params?.chatroomID;
+
+  const currUser = useContext(UserContext);
+
   const [messages, setMessages] = useState([]);
+  const [chatroom, setChatroom] = useState(null);
+  const [text, setText] = useState("");
+
+  const GET_CHATROOM_INFO = gql(getChatRoom);
+  const { loading: chatroomLoading, data: chatroomData } = useQuery(
+    GET_CHATROOM_INFO,
+    {
+      variables: {
+        id: chatroomID,
+      },
+    }
+  );
+
+  const LIST_MESSAGES = gql(listMessagesByChatRoom);
+  const {
+    loading: messageLoading,
+    error: messageError,
+    data: messageData,
+    refetch: refetchMessages,
+  } = useQuery(LIST_MESSAGES, {
+    variables: {
+      chatroomID,
+      sortDirection: "DESC",
+    },
+  });
+
+  const [updateChatroomMutation] = useMutation(gql(updateChatRoom));
+  const [createMessageMutation] = useMutation(gql(createMessage));
+  const { data: newMessageData } = useSubscription(gql(onCreateMessage));
 
   useEffect(() => {
-    loadChatMessages();
-  }, []);
+    if (chatroomData) {
+      setChatroom(chatroomData.getChatRoom);
+    }
+  }, [chatroomData]);
 
   useEffect(() => {
     navigation.setOptions({ title: route.params.name });
   }, [route.params.name]);
 
-  const loadChatMessages = () => {
-    const chatMessages = [
-      {
-        _id: 1,
-        text: "Hello!",
-        createdAt: new Date(),
+  useEffect(() => {
+    if (messageData) {
+      let giftedChatMessages = messageData.listMessagesByChatRoom?.items.map(
+        (chatMessage) => {
+          let gcm = {
+            _id: chatMessage.id,
+            text: chatMessage.text,
+            createdAt: chatMessage.createdAt,
+            user: {
+              _id: chatMessage.userID,
+            },
+          };
+          return gcm;
+        }
+      );
+      setMessages(giftedChatMessages);
+    }
+  }, [messageData]);
+
+  useEffect(() => {
+    if (newMessageData) {
+      const newMessage = newMessageData.onCreateMessage;
+      const giftedChatMessage = {
+        _id: newMessage.id,
+        text: newMessage.text,
+        createdAt: newMessage.createdAt,
         user: {
-          _id: 1,
-          name: "John Doe",
+          _id: newMessage.userID,
+        },
+      };
+      setMessages((prevMessages) =>
+        GiftedChat.append(prevMessages, [giftedChatMessage])
+      );
+    }
+  }, [newMessageData]);
+
+  const onSend = async () => {
+    const newMessage = {
+      text,
+      chatroomID,
+      userID: currUser.id,
+    };
+
+    const newMessageData = await createMessageMutation({
+      variables: {
+        input: newMessage,
+      },
+    });
+
+    await updateChatroomMutation({
+      variables: {
+        input: {
+          _version: chatroom._version,
+          chatRoomLastMessageId: newMessageData.data.createMessage.id,
+          id: chatroomID,
         },
       },
-      {
-        _id: 2,
-        text: "Hi there!",
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: route.params.name,
-        },
-      },
-    ];
-    setMessages(chatMessages);
+    });
+
+    setText("");
+
+    // const giftedChatMessage = {
+    //   _id: newMessageData.data.createMessage.id,
+    //   text: newMessage.text,
+    //   createdAt: newMessageData.data.createMessage.createdAt,
+    //   user: {
+    //     _id: newMessage.userID,
+    //   },
+    // };
+
+    // setMessages((prevMessages) =>
+    //   GiftedChat.append(prevMessages, [giftedChatMessage])
+    // );
+    refetchMessages();
   };
 
-  const onSend = (newMessages = []) => {
-    setMessages((prevMessages) => GiftedChat.append(prevMessages, newMessages));
-  };
+  if (chatroomLoading || messageLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
     <View style={chatStyle.container}>
@@ -49,8 +151,9 @@ export default function Chat({ navigation, route, closeChat }) {
           messages={messages}
           onSend={onSend}
           user={{
-            _id: 1,
+            _id: currUser.id,
           }}
+          onInputTextChanged={setText}
         />
       </View>
     </View>

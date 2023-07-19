@@ -179,16 +179,16 @@ const MainNavigator = () => {
             <Stack.Screen
               name="Notification"
               component={Notification}
-              options={{
-                headerRight: () => (
-                  <Entypo
-                    name="new-message"
-                    size={18}
-                    color={"royalblue"}
-                    style={{ marginRight: 15 }}
-                  />
-                ),
-              }}
+              // options={{
+              //   headerRight: () => (
+              //     <Entypo
+              //       name="new-message"
+              //       size={18}
+              //       color={"royalblue"}
+              //       style={{ marginRight: 15 }}
+              //     />
+              //   ),
+              // }}
             />
             <Stack.Screen name="Filter" component={Filter} />
             <Stack.Screen name="Chat" component={Chat} />

@@ -14,7 +14,7 @@ const configureApolloClient = () => {
     try {
       const currUser = await Auth.currentAuthenticatedUser();
       const accessToken = currUser.signInUserSession.accessToken.jwtToken;
-      // console.log(accessToken);
+
       return {
         headers: {
           ...headers,

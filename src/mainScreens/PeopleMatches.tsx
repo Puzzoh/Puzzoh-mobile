@@ -1,125 +1,75 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   SafeAreaView,
   Image,
-  TouchableOpacity,
   FlatList,
   Dimensions,
 } from "react-native";
-import Chat from "../mainScreens/Chat";
+import styles, { colors } from "../styles/index";
 import { gql, useQuery, useMutation } from "@apollo/client";
-import { listUsers } from "../graphql/queries";
+import MatchesList from "../components/MatchesList";
 import ChatListItem from "../components/ChatListItem";
-
-const GET_PEOPLE_MATCHES = gql(listUsers);
+import UserContext from "../context/UserContext";
 
 const PeopleMatches = () => {
-  const { data } = useQuery(GET_PEOPLE_MATCHES);
-  const people = data?.listUsers.items;
+  const currUser = useContext(UserContext);
 
-  const [selectedUser, setSelectedUser] = useState(null);
+  const LIST_CHAT_ROOMS = gql(listChatRooms);
+  const { data } = useQuery(LIST_CHAT_ROOMS, {
+    variables: {
+      id: currUser?.id,
+    },
+  });
 
-  const handleUserPress = (user) => {
-    setSelectedUser(user);
-  };
-
-  const handleClosePopup = () => {
-    setSelectedUser(null);
-  };
-
-  const chats = [
-    {
-      id: "1",
-      user: {
-        id: "u7",
-        name: "A",
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg",
-      },
-      lastMessage: {
-        id: "m6",
-        text: "I think I have a solution for tha.",
-        createdAt: Date.now(),
-      },
-    },
-    {
-      id: "2",
-      user: {
-        id: "u8",
-        name: "B",
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg",
-      },
-      lastMessage: {
-        id: "m7",
-        text: "How are you doing?",
-        createdAt: Date.now(),
-      },
-    },
-    {
-      id: "3",
-      user: {
-        id: "u9",
-        name: "C",
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg",
-      },
-      lastMessage: {
-        id: "m8",
-        text: "Dear, what did you eat, today?",
-        createdAt: "2023-05-27T15:40:00.000Z",
-      },
-    },
-    {
-      id: "4",
-      user: {
-        id: "u9",
-        name: "D",
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg",
-      },
-      lastMessage: {
-        id: "m8",
-        text: "What about our podcast?",
-        createdAt: "2022-09-27T15:40:00.000Z",
-      },
-    },
-    {
-      id: "5",
-      user: {
-        id: "u9",
-        name: "E",
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg",
-      },
-      lastMessage: {
-        id: "m8",
-        text: "Do I have to send you any more details?",
-        createdAt: "2021-09-27T15:40:00.000Z",
-      },
-    },
-  ];
+  const chatRooms = data?.getUser?.ChatRooms?.items;
 
   return (
     <SafeAreaView style={nStyles.root}>
       <View style={nStyles.container}>
+        <MatchesList />
+        <Text style={[styles.heading3]}>Your Chat Rooms</Text>
         <FlatList
-          data={chats}
-          // keyExtractor={(item) => item.id.toString()}
+          data={chatRooms}
           renderItem={({ item, index }) => (
             <ChatListItem chat={item} key={index} />
           )}
         />
       </View>
-      {selectedUser && (
-        <Chat user={selectedUser} closeChat={handleClosePopup} />
-      )}
     </SafeAreaView>
   );
 };
+
+export const listChatRooms = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      ChatRooms {
+        items {
+          chatRoom {
+            id
+            users {
+              items {
+                user {
+                  id
+                  username
+                  imageURL
+                }
+              }
+            }
+            LastMessage {
+              id
+              createdAt
+              text
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
 const { height } = Dimensions.get("window");
 

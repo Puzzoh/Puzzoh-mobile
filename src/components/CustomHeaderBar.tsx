@@ -45,7 +45,7 @@ export default function Header() {
                 style={{ textAlign: "center" }}
               />
             }
-            {<View style={headerStyles.badge} />}
+            {/* {<View style={headerStyles.badge} />} */}
           </View>
         </TouchableOpacity>
       </View>

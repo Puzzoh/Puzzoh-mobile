@@ -1,6 +1,204 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createChatRoom = /* GraphQL */ `
+  mutation CreateChatRoom(
+    $input: CreateChatRoomInput!
+    $condition: ModelChatRoomConditionInput
+  ) {
+    createChatRoom(input: $input, condition: $condition) {
+      id
+      name
+      imageURL
+      Messages {
+        items {
+          id
+          createdAt
+          text
+          chatroomID
+          userID
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      users {
+        items {
+          id
+          chatRoomId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      LastMessage {
+        id
+        createdAt
+        text
+        chatroomID
+        userID
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      chatRoomLastMessageId
+      __typename
+    }
+  }
+`;
+export const updateChatRoom = /* GraphQL */ `
+  mutation UpdateChatRoom(
+    $input: UpdateChatRoomInput!
+    $condition: ModelChatRoomConditionInput
+  ) {
+    updateChatRoom(input: $input, condition: $condition) {
+      id
+      name
+      imageURL
+      Messages {
+        items {
+          id
+          createdAt
+          text
+          chatroomID
+          userID
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      users {
+        items {
+          id
+          chatRoomId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      LastMessage {
+        id
+        createdAt
+        text
+        chatroomID
+        userID
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      chatRoomLastMessageId
+      __typename
+    }
+  }
+`;
+export const deleteChatRoom = /* GraphQL */ `
+  mutation DeleteChatRoom(
+    $input: DeleteChatRoomInput!
+    $condition: ModelChatRoomConditionInput
+  ) {
+    deleteChatRoom(input: $input, condition: $condition) {
+      id
+      name
+      imageURL
+      Messages {
+        items {
+          id
+          createdAt
+          text
+          chatroomID
+          userID
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      users {
+        items {
+          id
+          chatRoomId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      LastMessage {
+        id
+        createdAt
+        text
+        chatroomID
+        userID
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      chatRoomLastMessageId
+      __typename
+    }
+  }
+`;
+export const createMessage = /* GraphQL */ `
+  mutation CreateMessage(
+    $input: CreateMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    createMessage(input: $input, condition: $condition) {
+      id
+      createdAt
+      text
+      chatroomID
+      userID
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateMessage = /* GraphQL */ `
+  mutation UpdateMessage(
+    $input: UpdateMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    updateMessage(input: $input, condition: $condition) {
+      id
+      createdAt
+      text
+      chatroomID
+      userID
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteMessage = /* GraphQL */ `
+  mutation DeleteMessage(
+    $input: DeleteMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    deleteMessage(input: $input, condition: $condition) {
+      id
+      createdAt
+      text
+      chatroomID
+      userID
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const createUser = /* GraphQL */ `
   mutation CreateUser(
     $input: CreateUserInput!
@@ -32,6 +230,7 @@ export const createUser = /* GraphQL */ `
         description
         avgRating
         numRedeemed
+        maxRedeemed
         forQuantity
         imageURL
         location
@@ -64,6 +263,31 @@ export const createUser = /* GraphQL */ `
           createdAt
           updatedAt
           userMatchesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Messages {
+        items {
+          id
+          createdAt
+          text
+          chatroomID
+          userID
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      ChatRooms {
+        items {
+          id
+          chatRoomId
+          userId
+          createdAt
+          updatedAt
           __typename
         }
         nextToken
@@ -106,6 +330,7 @@ export const updateUser = /* GraphQL */ `
         description
         avgRating
         numRedeemed
+        maxRedeemed
         forQuantity
         imageURL
         location
@@ -138,6 +363,31 @@ export const updateUser = /* GraphQL */ `
           createdAt
           updatedAt
           userMatchesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Messages {
+        items {
+          id
+          createdAt
+          text
+          chatroomID
+          userID
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      ChatRooms {
+        items {
+          id
+          chatRoomId
+          userId
+          createdAt
+          updatedAt
           __typename
         }
         nextToken
@@ -180,6 +430,7 @@ export const deleteUser = /* GraphQL */ `
         description
         avgRating
         numRedeemed
+        maxRedeemed
         forQuantity
         imageURL
         location
@@ -217,6 +468,31 @@ export const deleteUser = /* GraphQL */ `
         nextToken
         __typename
       }
+      Messages {
+        items {
+          id
+          createdAt
+          text
+          chatroomID
+          userID
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      ChatRooms {
+        items {
+          id
+          chatRoomId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -248,6 +524,7 @@ export const createVendor = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -290,6 +567,7 @@ export const updateVendor = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -332,6 +610,7 @@ export const deleteVendor = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -362,6 +641,7 @@ export const createVoucher = /* GraphQL */ `
       description
       avgRating
       numRedeemed
+      maxRedeemed
       forQuantity
       imageURL
       location
@@ -404,6 +684,7 @@ export const updateVoucher = /* GraphQL */ `
       description
       avgRating
       numRedeemed
+      maxRedeemed
       forQuantity
       imageURL
       location
@@ -446,6 +727,7 @@ export const deleteVoucher = /* GraphQL */ `
       description
       avgRating
       numRedeemed
+      maxRedeemed
       forQuantity
       imageURL
       location
@@ -511,6 +793,7 @@ export const createMatch = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -520,6 +803,14 @@ export const createMatch = /* GraphQL */ `
           __typename
         }
         matches {
+          nextToken
+          __typename
+        }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
           nextToken
           __typename
         }
@@ -553,6 +844,7 @@ export const createMatch = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -562,6 +854,14 @@ export const createMatch = /* GraphQL */ `
           __typename
         }
         matches {
+          nextToken
+          __typename
+        }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
           nextToken
           __typename
         }
@@ -612,6 +912,7 @@ export const updateMatch = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -621,6 +922,14 @@ export const updateMatch = /* GraphQL */ `
           __typename
         }
         matches {
+          nextToken
+          __typename
+        }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
           nextToken
           __typename
         }
@@ -654,6 +963,7 @@ export const updateMatch = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -663,6 +973,14 @@ export const updateMatch = /* GraphQL */ `
           __typename
         }
         matches {
+          nextToken
+          __typename
+        }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
           nextToken
           __typename
         }
@@ -713,6 +1031,7 @@ export const deleteMatch = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -722,6 +1041,14 @@ export const deleteMatch = /* GraphQL */ `
           __typename
         }
         matches {
+          nextToken
+          __typename
+        }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
           nextToken
           __typename
         }
@@ -755,6 +1082,7 @@ export const deleteMatch = /* GraphQL */ `
           description
           avgRating
           numRedeemed
+          maxRedeemed
           forQuantity
           imageURL
           location
@@ -767,6 +1095,14 @@ export const deleteMatch = /* GraphQL */ `
           nextToken
           __typename
         }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -774,6 +1110,282 @@ export const deleteMatch = /* GraphQL */ `
       createdAt
       updatedAt
       userMatchesId
+      __typename
+    }
+  }
+`;
+export const createUserChatRoom = /* GraphQL */ `
+  mutation CreateUserChatRoom(
+    $input: CreateUserChatRoomInput!
+    $condition: ModelUserChatRoomConditionInput
+  ) {
+    createUserChatRoom(input: $input, condition: $condition) {
+      id
+      chatRoomId
+      userId
+      chatRoom {
+        id
+        name
+        imageURL
+        Messages {
+          nextToken
+          __typename
+        }
+        users {
+          nextToken
+          __typename
+        }
+        LastMessage {
+          id
+          createdAt
+          text
+          chatroomID
+          userID
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        chatRoomLastMessageId
+        __typename
+      }
+      user {
+        id
+        username
+        email
+        phoneNum
+        age
+        gender
+        pronounce
+        location
+        bio
+        imageURL
+        purpose
+        interest
+        foodPref
+        preferredMinAge
+        preferredMaxAge
+        preferredGender
+        preferredDistanceAway
+        swipedVouchers {
+          id
+          title
+          priceBefore
+          priceAfter
+          description
+          avgRating
+          numRedeemed
+          maxRedeemed
+          forQuantity
+          imageURL
+          location
+          createdAt
+          updatedAt
+          vendorVouchersId
+          __typename
+        }
+        matches {
+          nextToken
+          __typename
+        }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateUserChatRoom = /* GraphQL */ `
+  mutation UpdateUserChatRoom(
+    $input: UpdateUserChatRoomInput!
+    $condition: ModelUserChatRoomConditionInput
+  ) {
+    updateUserChatRoom(input: $input, condition: $condition) {
+      id
+      chatRoomId
+      userId
+      chatRoom {
+        id
+        name
+        imageURL
+        Messages {
+          nextToken
+          __typename
+        }
+        users {
+          nextToken
+          __typename
+        }
+        LastMessage {
+          id
+          createdAt
+          text
+          chatroomID
+          userID
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        chatRoomLastMessageId
+        __typename
+      }
+      user {
+        id
+        username
+        email
+        phoneNum
+        age
+        gender
+        pronounce
+        location
+        bio
+        imageURL
+        purpose
+        interest
+        foodPref
+        preferredMinAge
+        preferredMaxAge
+        preferredGender
+        preferredDistanceAway
+        swipedVouchers {
+          id
+          title
+          priceBefore
+          priceAfter
+          description
+          avgRating
+          numRedeemed
+          maxRedeemed
+          forQuantity
+          imageURL
+          location
+          createdAt
+          updatedAt
+          vendorVouchersId
+          __typename
+        }
+        matches {
+          nextToken
+          __typename
+        }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteUserChatRoom = /* GraphQL */ `
+  mutation DeleteUserChatRoom(
+    $input: DeleteUserChatRoomInput!
+    $condition: ModelUserChatRoomConditionInput
+  ) {
+    deleteUserChatRoom(input: $input, condition: $condition) {
+      id
+      chatRoomId
+      userId
+      chatRoom {
+        id
+        name
+        imageURL
+        Messages {
+          nextToken
+          __typename
+        }
+        users {
+          nextToken
+          __typename
+        }
+        LastMessage {
+          id
+          createdAt
+          text
+          chatroomID
+          userID
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        chatRoomLastMessageId
+        __typename
+      }
+      user {
+        id
+        username
+        email
+        phoneNum
+        age
+        gender
+        pronounce
+        location
+        bio
+        imageURL
+        purpose
+        interest
+        foodPref
+        preferredMinAge
+        preferredMaxAge
+        preferredGender
+        preferredDistanceAway
+        swipedVouchers {
+          id
+          title
+          priceBefore
+          priceAfter
+          description
+          avgRating
+          numRedeemed
+          maxRedeemed
+          forQuantity
+          imageURL
+          location
+          createdAt
+          updatedAt
+          vendorVouchersId
+          __typename
+        }
+        matches {
+          nextToken
+          __typename
+        }
+        Messages {
+          nextToken
+          __typename
+        }
+        ChatRooms {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
       __typename
     }
   }

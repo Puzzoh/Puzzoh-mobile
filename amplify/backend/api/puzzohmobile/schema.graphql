@@ -1,9 +1,21 @@
-# This "input" configures a global authorization rule to enable public access to
-# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY {
-  globalAuthRule: AuthRule = { allow: public }
-} # FOR TESTING ONLY!
-type User @model {
+type ChatRoom @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  imageURL: String
+  Messages: [Message] @hasMany(indexName: "byChatRoom", fields: ["id"])
+  users: [User] @manyToMany(relationName: "UserChatRoom")
+  LastMessage: Message @hasOne
+}
+
+type Message @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  createdAt: AWSDateTime!
+  text: String!
+  chatroomID: ID! @index(name: "byChatRoom", sortKeyFields: ["createdAt"], queryField: "listMessagesByChatRoom")
+  userID: ID! @index(name: "byUser")
+}
+
+type User @model @auth(rules: [{allow: public}]) {
   id: ID!
   username: String!
   email: String!
@@ -23,9 +35,11 @@ type User @model {
   preferredDistanceAway: Int
   swipedVouchers: [Voucher!]
   matches: [Match!] @hasMany
+  Messages: [Message] @hasMany(indexName: "byUser", fields: ["id"])
+  ChatRooms: [ChatRoom] @manyToMany(relationName: "UserChatRoom")
 }
 
-type Vendor @model {
+type Vendor @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   phoneNum: String!
@@ -39,7 +53,7 @@ type Vendor @model {
   vouchers: [Voucher!] @hasMany
 }
 
-type Voucher @model {
+type Voucher @model @auth(rules: [{allow: public}]) {
   id: ID!
   title: String!
   priceBefore: Int!
@@ -54,7 +68,7 @@ type Voucher @model {
   vendor: Vendor @belongsTo
 }
 
-type Match @model {
+type Match @model @auth(rules: [{allow: public}]) {
   id: ID!
   user1ID: ID!
   user2ID: ID!
@@ -109,3 +123,4 @@ enum FoodPrefType {
   Vietnamese
   Dessert
 }
+ 
