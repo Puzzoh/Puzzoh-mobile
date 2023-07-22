@@ -16,6 +16,7 @@ import Checkbox from "expo-checkbox";
 import { gql, useMutation } from "@apollo/client";
 import { updateUser } from "../graphql/mutations";
 
+
 const EditInfo = ({ navigation, route }) => {
   const UPDATE_USER = gql(updateUser);
   const [updateUserMutation] = useMutation(UPDATE_USER);
@@ -60,26 +61,24 @@ const EditInfo = ({ navigation, route }) => {
     let newSelected = [...interestOptions];
     let count = newSelected.reduce((n, x) => n + (x === true), 0);
 
-    if (count < 3 || newSelected[index] === true) {
+    if (count < 2 || newSelected[index] === true) {
       newSelected[index] = !newSelected[index];
-    }
+      setInterestOptions(newSelected);
 
-    setInterestOptions(newSelected);
-
-    if (selectedInterest.some((interest) => interest.name === interestValue)) {
-      setSelectedInterest(
-        selectedInterest.filter((element) => element.name !== interestValue)
-      );
-    } else {
-      setSelectedInterest([...selectedInterest, { name: interestValue }]);
+      if (selectedInterest.includes(interestValue)) {
+        setSelectedInterest(selectedInterest.filter((interest) => interest !== interestValue));
+      } else {
+        setSelectedInterest([...selectedInterest, interestValue]);
+      }
     }
   };
+
 
   const handlePressFoodPref = (index, foodPrefValue) => {
     let newSelected = [...foodPrefOptions];
     let count = newSelected.reduce((n, x) => n + (x === true), 0);
 
-    if (count < 3 || newSelected[index] === true) {
+    if (count < 2 || newSelected[index] === true) {
       newSelected[index] = !newSelected[index];
     }
 
@@ -140,7 +139,7 @@ const EditInfo = ({ navigation, route }) => {
             onChangeText={setUsername}
             editable={true}
           />
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={() => { }}>
             <Text
               style={[
                 styles.bodyText2,
@@ -172,10 +171,10 @@ const EditInfo = ({ navigation, route }) => {
                     gender === option
                       ? { color: "white" }
                       : {
-                          textAlign: "center",
-                          paddingLeft: 10,
-                          paddingRight: 10,
-                        },
+                        textAlign: "center",
+                        paddingLeft: 10,
+                        paddingRight: 10,
+                      },
                   ]}
                 >
                   {option}
@@ -206,10 +205,10 @@ const EditInfo = ({ navigation, route }) => {
                     pronounce === option
                       ? { color: "white" }
                       : {
-                          textAlign: "center",
-                          paddingLeft: 10,
-                          paddingRight: 10,
-                        },
+                        textAlign: "center",
+                        paddingLeft: 10,
+                        paddingRight: 10,
+                      },
                   ]}
                 >
                   {option}
@@ -250,10 +249,10 @@ const EditInfo = ({ navigation, route }) => {
                     purpose === option
                       ? { color: "white" }
                       : {
-                          textAlign: "center",
-                          paddingLeft: 10,
-                          paddingRight: 10,
-                        },
+                        textAlign: "center",
+                        paddingLeft: 10,
+                        paddingRight: 10,
+                      },
                   ]}
                 >
                   {option}
@@ -275,7 +274,7 @@ const EditInfo = ({ navigation, route }) => {
                 .map((interest, idx) => {
                   const interestIndex = rowStartIndex + idx;
                   const isDummyInterestSelected = selectedInterest.includes(
-                    interest.name
+                    interest
                   );
                   return (
                     <TouchableOpacity
@@ -287,9 +286,7 @@ const EditInfo = ({ navigation, route }) => {
                           : null,
                         nStyles.interest,
                       ]}
-                      onPress={() =>
-                        handlePressInterest(interestIndex, interest.name)
-                      }
+                      onPress={() => handlePressInterest(interestIndex, interest)}
                       disabled={
                         interestOptions.filter(Boolean).length === 3 &&
                         !interestOptions[interestIndex]
@@ -306,7 +303,7 @@ const EditInfo = ({ navigation, route }) => {
                           isDummyInterestSelected ? { color: "white" } : null,
                         ]}
                       >
-                        {interest.name}
+                        {interest}
                       </Text>
                     </TouchableOpacity>
                   );
@@ -507,7 +504,7 @@ const googlePlacesStyles = StyleSheet.create({
     backgroundColor: "#919191",
   },
 });
-
+/*
 const interests = [
   { name: "Traveling", icon: "airplane-outline" },
   { name: "Photo", icon: "camera-outline" },
@@ -521,7 +518,23 @@ const interests = [
   { name: "Yoga", icon: "fitness-outline" },
   { name: "Painting", icon: "brush-outline" },
   { name: "Writing", icon: "create-outline" },
+];*/
+
+const interests = [
+  "Traveling",
+  "Photo",
+  "Reading",
+  "Cooking",
+  "Sports",
+  "Gaming",
+  "Music",
+  "Movies",
+  "Gardening",
+  "Yoga",
+  "Painting",
+  "Writing",
 ];
+
 
 const foodPref = [
   "Vegan",
