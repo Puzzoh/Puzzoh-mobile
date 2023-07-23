@@ -17,8 +17,7 @@ import UserContext from "../context/UserContext";
 const PeopleMatches = () => {
   const currUser = useContext(UserContext);
 
-  const LIST_CHAT_ROOMS = gql(listChatRooms);
-  const { data } = useQuery(LIST_CHAT_ROOMS, {
+  const { data } = useQuery(gql(listChatRooms), {
     variables: {
       id: currUser?.id,
     },

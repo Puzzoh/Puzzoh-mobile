@@ -18,11 +18,8 @@ import { gql, useMutation } from "@apollo/client";
 const Profile = ({ navigation }) => {
   const user = useContext(UserContext);
 
-  const UPDATE_USER = gql(updateUser);
-  const [updateUserMutation] = useMutation(UPDATE_USER, {
-    onCompleted: () => {
-      // refetchGetUser();
-    },
+  const [updateUserMutation] = useMutation(gql(updateUser), {
+    onCompleted: () => {},
   });
 
   const signOut = () => {

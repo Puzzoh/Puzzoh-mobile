@@ -17,12 +17,14 @@ import { listVouchers } from "../graphql/queries";
 import VoucherDetailPopup from "../components/VoucherDetailPopup";
 import UserContext from "../context/UserContext";
 
-const GET_VOUCHERS = gql(listVouchers);
-
 const Home = () => {
   const user = useContext(UserContext);
 
-  const { loading, error, data, refetch } = useQuery(GET_VOUCHERS);
+  const GET_VOUCHER_RECOMMENDATIONS = gql(listVouchers);
+  const { loading, error, data, refetch } = useQuery(
+    GET_VOUCHER_RECOMMENDATIONS
+  );
+
   const vouchers = data?.listVouchers.items;
   const [selectedVoucher, setSelectedVoucher] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);

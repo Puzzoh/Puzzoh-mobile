@@ -15,10 +15,8 @@ const MatchesListItem = ({ user }) => {
 
   const currUser = useContext(UserContext);
 
-  const CREATE_CHATROOM = gql(createChatRoom);
-  const CREATE_USER_CHATROOM = gql(createUserChatRoom);
-  const [createChatRoomMutation] = useMutation(CREATE_CHATROOM);
-  const [createUserChatRoomMutation] = useMutation(CREATE_USER_CHATROOM);
+  const [createChatRoomMutation] = useMutation(gql(createChatRoom));
+  const [createUserChatRoomMutation] = useMutation(gql(createUserChatRoom));
 
   const onPress = async () => {
     const existingChatRoom = await getCommonChatRoomWithUser(user.id);

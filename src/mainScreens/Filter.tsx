@@ -20,8 +20,7 @@ import { updateUser } from "../graphql/mutations";
 const EditFilter = ({ navigation }) => {
   const user = useContext(UserContext);
 
-  const UPDATE_USER = gql(updateUser);
-  const [updateUserMutation] = useMutation(UPDATE_USER);
+  const [updateUserMutation] = useMutation(gql(updateUser));
 
   const updateUserPrefs = async () => {
     try {

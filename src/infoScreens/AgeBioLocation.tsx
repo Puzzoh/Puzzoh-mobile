@@ -24,8 +24,7 @@ const AgeBioLocation = ({ navigation, route }) => {
   const selectedInterests = route?.params?.interest;
   const selectedFoodPrefs = route?.params?.foodPref;
 
-  const UPDATE_USER = gql(updateUser);
-  const [updateUserMutation] = useMutation(UPDATE_USER);
+  const [updateUserMutation] = useMutation(gql(updateUser));
 
   const [loading, setLoading] = useState(false);
   const [age, setAge] = useState("18");
