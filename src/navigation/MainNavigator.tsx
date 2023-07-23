@@ -17,6 +17,7 @@ import FoodPref from "../infoScreens/FoodPref";
 import AgeBioLocation from "../infoScreens/AgeBioLocation";
 import Settings from "../mainScreens/Settings";
 import Chat from "../mainScreens/Chat";
+import Review from "../mainScreens/Review";
 import EditInfo from "../mainScreens/EditInfo";
 import Initializer from "../mainScreens/Initializer";
 import Notification from "../mainScreens/Notification";
@@ -24,6 +25,7 @@ import Filter from "../mainScreens/Filter";
 import Header from "../components/CustomHeaderBar";
 import { UserProvider } from "../context/UserContext";
 import { Entypo, Ionicons } from "@expo/vector-icons";
+import VoucherDetailPopup from "../components/VoucherDetailPopup";
 
 const Stack = createNativeStackNavigator();
 
@@ -141,6 +143,13 @@ const MainNavigator = () => {
               }}
             />
             <Stack.Screen
+              name="Voucher"
+              component={VoucherDetailPopup}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
               name="FoodPref"
               component={FoodPref}
               options={{
@@ -150,6 +159,13 @@ const MainNavigator = () => {
             <Stack.Screen
               name="AgeBioLocation"
               component={AgeBioLocation}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Review"
+              component={Review}
               options={{
                 headerShown: false,
               }}
@@ -179,16 +195,16 @@ const MainNavigator = () => {
             <Stack.Screen
               name="Notification"
               component={Notification}
-              // options={{
-              //   headerRight: () => (
-              //     <Entypo
-              //       name="new-message"
-              //       size={18}
-              //       color={"royalblue"}
-              //       style={{ marginRight: 15 }}
-              //     />
-              //   ),
-              // }}
+            // options={{
+            //   headerRight: () => (
+            //     <Entypo
+            //       name="new-message"
+            //       size={18}
+            //       color={"royalblue"}
+            //       style={{ marginRight: 15 }}
+            //     />
+            //   ),
+            // }}
             />
             <Stack.Screen name="Filter" component={Filter} />
             <Stack.Screen name="Chat" component={Chat} />

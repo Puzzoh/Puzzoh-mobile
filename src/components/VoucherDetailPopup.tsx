@@ -11,8 +11,10 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import styles, { colors } from "../styles/index";
 import Modal from "react-native-modal";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const VoucherDetailPopup = (props) => {
+  const navigation = useNavigation();
   const {
     id,
     title,
@@ -39,6 +41,27 @@ const VoucherDetailPopup = (props) => {
       stars.push(grayStar);
     }
   }
+
+  const handleButtonPress = (buttonName) => {
+    // Define the behavior when each button is pressed.
+    switch (buttonName) {
+      case 'Review':
+        // Handle "Direction" button press.
+        navigation.navigate("Review")
+        break;
+      case 'Contact':
+        // Handle "Contact" button press.
+        break;
+      case 'Menu':
+        // Handle "Menu" button press.
+        break;
+      case 'Website':
+        // Handle "Website" button press.
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <Modal isVisible={true} onBackdropPress={onClose}>
@@ -81,8 +104,12 @@ const VoucherDetailPopup = (props) => {
           <Text style={styles.heading3}>About the venue</Text>
 
           <View style={nStyles.featuredDishContainer}>
-            {["Direction", "Contact", "Menu", "Website"].map((dish, index) => (
-              <TouchableOpacity style={nStyles.featuredDish}>
+            {["Review", "Contact", "Menu", "Website"].map((dish, index) => (
+              <TouchableOpacity
+                key={index}
+                style={nStyles.featuredDish}
+                onPress={() => handleButtonPress(dish)}
+              >
                 <Text
                   style={[
                     styles.heading4,
