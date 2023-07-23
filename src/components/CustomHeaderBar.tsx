@@ -45,7 +45,6 @@ export default function Header() {
                 style={{ textAlign: "center" }}
               />
             }
-            {/* {<View style={headerStyles.badge} />} */}
           </View>
         </TouchableOpacity>
       </View>
@@ -82,14 +81,5 @@ const headerStyles = StyleSheet.create({
   },
   badgeContainer: {
     position: "relative",
-  },
-  badge: {
-    position: "absolute",
-    top: -8,
-    right: -8,
-    backgroundColor: "red",
-    borderRadius: 8,
-    width: 16,
-    height: 16,
   },
 });

@@ -17,7 +17,6 @@ import { gql, useMutation } from "@apollo/client";
 import { updateUser } from "../graphql/mutations";
 
 const AgeBioLocation = ({ navigation, route }) => {
-  //   console.log(route.params);
   const selectedGender = route?.params?.gender;
   const selectedPronounce = route?.params?.pronounce;
   const selectedPurpose = route?.params?.purpose;

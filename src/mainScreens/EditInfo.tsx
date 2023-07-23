@@ -12,7 +12,6 @@ import { Ionicons } from "@expo/vector-icons";
 import * as Location from "expo-location";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import styles, { colors } from "../styles/index";
-import Checkbox from "expo-checkbox";
 import { gql, useMutation } from "@apollo/client";
 import { updateUser } from "../graphql/mutations";
 

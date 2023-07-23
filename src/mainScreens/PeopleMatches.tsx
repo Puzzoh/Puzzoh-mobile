@@ -9,19 +9,26 @@ import {
   Dimensions,
 } from "react-native";
 import styles, { colors } from "../styles/index";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { gql, useQuery, useMutation, useSubscription } from "@apollo/client";
 import MatchesList from "../components/MatchesList";
 import ChatListItem from "../components/ChatListItem";
 import UserContext from "../context/UserContext";
+import { onCreateMessage } from "../graphql/subscriptions";
 
 const PeopleMatches = () => {
   const currUser = useContext(UserContext);
 
   const [chatRooms, setChatrooms] = useState([]);
 
-  const { data } = useQuery(gql(listChatRooms), {
+  const { data, refetch } = useQuery(gql(listChatRooms), {
     variables: {
       id: currUser?.id,
+    },
+  });
+
+  const { data: newMessageData } = useSubscription(gql(onCreateMessage), {
+    variables: {
+      filter: {},
     },
   });
 
@@ -44,6 +51,12 @@ const PeopleMatches = () => {
       loadSortedChatRooms();
     }
   }, [data, chatRoomsData]);
+
+  useEffect(() => {
+    if (newMessageData) {
+      refetch();
+    }
+  }, [newMessageData]);
 
   return (
     <SafeAreaView style={nStyles.root}>

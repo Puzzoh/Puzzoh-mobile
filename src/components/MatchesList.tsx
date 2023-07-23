@@ -10,7 +10,7 @@ const MatchesList = () => {
 
   const currUser = useContext(UserContext);
 
-  const { loading, error, data } = useQuery(GET_PEOPLE_MATCHES, {
+  const { loading, error, data, refetch } = useQuery(GET_PEOPLE_MATCHES, {
     variables: {
       filter: { id: { ne: currUser.id } },
     },

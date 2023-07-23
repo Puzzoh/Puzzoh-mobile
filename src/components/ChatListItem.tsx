@@ -19,13 +19,12 @@ const ChatListItem = ({ chat }) => {
       const userItem = chat.chatRoom.users.items.find(
         (item) => item.user.id != currUser.attributes.sub
       );
+
       setUser(userItem?.user);
     };
 
     fetchOtherUser();
-
-    // console.log(chat.chatRoom);
-  }, []);
+  }, [chat]);
 
   return (
     <Pressable
@@ -74,7 +73,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: "lightgray",
   },

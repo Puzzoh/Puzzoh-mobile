@@ -12,16 +12,6 @@ const TextGradient = ({ colors, style, children }) => {
   );
 };
 
-const GradientTextExample = () => {
-  return (
-    <View style={styles.container}>
-      <TextGradient colors={["#FFC3A0", "#FFAFBD"]} style={styles.text}>
-        Gradient Text Example
-      </TextGradient>
-    </View>
-  );
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

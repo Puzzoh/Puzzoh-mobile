@@ -72,7 +72,7 @@ const nStyles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     padding: 20,
-    paddingBottom: 80, // Adjust the bottom padding to make space for the buttons
+    paddingBottom: 80,
     height: Dimensions.get("window").height * 0.67,
   },
   container: {

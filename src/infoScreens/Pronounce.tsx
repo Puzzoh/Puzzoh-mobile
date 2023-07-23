@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons"; // Import Ionicons from @expo/vector-icons
+import { Ionicons } from "@expo/vector-icons";
 import styles from "../styles/index";
 import { BackButton } from "../components/CustomButtons";
 
@@ -18,7 +18,7 @@ const Pronounce = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false);
 
   const handlePress = (index, pronounceValue) => {
-    const newSelected = [false, false, false]; // Reset all selections
+    const newSelected = [false, false, false];
     newSelected[index] = true; // Set selected state on pressed button
     setSelected(newSelected);
     setSelectedPronounce(pronounceValue);

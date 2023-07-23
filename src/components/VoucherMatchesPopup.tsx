@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Button, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Modal from "react-native-modal";
 import { colors } from "../styles/index";
 
@@ -32,9 +32,9 @@ const styles = StyleSheet.create({
     borderColor: "rgba(0, 0, 0, 0.1)",
   },
   buttonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   title: {
     fontSize: 24,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderRadius: 8,
     padding: 10,
-    alignItems: 'center',
+    alignItems: "center",
   },
   image: {
     width: "100%",
