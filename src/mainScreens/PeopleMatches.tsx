@@ -17,13 +17,33 @@ import UserContext from "../context/UserContext";
 const PeopleMatches = () => {
   const currUser = useContext(UserContext);
 
+  const [chatRooms, setChatrooms] = useState([]);
+
   const { data } = useQuery(gql(listChatRooms), {
     variables: {
       id: currUser?.id,
     },
   });
 
-  const chatRooms = data?.getUser?.ChatRooms?.items;
+  const chatRoomsData = data?.getUser?.ChatRooms?.items;
+
+  useEffect(() => {
+    const sortChatRooms = async (rooms) => {
+      return [...rooms].sort(
+        (r1, r2) =>
+          new Date(r2.chatRoom.updatedAt) - new Date(r1.chatRoom.updatedAt)
+      );
+    };
+
+    const loadSortedChatRooms = async () => {
+      const sortedChatRoomsData = await sortChatRooms(chatRoomsData);
+      setChatrooms(sortedChatRoomsData);
+    };
+
+    if (data) {
+      loadSortedChatRooms();
+    }
+  }, [data, chatRoomsData]);
 
   return (
     <SafeAreaView style={nStyles.root}>
@@ -49,6 +69,7 @@ export const listChatRooms = /* GraphQL */ `
         items {
           chatRoom {
             id
+            updatedAt
             users {
               items {
                 user {

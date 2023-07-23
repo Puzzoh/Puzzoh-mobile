@@ -24,7 +24,7 @@ const ChatListItem = ({ chat }) => {
 
     fetchOtherUser();
 
-    console.log(chat.chatRoom);
+    // console.log(chat.chatRoom);
   }, []);
 
   return (
@@ -44,9 +44,11 @@ const ChatListItem = ({ chat }) => {
           <Text style={styles.name} numberOfLines={1}>
             {user?.username}
           </Text>
-          <Text style={styles.subTitle}>
-            {dayjs(chat.chatRoom.LastMessage?.createdAt).fromNow(true)}
-          </Text>
+          {chat.chatRoom.LastMessage && (
+            <Text style={styles.subTitle}>
+              {dayjs(chat.chatRoom.LastMessage.createdAt).fromNow(true)}
+            </Text>
+          )}
         </View>
 
         <Text numberOfLines={2} style={styles.subTitle}>

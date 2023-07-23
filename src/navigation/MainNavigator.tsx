@@ -192,22 +192,22 @@ const MainNavigator = () => {
                 headerShown: false,
               }}
             />
-            <Stack.Screen
-              name="Notification"
-              component={Notification}
-              // options={{
-              //   headerRight: () => (
-              //     <Entypo
-              //       name="new-message"
-              //       size={18}
-              //       color={"royalblue"}
-              //       style={{ marginRight: 15 }}
-              //     />
-              //   ),
-              // }}
-            />
+            <Stack.Screen name="Notification" component={Notification} />
             <Stack.Screen name="Filter" component={Filter} />
-            <Stack.Screen name="Chat" component={Chat} />
+            <Stack.Screen
+              name="Chat"
+              component={Chat}
+              options={{
+                headerRight: () => (
+                  <Entypo
+                    name="new-message"
+                    size={18}
+                    color={"royalblue"}
+                    style={{ marginRight: 15 }}
+                  />
+                ),
+              }}
+            />
           </>
         ) : (
           <>
