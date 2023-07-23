@@ -3,7 +3,8 @@
     "jsx": "react",
     "baseUrl": "./src",
     "paths": {
-      "screens/*": ["screens/*", "screens/"],
+      "context/*": ["context/*", "context/"],
+      "graphql/*": ["graphql/*", "graphql/"],
       "components/*": ["components/*", "components/"],
       "styles/*": ["styles/*", "styles/"],
       "utils/*": ["utils/*", "utils/"]

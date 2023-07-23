@@ -14,10 +14,10 @@ import VoucherMatchesPopup from "../components/VoucherMatchesPopup";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { listVouchers } from "../graphql/queries";
 
-const GET_VOUCHER_MATCHES = gql(listVouchers);
-
 const VoucherMatches = () => {
+  const GET_VOUCHER_MATCHES = gql(listVouchers);
   const { data } = useQuery(GET_VOUCHER_MATCHES);
+
   const vouchers = data?.listVouchers.items;
 
   const [selectedVoucher, setSelectedVoucher] = useState(null);

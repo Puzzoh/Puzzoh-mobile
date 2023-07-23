@@ -1,6 +1,6 @@
 import React from "react";
 import { Dimensions, Text, TouchableOpacity } from "react-native";
-import { colors } from "../styles/index";
+import styles, { colors } from "../styles/index";
 
 export const BackButton = ({ onPress }) => {
   return (
@@ -30,4 +30,19 @@ export const BackButton = ({ onPress }) => {
   );
 };
 
-export const NextButton = () => {};
+export const IconButton = ({ onPress, children }) => {
+  return (
+    <TouchableOpacity style={styles.button} onPress={onPress}>
+      <Text
+        style={{
+          textAlign: "center",
+          color: colors.primary,
+          fontSize: 36,
+          fontFamily: "Poppins",
+        }}
+      >
+        {children}
+      </Text>
+    </TouchableOpacity>
+  );
+};

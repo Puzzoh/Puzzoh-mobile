@@ -24,8 +24,7 @@ const Initializer = ({ navigation }) => {
     }
   };
 
-  const CREATE_USER = gql(createUser);
-  const [createUserMutation] = useMutation(CREATE_USER);
+  const [createUserMutation] = useMutation(gql(createUser));
 
   const createUserInfo = async () => {
     try {

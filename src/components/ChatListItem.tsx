@@ -19,13 +19,12 @@ const ChatListItem = ({ chat }) => {
       const userItem = chat.chatRoom.users.items.find(
         (item) => item.user.id != currUser.attributes.sub
       );
+
       setUser(userItem?.user);
     };
 
     fetchOtherUser();
-
-    console.log(chat.chatRoom);
-  }, []);
+  }, [chat]);
 
   return (
     <Pressable
@@ -44,9 +43,11 @@ const ChatListItem = ({ chat }) => {
           <Text style={styles.name} numberOfLines={1}>
             {user?.username}
           </Text>
-          <Text style={styles.subTitle}>
-            {dayjs(chat.chatRoom.LastMessage?.createdAt).fromNow(true)}
-          </Text>
+          {chat.chatRoom.LastMessage && (
+            <Text style={styles.subTitle}>
+              {dayjs(chat.chatRoom.LastMessage.createdAt).fromNow(true)}
+            </Text>
+          )}
         </View>
 
         <Text numberOfLines={2} style={styles.subTitle}>
@@ -72,7 +73,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: "lightgray",
   },

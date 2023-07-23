@@ -9,22 +9,54 @@ import {
   Dimensions,
 } from "react-native";
 import styles, { colors } from "../styles/index";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { gql, useQuery, useMutation, useSubscription } from "@apollo/client";
 import MatchesList from "../components/MatchesList";
 import ChatListItem from "../components/ChatListItem";
 import UserContext from "../context/UserContext";
+import { onCreateMessage } from "../graphql/subscriptions";
 
 const PeopleMatches = () => {
   const currUser = useContext(UserContext);
 
-  const LIST_CHAT_ROOMS = gql(listChatRooms);
-  const { data } = useQuery(LIST_CHAT_ROOMS, {
+  const [chatRooms, setChatrooms] = useState([]);
+
+  const { data, refetch } = useQuery(gql(listChatRooms), {
     variables: {
       id: currUser?.id,
     },
   });
 
-  const chatRooms = data?.getUser?.ChatRooms?.items;
+  const { data: newMessageData } = useSubscription(gql(onCreateMessage), {
+    variables: {
+      filter: {},
+    },
+  });
+
+  const chatRoomsData = data?.getUser?.ChatRooms?.items;
+
+  useEffect(() => {
+    const sortChatRooms = async (rooms) => {
+      return [...rooms].sort(
+        (r1, r2) =>
+          new Date(r2.chatRoom.updatedAt) - new Date(r1.chatRoom.updatedAt)
+      );
+    };
+
+    const loadSortedChatRooms = async () => {
+      const sortedChatRoomsData = await sortChatRooms(chatRoomsData);
+      setChatrooms(sortedChatRoomsData);
+    };
+
+    if (data) {
+      loadSortedChatRooms();
+    }
+  }, [data, chatRoomsData]);
+
+  useEffect(() => {
+    if (newMessageData) {
+      refetch();
+    }
+  }, [newMessageData]);
 
   return (
     <SafeAreaView style={nStyles.root}>
@@ -50,6 +82,7 @@ export const listChatRooms = /* GraphQL */ `
         items {
           chatRoom {
             id
+            updatedAt
             users {
               items {
                 user {

@@ -8,9 +8,6 @@ import {
 } from "react-native";
 import styles, { colors } from "../styles/index";
 import { BackButton } from "../components/CustomButtons";
-import { Auth } from "aws-amplify";
-import { gql, useMutation } from "@apollo/client";
-import { updateUser } from "../graphql/mutations";
 
 const FoodPref = ({ navigation, route }) => {
   const selectedGender = route?.params?.gender;

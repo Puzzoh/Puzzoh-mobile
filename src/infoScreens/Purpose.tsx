@@ -18,7 +18,7 @@ const Purpose = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false);
 
   const handlePress = (index, purposeValue) => {
-    const newSelected = [false, false, false]; // Reset all selections
+    const newSelected = [false, false, false];
     newSelected[index] = true; // Set selected state on pressed button
     setSelected(newSelected);
     setSelectedPurpose(purposeValue);

@@ -48,7 +48,11 @@ export default function Chat({ navigation, route }) {
 
   const [updateChatroomMutation] = useMutation(gql(updateChatRoom));
   const [createMessageMutation] = useMutation(gql(createMessage));
-  const { data: newMessageData } = useSubscription(gql(onCreateMessage));
+  const { data: newMessageData } = useSubscription(gql(onCreateMessage), {
+    variables: {
+      filter: { chatroomID: { eq: chatroomID } },
+    },
+  });
 
   useEffect(() => {
     if (chatroomData) {
@@ -121,18 +125,6 @@ export default function Chat({ navigation, route }) {
 
     setText("");
 
-    // const giftedChatMessage = {
-    //   _id: newMessageData.data.createMessage.id,
-    //   text: newMessage.text,
-    //   createdAt: newMessageData.data.createMessage.createdAt,
-    //   user: {
-    //     _id: newMessage.userID,
-    //   },
-    // };
-
-    // setMessages((prevMessages) =>
-    //   GiftedChat.append(prevMessages, [giftedChatMessage])
-    // );
     refetchMessages();
   };
 

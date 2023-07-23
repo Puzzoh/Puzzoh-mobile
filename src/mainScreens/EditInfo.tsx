@@ -12,13 +12,11 @@ import { Ionicons } from "@expo/vector-icons";
 import * as Location from "expo-location";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import styles, { colors } from "../styles/index";
-import Checkbox from "expo-checkbox";
 import { gql, useMutation } from "@apollo/client";
 import { updateUser } from "../graphql/mutations";
 
 const EditInfo = ({ navigation, route }) => {
-  const UPDATE_USER = gql(updateUser);
-  const [updateUserMutation] = useMutation(UPDATE_USER);
+  const [updateUserMutation] = useMutation(gql(updateUser));
 
   const { user } = route?.params;
 
@@ -60,18 +58,17 @@ const EditInfo = ({ navigation, route }) => {
     let newSelected = [...interestOptions];
     let count = newSelected.reduce((n, x) => n + (x === true), 0);
 
-    if (count < 3 || newSelected[index] === true) {
+    if (count < 2 || newSelected[index] === true) {
       newSelected[index] = !newSelected[index];
-    }
+      setInterestOptions(newSelected);
 
-    setInterestOptions(newSelected);
-
-    if (selectedInterest.some((interest) => interest.name === interestValue)) {
-      setSelectedInterest(
-        selectedInterest.filter((element) => element.name !== interestValue)
-      );
-    } else {
-      setSelectedInterest([...selectedInterest, { name: interestValue }]);
+      if (selectedInterest.includes(interestValue)) {
+        setSelectedInterest(
+          selectedInterest.filter((interest) => interest !== interestValue)
+        );
+      } else {
+        setSelectedInterest([...selectedInterest, interestValue]);
+      }
     }
   };
 
@@ -79,7 +76,7 @@ const EditInfo = ({ navigation, route }) => {
     let newSelected = [...foodPrefOptions];
     let count = newSelected.reduce((n, x) => n + (x === true), 0);
 
-    if (count < 3 || newSelected[index] === true) {
+    if (count < 2 || newSelected[index] === true) {
       newSelected[index] = !newSelected[index];
     }
 
@@ -274,9 +271,8 @@ const EditInfo = ({ navigation, route }) => {
                 .slice(rowStartIndex, rowStartIndex + 2)
                 .map((interest, idx) => {
                   const interestIndex = rowStartIndex + idx;
-                  const isDummyInterestSelected = selectedInterest.includes(
-                    interest.name
-                  );
+                  const isDummyInterestSelected =
+                    selectedInterest.includes(interest);
                   return (
                     <TouchableOpacity
                       key={interestIndex}
@@ -288,7 +284,7 @@ const EditInfo = ({ navigation, route }) => {
                         nStyles.interest,
                       ]}
                       onPress={() =>
-                        handlePressInterest(interestIndex, interest.name)
+                        handlePressInterest(interestIndex, interest)
                       }
                       disabled={
                         interestOptions.filter(Boolean).length === 3 &&
@@ -306,7 +302,7 @@ const EditInfo = ({ navigation, route }) => {
                           isDummyInterestSelected ? { color: "white" } : null,
                         ]}
                       >
-                        {interest.name}
+                        {interest}
                       </Text>
                     </TouchableOpacity>
                   );
@@ -507,7 +503,7 @@ const googlePlacesStyles = StyleSheet.create({
     backgroundColor: "#919191",
   },
 });
-
+/*
 const interests = [
   { name: "Traveling", icon: "airplane-outline" },
   { name: "Photo", icon: "camera-outline" },
@@ -521,6 +517,21 @@ const interests = [
   { name: "Yoga", icon: "fitness-outline" },
   { name: "Painting", icon: "brush-outline" },
   { name: "Writing", icon: "create-outline" },
+];*/
+
+const interests = [
+  "Traveling",
+  "Photo",
+  "Reading",
+  "Cooking",
+  "Sports",
+  "Gaming",
+  "Music",
+  "Movies",
+  "Gardening",
+  "Yoga",
+  "Painting",
+  "Writing",
 ];
 
 const foodPref = [

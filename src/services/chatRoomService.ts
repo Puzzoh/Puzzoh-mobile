@@ -25,8 +25,6 @@ export const listChatRooms = /* GraphQL */ `
   }
 `;
 
-// const LIST_CHAT_ROOMS = gql(listChatRooms);
-
 export const getCommonChatRoomWithUser = async (userID) => {
   const currUser = await Auth.currentAuthenticatedUser();
 
