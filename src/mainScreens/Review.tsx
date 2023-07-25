@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import StarRating from 'react-native-star-rating';
 import styles, { colors } from "../styles/index";
+import { useNavigation } from "@react-navigation/native";
 
 const Review = () => {
+    const navigation = useNavigation();
     const [reviewText, setReviewText] = useState('');
     const [starCount, setStarCount] = useState(0);
 
     const handleSubmitReview = () => {
         // Implement logic to submit the review and star rating
+        navigation.navigate("Home")
     };
 
     return (

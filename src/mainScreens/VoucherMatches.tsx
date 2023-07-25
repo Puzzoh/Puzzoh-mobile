@@ -14,10 +14,10 @@ import VoucherMatchesPopup from "../components/VoucherMatchesPopup";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { listVouchers } from "../graphql/queries";
 
-const GET_VOUCHER_MATCHES = gql(listVouchers);
-
 const VoucherMatches = () => {
+  const GET_VOUCHER_MATCHES = gql(listVouchers);
   const { data } = useQuery(GET_VOUCHER_MATCHES);
+
   const vouchers = data?.listVouchers.items;
 
   const [selectedVoucher, setSelectedVoucher] = useState(null);
@@ -36,22 +36,22 @@ const VoucherMatches = () => {
     return (
       <TouchableOpacity onPress={() => handleVoucherPress(item)}>
         <View style={nStyles.voucher}>
+          <View style={nStyles.imageContainer}>
+            <View style={nStyles.circularImage}>
+              <Image style={nStyles.image} source={{ uri: item.imageURL }} />
+            </View>
+          </View>
           <View style={nStyles.textContainer}>
             {isRecommended && (
               <Text style={[styles.bodyText3, { color: colors.primary }]}>
                 Recommended
               </Text>
             )}
-            <Text style={[styles.heading4, { marginBottom: 5 }]}>
-              {item.title}
-            </Text>
-            <Text
-              style={[styles.bodyText2, { marginBottom: 3, color: "gray" }]}
-            >
+            <Text style={[styles.heading4, { marginBottom: 5 }]}>{item.title}</Text>
+            <Text style={[styles.bodyText2, { marginBottom: 3, color: "gray" }]}>
               Rating: {item.avgRating}
             </Text>
           </View>
-          <Image style={nStyles.image} source={{ uri: item.imageURL }} />
         </View>
       </TouchableOpacity>
     );
@@ -60,9 +60,7 @@ const VoucherMatches = () => {
   return (
     <SafeAreaView style={nStyles.root}>
       <View style={nStyles.container}>
-        <Text
-          style={[styles.heading3, { color: colors.primary, marginBottom: 10 }]}
-        >
+        <Text style={[styles.heading3, { color: colors.primary, marginBottom: 10 }]}>
           Recent Voucher Swipes
         </Text>
         <FlatList
@@ -72,10 +70,7 @@ const VoucherMatches = () => {
         />
       </View>
       {selectedVoucher && (
-        <VoucherMatchesPopup
-          voucher={selectedVoucher}
-          onClose={handleClosePopup}
-        />
+        <VoucherMatchesPopup voucher={selectedVoucher} onClose={handleClosePopup} />
       )}
     </SafeAreaView>
   );
@@ -101,14 +96,28 @@ const nStyles = StyleSheet.create({
     borderBottomColor: "#E8E8E8",
     borderBottomWidth: 1,
   },
+  imageContainer: {
+    alignItems: "flex-end",
+    flex: 1,
+  },
+  circularImage: {
+    width: 140,
+    height: 140,
+    borderRadius: 70,
+    borderColor: colors.primary,
+    borderWidth: 3,
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   image: {
     width: 120,
     height: 120,
     borderRadius: 60,
-    marginLeft: 10,
   },
   textContainer: {
     flex: 1,
+    marginLeft: 10,
   },
   recommended: {
     fontSize: 12,
